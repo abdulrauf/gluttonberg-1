@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       match "/member/profile/edit" => "members#edit", :as => :member_profile_edit
       resources :members
       resources :member_password_resets
+      get 'stylesheets/:id' => "pages#stylesheets", :as =>  :stylesheets
     end
     
     namespace :admin do
@@ -82,7 +83,12 @@ Rails.application.routes.draw do
         
         resources :generic_settings do 
           get 'delete', :on => :member
-        end       
+        end      
+        
+        resources :stylesheets do
+          get 'delete', :on => :member
+        end
+        match "/stylesheets/move(.:format)" => "stylesheets#move_node" , :as=> :stylesheet_move 
       end  
       
       scope :module => 'membership' do

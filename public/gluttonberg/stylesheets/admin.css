@@ -2728,3 +2728,6 @@ form#list_search_form{
   height:40px;
 }
 
+#new_gluttonberg_stylesheet fieldset {
+  padding-bottom: 15px; 
+}

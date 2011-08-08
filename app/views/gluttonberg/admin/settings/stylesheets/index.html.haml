@@ -1,0 +1,34 @@
+- @page_title = "#{link_to "Settings", admin_settings_path} > Stylesheets"
+- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+= sub_nav do
+  - if can? :manage, Gluttonberg::Stylesheet
+    = nav_link('New', new_admin_stylesheet_path)
+    
+- if @stylesheets.empty?
+  %p.empty No Stylesheets
+- else
+  %table{:id => 'pages_table', :class => (can?(:reorder , Gluttonberg::Page) ? "#{drag_tree_table_class} " : " " ), :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Stylesheets" , :rel => drag_tree_url }
+    %thead
+      %tr
+        %th CSS
+        %th URL
+        %th 
+          Version          
+        %th.controls Controls
+    %tbody
+      - @stylesheets.each do |stylesheet|
+        %tr{:id => drag_tree_row_id(stylesheet), :class => drag_tree_row_class(stylesheet) + "#{cycle("even", "odd")}"}
+          %td
+            %span{:class => "#{drag_tree_drag_point_class} page" , :rel => drag_tree_row_id(stylesheet)}
+            = stylesheet.name
+          %td= link_to stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}" , stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}"  
+          %td
+            = stylesheet.version  
+          %td.controls
+            - if can? :manage , Gluttonberg::Stylesheet  
+              %ul
+                %li
+                  = link_to "Edit", edit_admin_stylesheet_path(stylesheet)
+                  - if can? :destroy , Gluttonberg::Stylesheet  
+                    %li
+                      = link_to "Delete", delete_admin_stylesheet_path(stylesheet)

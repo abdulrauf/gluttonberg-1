@@ -2,7 +2,8 @@
 - @page_title = "Settings"
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
 %ul#iconNav
-  
+  - if can? :manage , Gluttonberg::Stylesheet
+    %li= active_link_to("Stylesheets", admin_stylesheets_path , :title => "Stylesheets")
   - if can? :manage, Gluttonberg::Locale   
     - if Gluttonberg.localized? 
       %li= link_to("Locales", admin_locales_path , :id => "localesNav" , :title => "Locales")

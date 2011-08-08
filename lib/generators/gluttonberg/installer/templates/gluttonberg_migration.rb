@@ -241,6 +241,23 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.column :created_at, :datetime
       t.column :updated_at, :datetime 
     end
+    
+    create_table :gb_stylesheets do |t|
+      t.column :name , :string , :limit => 255
+      t.column :slug , :string , :limit => 255
+      t.column :value, :text
+      t.column :css_prefix , :string , :limit => 255
+      t.column :css_postfix , :string , :limit => 255
+      t.column :position , :integer
+      t.timestamps
+    end
+    
+    begin
+      Gluttonberg::Stylesheet.create_versioned_table
+    rescue => e
+      puts e
+    end
+    
          
   end
   
@@ -269,5 +286,6 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :delayed_jobs  
     drop_table :flags
     remove_table :gb_asset_thumbnails
+    remove_table :gb_stylesheets
   end
 end
