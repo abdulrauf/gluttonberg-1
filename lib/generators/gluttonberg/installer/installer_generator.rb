@@ -51,7 +51,10 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
     
     application %{
      # Gluttonberg Related config
-       
+     
+     
+     # config.cms_based_public_css = false   
+     
      # config.localize = false  
      # By Default gluttonberg applications are localized. If you do not want localized application then uncomment following line.
      

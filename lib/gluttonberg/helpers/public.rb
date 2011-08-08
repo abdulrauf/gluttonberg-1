@@ -126,21 +126,23 @@ module Gluttonberg
         return result.join(" ") + options[:omission].to_s
       end
       def db_stylesheet_link_tag
-         html = ""
-         Gluttonberg::Stylesheet.all.each do |stylesheet|
+        if Rails.configuration.cms_based_public_css == true
+           html = ""
+           Gluttonberg::Stylesheet.all.each do |stylesheet|
+             html << "\n"
+             unless stylesheet.css_prefix.blank?
+               html << stylesheet.css_prefix  
+               html << "\n"
+             end  
+             html << stylesheet_link_tag( stylesheets_path(stylesheet.slug) +".css?#{stylesheet.version}" )  
+             unless stylesheet.css_postfix.blank? 
+               html << "\n"
+               html << stylesheet.css_postfix 
+             end  
+           end  
            html << "\n"
-           unless stylesheet.css_prefix.blank?
-             html << stylesheet.css_prefix  
-             html << "\n"
-           end  
-           html << stylesheet_link_tag( stylesheets_path(stylesheet.slug) +".css?#{stylesheet.version}" )  
-           unless stylesheet.css_postfix.blank? 
-             html << "\n"
-             html << stylesheet.css_postfix 
-           end  
-         end  
-         html << "\n"
-         html.html_safe
+           html.html_safe
+         end 
        end
     end # Public
   end # Helpers

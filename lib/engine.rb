@@ -34,6 +34,7 @@ module Gluttonberg
     config.member_csv_metadata = { :first_name => "FIRST NAME" , :last_name => "LAST NAME" ,  :email => "EMAIL" , :groups => "GROUPS" , :bio => "BIO" }
 
     config.enable_gallery = false
+    config.cms_based_public_css = false
 
     # Load rake tasks
     rake_tasks do

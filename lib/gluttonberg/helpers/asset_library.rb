@@ -118,7 +118,7 @@ module Gluttonberg
        def asset_tag(asset , thumbnail_type = nil)
           unless asset.blank?
             path = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
-            content_tag(:img , "" , :class => asset.name , :alt => asset.name , :src => path)
+            content_tag(:img , "" , :class => asset.name , :title => asset.name , :alt => asset.name , :src => path)
           end 
        end
        
@@ -127,6 +127,7 @@ module Gluttonberg
              options[:class] = "" if options[:class].blank?
              options[:class] << " #{asset.name}"
              options[:alt] = asset.name
+             options[:title] = asset.name
              options[:src] = thumbnail_type.blank? ? asset.url : asset.url_for(thumbnail_type)
              content_tag(:img , "" , options)
            end 

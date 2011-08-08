@@ -85,8 +85,9 @@
 
             - if can? :manage, Gluttonberg::Setting
               %li= active_link_to("Configuration", admin_generic_settings_path , :title => "Configurations")
-            - if can? :manage , Gluttonberg::Stylesheet
-              %li= active_link_to("Stylesheets", admin_stylesheets_path , :title => "Stylesheets")  
+            - if Rails.configuration.cms_based_public_css == true
+              - if can? :manage , Gluttonberg::Stylesheet
+                %li= active_link_to("Stylesheets", admin_stylesheets_path , :title => "Stylesheets")  
             - if can? :create, User
               %li= active_link_to("Users", admin_users_path, :title => "Users")  
             - else
