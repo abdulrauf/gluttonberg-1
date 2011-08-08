@@ -181,6 +181,7 @@ body {
     background: 30px url("/gluttonberg/images/sidebar/icon_settings.png") no-repeat; }
   #navigation a#feedback_nav {
     background: 30px url("/gluttonberg/images/sidebar/icon_feedback.png") no-repeat; }
+  
   #sidebar p {
     background-position: left top;
     background-repeat: no-repeat;
@@ -1490,6 +1491,8 @@ table .home {
   background-image: url("/gluttonberg/images/settings/locale.jpg"); }
 #iconNav #metadataNav {
   background-image: url("/gluttonberg/images/settings/config.png"); }
+#iconNav #stylesheetsNav {
+  background-image: url("/gluttonberg/images/settings/stylesheets.gif"); }  
 
 /* Locales form ----------------------------------------------------- */
 #dialects .checkbox {

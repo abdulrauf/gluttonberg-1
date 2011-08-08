@@ -3,7 +3,7 @@
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
 %ul#iconNav
   - if can? :manage , Gluttonberg::Stylesheet
-    %li= active_link_to("Stylesheets", admin_stylesheets_path , :title => "Stylesheets")
+    %li= active_link_to("Stylesheets", admin_stylesheets_path , :title => "Stylesheets" , :id => "stylesheetsNav")
     
   - if can? :manage, Gluttonberg::Locale   
     - if Gluttonberg.localized? 
