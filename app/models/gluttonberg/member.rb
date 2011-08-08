@@ -91,7 +91,7 @@ module Gluttonberg
     # otherwise create a new user for it
     # returns [successfull_users , failed_users , updated_users , ]
     # if csv format is incorrect then it will return a string "CSV file format is invalid"
-    def self.importCSV(file_path , invite )
+    def self.importCSV(file_path , invite , group_ids )
       if RUBY_VERSION >= "1.9"
         require 'csv'
         csv_table = CSV.read(file_path)
@@ -130,6 +130,7 @@ module Gluttonberg
                 end  
               end
               
+              
               #attach user to an industry if its valid
               unless row[groups_column_num].blank?
                 group_names = row[groups_column_num].split(";")
@@ -140,6 +141,17 @@ module Gluttonberg
                 end
                 user_info[:group_ids] = temp_group_ids
               end
+              
+              unless group_ids.blank?
+                if user.group_ids.blank?
+                  user.group_ids = group_ids
+                else
+                  user.groups_ids << group_ids
+                end
+                user.save
+              end  
+              
+              
 
               user = self.find(:first , :conditions => { :email => row[email_column_num] } )
               if user.blank?          

@@ -6,6 +6,10 @@
   .left_column
     %legend
       Details
+      
+    %fieldset
+      = f.label :groups 
+      = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )  
     %fieldset
       = label :zip, "Browse to zip" , :class => :label   
       = f.file_field :file , :class => 'text_field required' 
