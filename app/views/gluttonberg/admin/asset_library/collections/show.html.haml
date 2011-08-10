@@ -8,5 +8,5 @@
 
 .block
   .content    
-    = render  :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "collection" , :name_or_id =>  @collection.id , :sorter_url => admin_collection_url(@collection) }
+    = render  :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "collection" , :name_or_id =>  @collection.id , :sorter_url => admin_collection_path(@collection) , :previous_page_title => "Collection: #{@collection.name}" }
 .clear

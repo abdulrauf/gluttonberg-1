@@ -1,3 +1,5 @@
+- breadcrumbs_val = "?previous_page_title=Recent&return_url=#{admin_library_path}?tab=recent"
+
 - if assets.blank?
   %ul.assetList
     %li
@@ -15,18 +17,18 @@
       - for asset in assets
         %tr
           %td.thumbnail
-            %a{:href => admin_asset_url(asset), :class => "assetLink"}
+            %a{:href => admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
               %img{:src => asset.thumb_small_url  }
           %td
             %span.asset_title
-              %a{:href => admin_asset_url(asset), :class => "assetLink"}
+              %a{:href => admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
                 = asset.name
             %span.controls
-              %a{:href => admin_asset_url(asset), :class => "assetLink"}
+              %a{:href => admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
                 View
-              %a{:href => edit_admin_asset_url(asset), :class => "assetLink"}
+              %a{:href => edit_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
                 Edit  
-              %a{:href => crop_admin_asset_url(asset), :class => "assetLink"}
+              %a{:href => crop_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
                 Crop  
           %td.author
             = asset.asset_type.name      
