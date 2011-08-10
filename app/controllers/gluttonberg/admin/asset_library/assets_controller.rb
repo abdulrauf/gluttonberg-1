@@ -57,6 +57,7 @@ module Gluttonberg
     
         # list assets page by page if user drill down into a category from category tab of home page
         def category
+          params[:category] = params[:category].downcase.singularize unless params[:category].blank?
           conditions = {:order => get_order, :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") , :page => params[:page]}
           if params[:category] == "all" then
             # ignore asset category if user selects 'all' from category
