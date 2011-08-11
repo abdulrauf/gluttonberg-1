@@ -92,14 +92,18 @@ module Gluttonberg
     # Returns the localized navigation label, or falls back to the page for a
     # the default.
     def nav_label
-      if current_localization.blank? || current_localization.navigation_label.blank?
+      if current_localization.blank?
         if navigation_label.blank?
           name
         else
           navigation_label
         end
       else
-        current_localization.navigation_label
+        if current_localization.navigation_label.blank?
+          current_localization.name
+        else
+          current_localization.navigation_label
+        end
       end
     end
 
@@ -225,6 +229,10 @@ module Gluttonberg
     def is_public?
       groups.blank?
     end  
+    
+    def load_default_localizations
+      self.current_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => id , :locale_id => Gluttonberg::Locale.first_default.id } )
+    end
         
     private
 

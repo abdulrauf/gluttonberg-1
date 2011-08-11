@@ -92,12 +92,16 @@ module Gluttonberg
     # returns [successfull_users , failed_users , updated_users , ]
     # if csv format is incorrect then it will return a string "CSV file format is invalid"
     def self.importCSV(file_path , invite , group_ids )
-      if RUBY_VERSION >= "1.9"
-        require 'csv'
-        csv_table = CSV.read(file_path)
-      else
-        csv_table = FasterCSV.read(file_path)
-      end
+      begin
+        if RUBY_VERSION >= "1.9"
+          require 'csv'
+          csv_table = CSV.read(file_path)
+        else
+          csv_table = FasterCSV.read(file_path)
+        end
+      rescue => e
+        return "Please provide a valid CSV file with correct column names."
+      end  
       first_name_column_num =   self.find_column_position(csv_table , Rails.configuration.member_csv_metadata[:first_name] )
       last_name_column_num =   self.find_column_position(csv_table ,  Rails.configuration.member_csv_metadata[:last_name]  )
       email_column_num =   self.find_column_position(csv_table , Rails.configuration.member_csv_metadata[:email] )
@@ -122,17 +126,17 @@ module Gluttonberg
               user_info = {
                 :first_name => row[first_name_column_num] , 
                 :last_name => row[last_name_column_num] , 
-                :email => row[email_column_num]
+                :email => row[email_column_num],
+                :group_ids => []
               }
               other_columns.each do |key , val|
                 if !val.blank? && val >= 0
                   user_info[key] = row[val]
-                end  
+                end
               end
               
-              
               #attach user to an industry if its valid
-              unless row[groups_column_num].blank?
+              unless groups_column_num.blank? || row[groups_column_num].blank?
                 group_names = row[groups_column_num].split(";")
                 temp_group_ids = []
                 group_names.each do |group_name|
@@ -143,16 +147,13 @@ module Gluttonberg
               end
               
               unless group_ids.blank?
-                if user.group_ids.blank?
-                  user.group_ids = group_ids
+                if user_info[:group_ids].blank?
+                  user_info[:group_ids] = group_ids
                 else
-                  user.groups_ids << group_ids
+                  user_info[:group_ids] << group_ids
                 end
-                user.save
-              end  
+              end
               
-              
-
               user = self.find(:first , :conditions => { :email => row[email_column_num] } )
               if user.blank?          
                 # generate random password
@@ -179,18 +180,18 @@ module Gluttonberg
               else
                 if  !self.contains_user?(user , successfull_users) and !self.contains_user?(user , updated_users)
                     if user.update_attributes(user_info)
-                      updated_users << user  
+                      updated_users << user
                     else
                       failed_users << user
-                    end    
+                    end
                 end
               end    
-            end # if csv row index > 0        
+            end # if csv row index > 0   
 
         end #loop   
       else
         return "Please provide a valid CSV file with correct column names"   
-      end #if  
+      end #if
       [successfull_users , failed_users , updated_users ]
     end
     

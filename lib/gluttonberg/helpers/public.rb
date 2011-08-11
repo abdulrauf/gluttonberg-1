@@ -13,6 +13,7 @@ module Gluttonberg
             if page.home?
               li_content = ""
             else
+              page.load_default_localizations
               if page.description && page.description.top_level_page?
                 li_content = content_tag(:a, page.nav_label, :href=>"javascript:;", :class => "menu_disabled").html_safe
               else
@@ -27,7 +28,7 @@ module Gluttonberg
         content_tag(:ul, content.html_safe, opts).html_safe
       end
       
-      # This is hacked this together.
+      # This is hacked together.
       # It is working at the moment but needs further work.
       # - Yuri
       def page_url(path_or_page , opts = {})

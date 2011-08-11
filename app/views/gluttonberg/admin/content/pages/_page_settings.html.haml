@@ -15,6 +15,12 @@
     = f.select(:description_name, @descriptions , { :include_blank => true } , {:class => "required"} ) 
   - else
     = f.select(:description_name, @descriptions , { :include_blank => true } , {:disabled => "disabled"})  
+
+- if Gluttonberg::Member.enable_members == true && action_name != "new"
+  %fieldset
+    = f.label :groups 
+    = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+
 %legend
   Publish
 - if can? :publish , Gluttonberg::Page  
