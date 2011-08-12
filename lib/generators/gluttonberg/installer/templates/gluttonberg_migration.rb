@@ -258,6 +258,43 @@ class GluttonbergMigration < ActiveRecord::Migration
       puts e
     end
     
+    create_table :gb_members do |t|
+      t.string :first_name, :null => false
+      t.string :last_name
+      t.string :email, :null => false
+      t.string :crypted_password, :null => false
+      t.string :password_salt, :null => false
+      t.string :persistence_token, :null => false
+      t.string :single_access_token, :null => false
+      t.string :perishable_token, :null => false
+      t.integer :login_count, :null => false, :default => 0
+      t.text :bio
+      t.string :image_file_name
+      t.string :image_content_type
+      t.integer :image_file_size
+      t.boolean :profile_confirmed,  :default => false
+      t.boolean :welcome_email_sent,  :default => false
+      t.string :confirmation_key
+      t.timestamps
+    end
+    
+    create_table :gb_groups do |t|
+      t.string :name, :null => false
+      t.string :description 
+      t.integer :position
+      t.boolean :default,  :default => false
+      t.timestamps
+    end
+    
+    create_table :gb_groups_members , :id => false do |t|
+      t.integer :member_id, :null => false
+      t.integer :group_id , :null => false
+    end
+    
+    create_table :gb_groups_pages , :id => false do |t|
+      t.integer :page_id, :null => false
+      t.integer :group_id , :null => false
+    end
          
   end
   
@@ -287,5 +324,8 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :flags
     remove_table :gb_asset_thumbnails
     remove_table :gb_stylesheets
+    remove_table :gb_groups
+    remove_table :gb_groups_members
+    remove_table :gb_groups_pages 
   end
 end
