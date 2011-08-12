@@ -619,14 +619,27 @@ function init_flash_messages() {
 
 function initPublishedDateTime() {
 
-  $('.publish_datetime').datetimepicker({
-    dateFormat: 'dd/mm/yy',
-    timeFormat: 'hh:mm TT',
-    separator: ' ',
-    ampm: true,
-    firstDay: 1
-
-  });
+  // $('.publish_datetime').datetimepicker({
+  //     dateFormat: 'dd/mm/yy',
+  //     timeFormat: 'hh:mm TT',
+  //     separator: ' ',
+  //     ampm: true,
+  //     firstDay: 1
+  // 
+  //   });
+  $(".publishing_state").change(function(){
+    updatePublishedDateField()
+  })
+  
+  function updatePublishedDateField(){
+    console.log($(".publishing_state").val())
+    if($(".publishing_state").val()=="published"){
+      $(".published_at").show()
+    }else{
+      $(".published_at").hide()
+    }
+  }
+  updatePublishedDateField()
 }
 
 

@@ -13,7 +13,8 @@ module Gluttonberg
           scope :published, lambda { where("state = 'published'  AND  published_at <= ?", Time.zone.now) }
           scope :archived, :conditions => { :state => "archived" }
           scope :draft, :conditions => { :state => "draft" }
-          scope :non_published, :conditions => "state != 'published'" 
+          scope :non_published, :conditions => "state != 'published'"
+          before_validation :clean_published_date 
         end
       end
 
@@ -69,6 +70,12 @@ module Gluttonberg
             "Draft"
           else  
             self.state.capitalize
+          end  
+        end
+        
+        def clean_published_date
+          if self.state != "published"
+            self.published_at = nil
           end  
         end
         

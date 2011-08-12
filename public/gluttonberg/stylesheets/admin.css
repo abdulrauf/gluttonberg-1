@@ -2731,3 +2731,11 @@ form#list_search_form{
 #new_gluttonberg_stylesheet fieldset {
   padding-bottom: 15px; 
 }
+
+.published_at{
+  display:none;
+}
+
+.publish_immediatly{
+  cursor: pointer;
+}
