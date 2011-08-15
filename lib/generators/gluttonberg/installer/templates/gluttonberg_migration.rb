@@ -295,6 +295,24 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.integer :page_id, :null => false
       t.integer :group_id , :null => false
     end
+    
+    create_table :gb_galleries do |t|
+      t.column :title , :string , :limit => 255
+      t.column :description, :text
+      t.integer :user_id, :null => false
+      t.column :slug , :string
+      t.column :state , :string
+      t.datetime :published_at 
+      t.boolean :collection_imported , :default => false
+      t.timestamps
+    end
+    
+    create_table :gb_gallery_images do |t|
+      t.integer :gallery_id, :null => false
+      t.integer :asset_id, :null => false
+      t.integer :position, :null => false
+      t.timestamps
+    end
          
   end
   
@@ -322,10 +340,12 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :tags
     drop_table :delayed_jobs  
     drop_table :flags
-    remove_table :gb_asset_thumbnails
-    remove_table :gb_stylesheets
-    remove_table :gb_groups
-    remove_table :gb_groups_members
-    remove_table :gb_groups_pages 
+    drop_table :gb_asset_thumbnails
+    drop_table :gb_stylesheets
+    drop_table :gb_groups
+    drop_table :gb_groups_members
+    drop_table :gb_groups_pages 
+    drop_table :gb_galleries
+    drop_table :gb_gallery_images
   end
 end
