@@ -43,7 +43,7 @@ module Gluttonberg
         pages = joins(:localizations).where("locale_id = ? AND home = ?", locale.id, true)
         page = pages.first unless pages.blank?
         unless page.blank? 
-          page.current_localization = page.localizations.where("locale_id = ? AND path LIKE ? ", locale.id, path).first
+          page.current_localization = page.localizations.where("locale_id = ? ", locale.id).first
         end
         page
       else # default locale
