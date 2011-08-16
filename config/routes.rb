@@ -19,14 +19,14 @@ Rails.application.routes.draw do
       match "/save_mark_as_flag" => "flag#create" , :as => :save_mark_as_flag
       match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
       match "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments      
-      get "/member/login" => "member_sessions#new"
-      post "/member/login" => "member_sessions#create"
-      match "/member/logout" => "member_sessions#destroy"
-      get "/member/confirm/:key" => "members#confirm", :as => :member_confirmation
-      get "/member/resend_confirmation" => "members#resend_confirmation", :as => :member_resend_confirmation
-      put "/member/profile" => "members#update"
-      get "/member/profile" => "members#show", :as => :member_profile
-      match "/member/profile/edit" => "members#edit", :as => :member_profile_edit
+      get "(/:locale)/member/login" => "member_sessions#new" , :as => :member_login
+      post "(/:locale)/member/login" => "member_sessions#create"  , :as => :member_login
+      match "(/:locale)/member/logout" => "member_sessions#destroy", :as => :member_logout
+      get "(/:locale)/member/confirm/:key" => "members#confirm", :as => :member_confirmation
+      get "(/:locale)/member/resend_confirmation" => "members#resend_confirmation", :as => :member_resend_confirmation
+      put "(/:locale)/member/profile" => "members#update" 
+      get "(/:locale)/member/profile" => "members#show", :as => :member_profile
+      match "(/:locale)/member/profile/edit" => "members#edit", :as => :member_profile_edit
       resources :members
       resources :member_password_resets
       get 'stylesheets/:id' => "pages#stylesheets", :as =>  :stylesheets

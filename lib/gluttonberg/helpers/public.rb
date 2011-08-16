@@ -13,7 +13,7 @@ module Gluttonberg
             if page.home?
               li_content = ""
             else
-              page.load_default_localizations
+              page.load_localization(@locale)
               if page.description && page.description.top_level_page?
                 li_content = content_tag(:a, page.nav_label, :href=>"javascript:;", :class => "menu_disabled").html_safe
               else
@@ -44,10 +44,10 @@ module Gluttonberg
             url[:host] = Rails.configuration.host_name
             Rails.application.routes.url_for(url)
           else
-            if Gluttonberg.localized?
+            unless opts[:slug].blank?
               "/#{opts[:slug]}/#{path_or_page.path}"
             else
-              "/#{path_or_page.path}"
+              "#{path_or_page.public_path}"
             end
           end
         end
@@ -145,6 +145,15 @@ module Gluttonberg
            html.html_safe
          end 
        end
+       
+       def current_localization_slug
+         if @locale
+           @locale.slug
+         else
+           nil
+         end
+       end
+       
     end # Public
   end # Helpers
 end # Gluttonberg

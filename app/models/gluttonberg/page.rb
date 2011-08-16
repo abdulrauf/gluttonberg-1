@@ -121,6 +121,14 @@ module Gluttonberg
       end  
     end
     
+    def public_path
+      unless current_localization.blank?
+        current_localization.public_path
+      else
+        localizations.first.public_path
+      end  
+    end
+    
 
     def paths_need_recaching?
       @paths_need_recaching
@@ -140,7 +148,7 @@ module Gluttonberg
     # TODO Write spec for it
     def load_localization(locale = nil)
       if locale.blank?
-         @current_localization = localizations.first
+         @current_localization = load_default_localizations
       else  
         @current_localization = localizations.where("locale_id = ? AND path LIKE ?", locale.id, "#{path}%").first
       end   

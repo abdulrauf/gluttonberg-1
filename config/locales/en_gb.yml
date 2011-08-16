@@ -12,6 +12,7 @@ en:
         email: "Email"
         password: "Password"
         term_and_conditions: "I agree to the guidelines for use"  
+        
   validation_messages:
     first_name_required: "Enter your first name"      
     email_required: "Enter your email address"
@@ -25,3 +26,4 @@ en:
   reset_my_password: "Reset my password"
   resetting_your_password: "Resetting your password..."
   change_my_password: "Change My Password"
+  login: "Login"
