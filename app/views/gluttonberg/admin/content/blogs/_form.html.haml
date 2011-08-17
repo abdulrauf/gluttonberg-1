@@ -6,25 +6,29 @@
   = gb_error_messages_for(@blog)
   = f.hidden_field(:user_id, :value => current_user.id) if @blog.user_id.blank?
   
-  = block("Blog") do
-    = f.label :name
-    = f.text_field(:name, :id => "page_title" , :class => "required")
-    %br
-    = f.label :slug
-    = f.text_field(:slug, :id => 'page_slug')
-    %br
-    = f.label :description
-    = f.text_area(:description , :class => "jwysiwyg" )    
+  .left_column
+    .left_column
+      %fieldset
+        Blog
+      
+      %p
+        = f.label :name
+        = f.text_field(:name, :id => "page_title" , :class => "required")
+      %p
+        = f.label :slug
+        = f.text_field(:slug, :id => 'page_slug')
+      %p
+        = f.label :description
+        = f.text_area(:description , :class => "jwysiwyg"  )    
+
+      %p
+        = f.label :moderation_required , "Moderation required?"
+        = f.check_box :moderation_required
     
-    = f.label :moderation_required , "Moderation required?"
-    %br
-    = f.check_box :moderation_required
-    
-  
-  - if can? :publish , Gluttonberg::Blog  
-    %fieldset#publish_meta
+  .right_column
+    - if can? :publish , Gluttonberg::Blog  
       = f.publisable_dropdown
-  = form_controls(admin_blogs_path)
+    = form_controls(admin_blogs_path)
 
 
 = enable_jwysiwyg_on_class("jwysiwyg")

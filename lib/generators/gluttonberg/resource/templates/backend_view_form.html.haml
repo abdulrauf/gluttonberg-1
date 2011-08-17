@@ -1,7 +1,16 @@
-<% attributes.each do |attribute| -%>
-%p
-  = f.label :<%= attribute.name %>
-  = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
-<% end %>
+.left_column
+  %fieldset 
+    Content
+  <% attributes.each do |attribute| -%>
+  %p
+    = f.label :<%= attribute.name %>
+    = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
+  <% end %>
 
+.right_column
+  %legend Publishing
+  - if can? :publish , <%=class_name %>
+    = f.publisable_dropdown
+  = form_controls(admin_<%= plural_name %>_path)  
+    
 = enable_jwysiwyg_on_class("jwysiwyg")

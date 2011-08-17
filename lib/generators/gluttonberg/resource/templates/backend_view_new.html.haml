@@ -5,12 +5,5 @@
 = form_for(@<%= singular_name %>, :url => admin_<%= plural_name %>_path) do  |f|
   = gb_error_messages_for(@<%= singular_name %>)
 
-  .left_column
-    = block("General") do
-      = render :partial => "form", :locals => {:f => f}
+  = render :partial => "form", :locals => {:f => f}
   
-  .right_column
-    %legend Publishing
-    - if can? :publish , <%=class_name %>
-      = f.publisable_dropdown  
-    = form_controls(admin_<%= plural_name %>_path)
