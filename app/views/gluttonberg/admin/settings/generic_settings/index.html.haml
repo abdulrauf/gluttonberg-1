@@ -26,7 +26,7 @@
           = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_home_page" , :style => "display:none")
       - for setting in @settings
         - i += 1
-        %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
+        %tr{ :class => "#{cycle("even", "odd")}"}
           %td.first_column
             = setting.user_friendly_name
           %td.second_column

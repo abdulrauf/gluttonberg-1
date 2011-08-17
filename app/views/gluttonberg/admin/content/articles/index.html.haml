@@ -20,7 +20,7 @@
           Controls
     %tbody
       - @articles.each do |article|
-        %tr
+        %tr{ :class => "#{cycle("even", "odd")}"}
           %td{:style => "width:50%;"}
             = article.title
           %td{:style => "width:15%;"}

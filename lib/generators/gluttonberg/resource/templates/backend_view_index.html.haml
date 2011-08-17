@@ -12,11 +12,15 @@
     %thead
       %tr
         %th Name
+        %th Published At
         %th.controls Controls
     %tbody
       - @<%= plural_name %>.each do |<%= singular_name %>|
         %tr{ :class => "#{cycle("even", "odd")}"}
           %td= <%= singular_name %>.title_or_name?
+          %td
+            - unless <%= singular_name%>.published_at.blank?
+              = <%= singular_name%>.published_at.strftime("%d/%m/%Y at %H:%M")
           %td.controls
             %ul
               %li

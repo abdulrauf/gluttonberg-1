@@ -1,48 +1,55 @@
 = form_for(@user, :url => url , :html => {:class => "validation"}) do  |f|
   = gb_error_messages_for(@user)
 
-  = block("Details") do
-    %div
-      = f.label :first_name
-      = f.text_field(:first_name, :class => "large required")
-    
-    %div
-      = f.label :last_name
-      = f.text_field(:last_name, :class => "large")  
-
-    %div
-      = f.label :email , "E-mail"
-      = f.text_field(:email, :class => "large required")
+  .left_column
+    %fieldset
+      %legend
+        Details
       
-    %div
-      = f.label :bio, "Bio"
-      = f.text_area(:bio, :class => "large ")
+      %p
+        = f.label :first_name
+        = f.text_field(:first_name, :class => "large required")
+    
+      %p
+        = f.label :last_name
+        = f.text_field(:last_name, :class => "large")  
+
+      %p
+        = f.label :email , "E-mail"
+        = f.text_field(:email, :class => "large required")
       
-    %div
-      = f.label :image_id , "Image"
-      = f.asset_browser( :image_id ,  opts = { :filter => "image"   } )  
-      = f.clear_asset( :image_id , opts = {  :button_class => "button clear_button"} )
+      %p
+        = f.label :bio, "Bio"
+        = f.text_area(:bio, :class => "large ")
+      
+      %p
+        = f.label :image_id , "Image"
+        = f.asset_browser( :image_id ,  opts = { :filter => "image"   } )  
+      
+      -if current_user.super_admin? && current_user.id != @user.id     
+        %p
+          = f.label :role            
+          = f.select(:role , User.user_roles.collect{|u| [u.humanize , u] }  )
+      - elsif current_user.admin? && current_user.id != @user.id     
+        %p
+          = f.label :role  
+          - roles  = User.user_roles
+          - roles.delete("super_admin")        
+          = f.select(:role , roles.collect{|u| [u.humanize , u] }  )    
 
-    -if current_user.super_admin? && current_user.id != @user.id     
-      %div
-        = f.label :role            
-        = f.select(:role , User.user_roles.collect{|u| [u.humanize , u] }  )
-    - elsif current_user.admin? && current_user.id != @user.id     
-      %div
-        = f.label :role  
-        - roles  = User.user_roles
-        - roles.delete("super_admin")        
-        = f.select(:role , roles.collect{|u| [u.humanize , u] }  )    
-
-  = block("Password") do
-    = f.label :password , "Password"
-    = f.password_field(:password, :class => "medium", :label => "Password")
-    %br
-    = f.label :password_confirmation , "Confirm Password"
-    = f.password_field(:password_confirmation, :class => "medium", :label => "Confirm Password")
+  .right_column
+    %fieldset
+      %legend 
+        Password
+      %p  
+        = f.label :password , "Password"
+        = f.password_field(:password, :class => "medium", :label => "Password")
+      %p
+        = f.label :password_confirmation , "Confirm Password"
+        = f.password_field(:password_confirmation, :class => "medium", :label => "Confirm Password")
     
     
-  - if current_user.super_admin?
-    = form_controls(admin_users_path)
-  - else
-    = form_controls(admin_settings_path)
+    - if current_user.super_admin?
+      = form_controls(admin_users_path)
+    - else
+      = form_controls(admin_settings_path)
