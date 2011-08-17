@@ -4,7 +4,7 @@ module Admin
     before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]
     
     def index
-      @<%= plural_name %> = <%= class_name %>.all
+      @<%= plural_name %> = <%= class_name %>.order("position ASC ")
     end
   
     def show

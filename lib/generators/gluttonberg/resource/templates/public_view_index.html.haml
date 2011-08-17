@@ -1,5 +1,5 @@
 %h1
-  Index view
+  <%= plural_class_name %>
   
 - if @<%= plural_name %>.blank?
   %p
@@ -8,6 +8,6 @@
   - @<%= plural_name %>.each do |<%= singular_name %>|
     %p
       <% attributes.each do |attribute| -%>
-        = link_to <%= singular_name %>.<%= attribute.name %>, <%= singular_name %>_path(<%= singular_name %>) 
-        %br
+= link_to <%= singular_name %>.<%= attribute.name %>, <%= singular_name %>_path(<%= singular_name %>) 
+      %br
       <% end %>

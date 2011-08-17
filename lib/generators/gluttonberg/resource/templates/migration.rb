@@ -6,6 +6,8 @@ class Create<%= class_name %> < ActiveRecord::Migration
     t.<%= attribute.type %> :<%= attribute.name %>
   <% end -%>
     t.integer :position
+    t.column :state , :string #use for publishing
+    t.datetime :published_at 
     t.timestamps
     end
   end
