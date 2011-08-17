@@ -355,8 +355,10 @@ form, .pageBlock {
   	border-bottom-right-radius: 3px 3px; }
 
 .article_form form{
-  width: 576px;
-}
+/*  width: 576px;*/
+  width: 435px;
+	margin-top: 0;
+	padding: 0 20px; }
 
 #assetsDialog .nosubnav {
 	margin-top: 0; }
@@ -2424,11 +2426,15 @@ ul.tagit {
 		background: #f58da2;
 		color: #ffffff; }
 
-#main .right, #main .left {
-	width: 48%;
-	float: left; }
 #main .left {
-	margin-right: 4%; }
+	width: 477px;
+	float: left;
+}
+#main .right {
+	width: 380px;
+	float: right;
+}
+
 #main .right .summary {
 }
 
@@ -2724,4 +2730,28 @@ p {
 	clear: both;
 	float: none;
 	margin: 0 0 15px 0;
+}
+
+.recent_comments h3 {
+	padding: 18px 0;
+	border-bottom: 1px solid #EBE4D1;
+	margin: 0 0 18px 0;
+	font-size: 16px;
+	font-family: Georgia, Serif;
+}
+
+.approve_comment {
+	color: #A5C260;
+	font-weight: bold;
+}
+
+.disapprove_comment {
+	color: #C96831;
+	font-weight: bold;
+}
+
+.comment {
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #EBE4D1;
 }

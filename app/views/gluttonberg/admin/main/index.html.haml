@@ -65,17 +65,19 @@
 
   - if Gluttonberg::Comment.table_exists?      
     .recent_comments
+      %h3 Recent Comments
       - @comments.each do |comment|
         .comment
-          = comment.body
-        
-          Posted by
+          %em
+            Posted by
           = comment.author_name
-        
-          Blog Post
+          %em
+            on
           = comment.commentable.title
-        
+          %br
+          = comment.body
+          %br
           - if comment.moderation_required
-            = link_to "Approve", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "approve")
-            = link_to "Disapprove", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "disapprove")
+            = link_to "Approve", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "approve"),:class=>"approve_comment"
+            = link_to "Disapprove", moderation_admin_blog_article_comment_path(comment.commentable.blog, comment.commentable, comment, :moderation => "disapprove"),:class=>"disapprove_comment"
             
