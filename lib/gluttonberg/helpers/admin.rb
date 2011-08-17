@@ -245,10 +245,14 @@ module Gluttonberg
         end  
       end
       
+      def custom_javascript_include_tag
+        if Rails.configuration.custom_js_for_cms == true
+          javascript_include_tag "custom"
+        end  
+      end
+      
       def wysiwyg_js_css_link_tag
         if Gluttonberg::Setting.get_setting("enable_WYSIWYG") == "Yes"
-          #stylesheet_link_tag("/javascripts/akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.css") + javascript_include_tag("akzhan-jwysiwyg-2b20f74/jquery.wysiwyg.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.image.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.link.js" , "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.table.js",  "akzhan-jwysiwyg-2b20f74/controls/wysiwyg.colorpicker.js")
-          #stylesheet_link_tag("/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/jquery.wysiwyg.css") + stylesheet_link_tag("/stylesheets/user-styles.css") + javascript_include_tag("/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/jquery.wysiwyg.js" , "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.image.js" , "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.link.js" , "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.table.js",  "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/controls/wysiwyg.gbStyles.js",  "/gluttonberg/javascripts/akzhan-jwysiwyg-b743d9f/plugins/wysiwyg.rmFormat.js")
           javascript_include_tag("/gluttonberg/javascripts/tiny_mce/jquery.tinymce.js")
         end
       end

@@ -21,6 +21,7 @@ module Gluttonberg
     config.user_roles = [] # User model always concat following two roles ["superadmin" , "admin"]
     config.honeypot_field_name = "gluttonberg_honeypot"
     config.custom_css_for_cms = false
+    config.custom_js_for_cms = false
     config.search_models = {
         "Gluttonberg::Page" => [:name], 
         "Gluttonberg::Blog" => [:name , :description], 
