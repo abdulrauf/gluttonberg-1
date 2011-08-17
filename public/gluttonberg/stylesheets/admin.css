@@ -679,9 +679,9 @@ td {
 table tr {
 	background: #ffffff url("/gluttonberg/images/row_divider.jpg") repeat-x bottom  }
 
-/*tr.even td { !important;
+tr.even td {
   background-color: #f3f2f2; }
-*/
+
 table .controls {
   border-right-width: 0; }
 
@@ -2770,4 +2770,25 @@ p {
 
 .left_column input, .left_column input.text, .left_column input.password, .left_column textarea {
 	width: 533px;
+}
+
+.ui-sortable .delete {
+	float:left;
+}
+
+.ui-sortable img {
+	padding:10px;
+}
+
+#content_sortable {
+	background: none !important;
+	padding-top:15px;
+}
+
+#content_list_box {
+	padding-top:5px;
+}
+
+#content_sortable .orderable-list-item {
+	background: #DFDFDF;
 }
