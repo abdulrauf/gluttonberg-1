@@ -6,22 +6,27 @@
   = gb_error_messages_for(@stylesheet)
   
   %fieldset
-    = f.label :name
-    = f.text_field(:name, :id => "page_title" , :class => "required")
+    %p
+      = f.label :name
+      = f.text_field(:name, :id => "page_title" , :class => "required")
   %fieldset
-    = f.label :slug
-    = f.text_field(:slug, :id => 'page_slug')
+    %p
+      = f.label :slug
+      = f.text_field(:slug, :id => 'page_slug')
   %fieldset
-    = f.label :css_prefix
-    = f.text_field(:css_prefix)
-    = "For example \"<!--[if lte IE 7]>\""
+    %p
+      = f.label :css_prefix
+      = f.text_field(:css_prefix)
+      = "For example \"<!--[if lte IE 7]>\""
   %fieldset
-    = f.label :css_postfix
-    = f.text_field(:css_postfix)
-    = "For example: \"<![endif]-->\" "
+    %p
+      = f.label :css_postfix
+      = f.text_field(:css_postfix)
+      = "For example: \"<![endif]-->\" "
   %fieldset
-    = f.label :value , "CSS"
-    = f.text_area(:value , :class => "fullscreen" )    
+    %p
+      = f.label :value , "CSS"
+      = f.text_area(:value , :class => "fullscreen" )    
     
   = form_controls(admin_stylesheets_path)
 

@@ -6,14 +6,14 @@
     Change My Password
   
   %fieldset
-    = f.label :password
-    %br
-    = f.password_field :password, :class => "text_field"
+    %p
+      = f.label :password, :class=>"block_label"
+      = f.password_field :password, :class => "text_field"
   
   %fieldset
-    = f.label :password_confirmation
-    %br
-    = f.password_field :password_confirmation, :class => "text_field"
+    %p
+      = f.label :password_confirmation, :class=>"block_password"
+      = f.password_field :password_confirmation, :class => "text_field"
     
   %fieldset.last
     = f.submit "Reset my password", :class => "button", :disable_with => "Resetting your password..."

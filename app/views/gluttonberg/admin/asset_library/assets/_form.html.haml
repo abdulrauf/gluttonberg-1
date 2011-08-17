@@ -1,32 +1,23 @@
 = form_for( :asset , @asset , :url => url_opts ,  :html => { :multipart=>true  , :method => method_name, :class => "nosubnav validation"} ) do |asset_form|
   = gb_error_messages_for(@asset)
 
-  = block("Asset") do
+  %legend Asset
+  - unless @asset.thumb_large_url.blank?
+    %p
+      %img{:src => @asset.thumb_large_url}
+  %p
     = asset_form.label :file , "File to upload"
     = asset_form.file_field(:file , :class => "#{action_name == "new" ? 'required' : ''}")
-    
-    %br
-
-    - unless @asset.thumb_large_url.blank?
-      %div#preview        
-        %img{:src => @asset.thumb_large_url}
-
-    %br
-        
+  %p
     = asset_form.label :name , "Name"
     = asset_form.text_field(:name, :class => "large required" , :maxlength => 255)
-    
-    %br
-        
+  %p
     = asset_form.label :alt , "Alt"
     = asset_form.text_field(:alt, :class => "large" , :maxlength => 255 )
-    
+  %p
     - if Rails.configuration.enable_gallery == true
       .help
         "Alt" field is also used for image caption in photo galleries.
-    
-    %br        
-    
   = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
       
 

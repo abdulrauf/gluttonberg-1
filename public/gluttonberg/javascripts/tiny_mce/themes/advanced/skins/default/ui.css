@@ -5,6 +5,7 @@
 
 /* Containers */
 .defaultSkin table {direction:ltr;background:transparent}
+.defaultSkin table tr {height:30px;}
 .defaultSkin iframe {display:block;}
 .defaultSkin .mceToolbar {height:26px}
 .defaultSkin .mceLeft {text-align:left}
@@ -16,17 +17,17 @@
 .defaultSkin .mceExternalClose {position:absolute; top:3px; right:3px; width:7px; height:7px; background:url(../../img/icons.gif) -820px 0}
 
 /* Layout */
-.defaultSkin table.mceLayout {border:0; border-left:1px solid #CCC; border-right:1px solid #CCC}
-.defaultSkin table.mceLayout tr.mceFirst td {border-top:1px solid #CCC}
-.defaultSkin table.mceLayout tr.mceLast td {border-bottom:1px solid #CCC}
+.defaultSkin table.mceLayout {border:0;}
+.defaultSkin table.mceLayout tr.mceFirst td {}
+.defaultSkin table.mceLayout tr.mceLast td {}
 .defaultSkin table.mceToolbar, .defaultSkin tr.mceFirst .mceToolbar tr td, .defaultSkin tr.mceLast .mceToolbar tr td {border:0; margin:0; padding:0;}
-.defaultSkin td.mceToolbar {background:#F0F0EE; padding-top:1px; vertical-align:top}
+.defaultSkin td.mceToolbar {padding-top:1px; vertical-align:top}
 .defaultSkin .mceIframeContainer {border-top:1px solid #CCC; border-bottom:1px solid #CCC}
 .defaultSkin .mceStatusbar {background:#F0F0EE; font-family:'MS Sans Serif',sans-serif,Verdana,Arial; font-size:9pt; line-height:16px; overflow:visible; color:#000; display:block; height:20px}
 .defaultSkin .mceStatusbar div {float:left; margin:2px}
 .defaultSkin .mceStatusbar a.mceResize {display:block; float:right; background:url(../../img/icons.gif) -800px 0; width:20px; height:20px; cursor:se-resize; outline:0}
 .defaultSkin .mceStatusbar a:hover {text-decoration:underline}
-.defaultSkin table.mceToolbar {margin-left:3px}
+.defaultSkin table.mceToolbar {margin:auto}
 .defaultSkin span.mceIcon, .defaultSkin img.mceIcon {display:block; width:20px; height:20px}
 .defaultSkin .mceIcon {background:url(../../img/icons.gif) no-repeat 20px 20px}
 .defaultSkin td.mceCenter {text-align:center;}
@@ -212,3 +213,15 @@
 .defaultSkin span.mce_pagebreak {background-position:0 -40px}
 .defaultSkin span.mce_restoredraft {background-position:-20px -40px}
 .defaultSkin span.mce_spellchecker {background-position:-540px -20px}
+
+.mceToolbar div {
+	border: 1px solid #CCC;
+	display: block;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	border-radius: 5px 5px 0px 0px;
+	background: #F0F0EE;
+}

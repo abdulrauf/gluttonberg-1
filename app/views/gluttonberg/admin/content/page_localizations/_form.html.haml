@@ -8,27 +8,27 @@
   = gb_error_messages_for(@page_localization)
   
   .left_column
-    = block("Metadata") do
+    %legend Metadata
+    %p
       = f.label :name
       = f.text_field(:name, :id => "page_title")    
-      %br
+    %p
       = f.label :navigation_label
       = f.text_field(:navigation_label)
-      %br
+    %p
       = f.label :slug
       = f.text_field(:slug, :id => 'page_slug')
       
       
     - if @page_localization.contents.length >= 1
-      = block("Content") do
-        - for content in @page_localization.contents
-          - unless @version.blank? || !content.versioned?
-            - content.revert_to(@version)
-          = content_editor(content)
-          %br
+      %legend Content
+      - for content in @page_localization.contents
+        - unless @version.blank? || !content.versioned?
+          - content.revert_to(@version)
+        = content_editor(content)
     - else
       %p.no_content
-        This page does not have any content area.
+        This page does not have any content areas.
   
   .right_column 
     = f.fields_for :page , @page do |page_form|  

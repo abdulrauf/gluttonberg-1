@@ -366,11 +366,11 @@ module ActionView
           @@workflow_states = [  [ 'Draft' , 'ready' ] , ['Published' , "published" ] , [ "Archived" , 'archived' ]  ]
           object.published_at = Time.zone.now if object.published_at.blank?
           #object.published_at = object.published_at.to_s
-          html = "<div class='publishing_block' > "
+          html = "<fieldset id='publish_meta'><div class='publishing_block' > "
           html += select( :state, options_for_select(@@workflow_states , val), {} , :class => "publishing_state" )
           html += content_tag(:p , self.datetime_select("published_at" , {:prompt => {:day => 'Day', :month => 'Month', :year => 'Year'} , :order => [:day , :month , :year] }  ) , :class => "published_at" )
           
-          html += "</div>"
+          html += "</div></fieldset>"
           #self.text_field("published_at" , :class => "publish_datetime") + select( :state, options_for_select(@@workflow_states , val)   )
           html.html_safe
         end

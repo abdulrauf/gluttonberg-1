@@ -52,6 +52,7 @@ function enable_jwysiwyg_on(selector) {
       plugin_insertdate_dateFormat: "%d/%m/%Y",
       plugin_insertdate_timeFormat: "%H:%M:%S",
       theme_advanced_resizing_use_cookie: false,
+			width: get_wysiwyg_width(selector),
 
       // Example content CSS (should be your site CSS)
       content_css: "/stylesheets/user-styles.css"
@@ -60,6 +61,16 @@ function enable_jwysiwyg_on(selector) {
 
   });
 }
+
+function get_wysiwyg_width(selector){
+	if($(selector).attr('width')){
+		return $(selector).attr('width')
+	} else {
+		return null;
+	}
+}
+
+
 
 // This method initialize slug related event on a title text box.
 function initSlugManagement() {

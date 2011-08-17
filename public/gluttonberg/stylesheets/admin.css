@@ -194,7 +194,7 @@ body {
 
 /* WRAPPER ========================================================== */
 #wrapper {
-  width: 100%;
+  width: 954px;
 	float: left;
   min-height: 30em; }
 
@@ -338,7 +338,7 @@ form, .pageBlock {
     background: #FFFFFF;
     border: #e5e4e3 1px solid;
     padding: 30px 20px;
-    width: 876px;
+    width: 836px;
     float: left;
   	position: relative;
   	-moz-border-top-left-radius: 0 0;
@@ -372,17 +372,11 @@ form, .pageBlock {
   	float: right;
   	width: 270px; }
 	
-.fieldset {
-  border: 0;
- 	width: 545px;
- 	margin: auto;
- 	padding-top: 15px; }
-
   #gluttonberg_page_description_name {
   	width: 240px; }
   fieldset {
   	border: none;
-  }
+  	clear:both; }
   legend {
   	font-size: 14px;
   	font-family: Georgia, Serif;
@@ -393,19 +387,7 @@ form, .pageBlock {
   	display: block;
   	border-bottom: 1px solid #dcdbd9; }
 
-  fieldset {
-  	clear:both;
-  	margin-bottom: 18px }
-}
-
 	
-div.fieldset,
-ol.fieldset { }
-div.fieldset input {
-	margin-bottom: 15px;
-}
-div.fieldset p {
-	clear:both; }
 label {
   text-align: right;
   padding: 0.2em 0.6em 0.2em 0;
@@ -643,7 +625,7 @@ form p.help {
     top: 8px; }
 
 table {
-  width: 916px;
+  width: 877px;
   clear: both;
   border-bottom: #dddddd 1px solid; }
 
@@ -865,8 +847,8 @@ tr:hover span.controls {
   width: 250px;
   height: 200px;
   position: absolute;
-  left: 50px;
-  top: 180px;
+  left: 12px;
+  top: 0px;
   overflow: hidden;
  	padding-left: 10px; }
 #assets.edit #preview {
@@ -2338,9 +2320,6 @@ ul.tagit {
 	margin: auto;
 	position: relative;
 	padding-top: 100px; }
-	#form fieldset {
-		width: 375px;
-		padding: 0; }
 	#form #login_tab, #form #password_tab {
 		position: absolute;
 		right: 50px;
@@ -2427,9 +2406,6 @@ ul.tagit {
 
 #main .new_gluttonberg_article label {
 	width: 110px; }
-
-#main .new_gluttonberg_article .fieldset {
-	width: 100%; }
 
 #main .new_gluttonberg_article #gluttonberg_article_submit {
   clear: both;
@@ -2565,8 +2541,6 @@ div.wysiwyg ul.toolbar li.removeFormat {
 	color: #9c9c9f;
 }
 
-.new_gluttonberg_article .fieldset {
-	width: 600px; }
 .new_gluttonberg_article .wysiwyg { }
 .new_gluttonberg_article textarea.wysiwyg {
 	margin-left: 176px; }
@@ -2638,7 +2612,7 @@ p.no_content {
 	border-top-right-radius: 0 0;
 	border-bottom-left-radius: 0 0;
 	border-bottom-right-radius: 0 0;
-	top: 15px;
+	top: -13px;
 		}
 
 #assetsDialog   form#asset_search_form{
@@ -2728,14 +2702,26 @@ form#list_search_form{
   height:40px;
 }
 
-#new_gluttonberg_stylesheet fieldset {
-  padding-bottom: 15px; 
-}
-
 .published_at{
   display:none;
 }
 
 .publish_immediatly{
   cursor: pointer;
+}
+
+.block_label {
+	text-align: left;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+#gluttonberg_page_localization_page_description_name {
+	width: 270px;
+}
+
+p {
+	clear: both;
+	float: none;
+	margin: 0 0 15px 0;
 }

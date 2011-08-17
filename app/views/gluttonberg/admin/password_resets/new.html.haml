@@ -6,8 +6,8 @@
     Forgot Password
 
   %fieldset
-    = f.label :email
-    %br
-    = f.text_field :email, :class => "text_field"
+    %p
+      = f.label :email, :class=>"block_label"
+      = f.text_field :email, :class => "text_field"
   %fieldset.last
     = f.submit "Reset my password", :class => "button", :disable_with => "Resetting your password..."

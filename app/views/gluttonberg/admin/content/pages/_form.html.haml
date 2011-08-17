@@ -4,19 +4,20 @@
     - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
       - if( action_name == "new"  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) )
         %fieldset
-          = f.label :name
-          = f.text_field(:name, :id => "page_title", :class=>"large required")
-        %fieldset
-          = f.label :navigation_label
-          = f.text_field(:navigation_label, :class=>"large")
-        %fieldset
-          = f.label :slug
-          = f.text_field(:slug, :id => 'page_slug', :class=>"large")
+          %p
+            = f.label :name
+            = f.text_field(:name, :id => "page_title", :class=>"large required")
+          %p
+            = f.label :navigation_label
+            = f.text_field(:navigation_label, :class=>"large")
+          %p
+            = f.label :slug
+            = f.text_field(:slug, :id => 'page_slug', :class=>"large")
         
-        - if Gluttonberg::Member.enable_members == true
-          %fieldset
-            = f.label :groups 
-            = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+          - if Gluttonberg::Member.enable_members == true
+            %p
+              = f.label :groups 
+              = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
         
   .right_column
     = render :partial => "page_settings" , :locals => {:f => f}

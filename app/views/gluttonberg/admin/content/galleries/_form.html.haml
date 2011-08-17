@@ -1,26 +1,26 @@
 = form_for(@gallery, :url => url , :html => {:class => "validation"}) do  |f|
   = gb_error_messages_for(@gallery)
   = f.hidden_field(:user_id, :value => current_user.id) if @gallery.user_id.blank?
-  
   %fieldset
-    = f.label :title
-    = f.text_field(:title, :id => "page_title" , :class => "required large")
-  %fieldset
-    = f.label :slug
-    = f.text_field(:slug, :id => 'page_slug' , :class => "required large")
-  %fieldset
-    = f.label :description
-    = f.text_area(:description , :class => "jwysiwyg" )
+    %p
+      = f.label :title
+      = f.text_field(:title, :id => "page_title" , :class => "required large")
+    %p
+      = f.label :slug
+      = f.text_field(:slug, :id => 'page_slug' , :class => "required large")
+    %p
+      = f.label :description
+      = f.text_area(:description , :class => "jwysiwyg" )
   
   - if @gallery.collection_imported == false || @gallery.gallery_images.length == 0
-    %fieldset
+    %p
       = label_tag "Asset Collection"
       = select_tag(:collection_id , options_from_collection_for_select(Gluttonberg::AssetCollection.all , "id" , "name_with_number_of_images") , :include_blank => true)
       .help
         Use care when selecting a collection to add to a gallery. Once a collection is added it cannot be deleted, and you will need to make a new gallery.
   
   - if can? :publish , Gluttonberg::Gallery  
-    %fieldset
+    %p
       #publish_meta
         = f.publisable_dropdown
   = form_controls(admin_galleries_path)

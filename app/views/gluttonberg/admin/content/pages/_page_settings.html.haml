@@ -1,28 +1,31 @@
 - unless @pages.empty?
   %fieldset
-    = f.label :parent_id , "Parent page"
-    = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true, :class=>"medium")
+    %p
+      = f.label :parent_id , "Parent page", :class => "block_label"
+      = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true, :class=>"medium")
 %fieldset
-  = f.label :hide_in_nav, "Hide in navigation"
-  = f.check_box(:hide_in_nav, :class=>"medium")
+  %p
+    = f.label :hide_in_nav, "Hide in navigation", :class => "block_label"
+    = f.check_box(:hide_in_nav, :class=>"medium")
 %legend
   Page Description
 - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
-  %fieldset
+  %p
     Page descriptions are used to define how this page behaves. For example, all of it’s contents may be editable, or it may be generated dynamically.
 %fieldset
-  - if( action_name == "new" )
-    = f.select(:description_name, @descriptions , { :include_blank => true } , {:class => "required"} ) 
-  - else
-    = f.select(:description_name, @descriptions , { :include_blank => true } , {:disabled => "disabled"})  
+  %p
+    - if( action_name == "new" )
+      = f.select(:description_name, @descriptions , { :include_blank => true } , {:class => "required"} ) 
+    - else
+      = f.select(:description_name, @descriptions , { :include_blank => true } , {:disabled => "disabled"})  
 
 - if Gluttonberg::Member.enable_members == true && action_name != "new"
   %fieldset
-    = f.label :groups 
-    = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+    %p
+      = f.label :groups 
+      = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
 
 %legend
   Publish
 - if can? :publish , Gluttonberg::Page  
-  %fieldset#publish_meta
-    = f.publisable_dropdown
+  = f.publisable_dropdown

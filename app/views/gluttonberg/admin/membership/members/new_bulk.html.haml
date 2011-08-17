@@ -8,26 +8,27 @@
       Details
       
     %fieldset
-      = f.label :groups 
-      = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )  
+      %p
+        = f.label :groups 
+        = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )  
       %div.description
          
     %fieldset
-      = label :zip, "Browse to zip" , :class => :label   
-      = f.file_field :file , :class => 'text_field required' 
+      %p
+        = label :zip, "Browse to zip" , :class => :label   
+        = f.file_field :file , :class => 'text_field required' 
       
-      %div.description
-        Processing of the CSV file will be done via delayed job. It will check each member in the CSV and check to see if the member exists in the system. If the member does exists it will update the details, if the member does not exist it will create a new record. 
-                        
-        %p 
-          First row of CSV should contain column titles. We need following columns for creating member record in our system
-            
-        %ul.csv_meta_info
-          - Rails.configuration.member_csv_metadata.each do |key , val|
-            %li= val.titleize
+    %p.description
+      Processing of the CSV file will be done via delayed job. It will check each member in the CSV and check to see if the member exists in the system. If the member does exists it will update the details, if the member does not exist it will create a new record. 
+    %p.description
+      First row of CSV should contain column titles. We need following columns for creating member record in our system
+      %ul.csv_meta_info
+        - Rails.configuration.member_csv_metadata.each do |key , val|
+          %li= val.titleize
     %fieldset
-      = check_box_tag :invite 
-      = label_tag :invite, "Send welcome email (login details) to new member?"        
+      %p
+        = check_box_tag :invite 
+        = label_tag :invite, "Send welcome email (login details) to new member?"        
         
     %fieldset
       = form_controls(admin_members_path)    

@@ -5,32 +5,38 @@
     %legend
       Details
     %fieldset
-      = f.label :first_name
-      = f.text_field(:first_name, :class => "large required")
+      %p
+        = f.label :first_name
+        = f.text_field(:first_name, :class => "large required")
   
     %fieldset
-      = f.label :last_name
-      = f.text_field(:last_name, :class => "large")  
+      %p
+        = f.label :last_name
+        = f.text_field(:last_name, :class => "large")  
 
     %fieldset
-      = f.label :email , "E-mail"
-      = f.text_field(:email, :class => "large required")
+      %p
+        = f.label :email , "E-mail"
+        = f.text_field(:email, :class => "large required")
     
     %fieldset
-      = f.label :bio, "Bio"
-      = f.text_area(:bio, :class => "large ")
+      %p
+        = f.label :bio, "Bio"
+        = f.text_area(:bio, :class => "large ")
     
     %fieldset
-      = f.label :image
-      = f.file_field :image , :class => ""
-      - unless @member.image_file_name.blank?
-        = link_to image_tag(@member.image.url(:thumb)) , @member.image.url , :target => "_blank" , :title => "Click on image to see larger version"
-        %span Delete?
-        = f.check_box :image_delete, :label => 'Delete Image'
+      %p
+        = f.label :image
+        = f.file_field :image , :class => ""
+        - unless @member.image_file_name.blank?
+          = link_to image_tag(@member.image.url(:thumb)) , @member.image.url , :target => "_blank" , :title => "Click on image to see larger version"
+          %span Delete?
+          = f.check_box :image_delete, :label => 'Delete Image'
       
     %fieldset
-      = f.label :groups 
-      = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+      %p
+        = f.label :groups 
+        = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
   
     %fieldset
       = form_controls(admin_members_path)

@@ -3,5 +3,5 @@
   - unique_class =  "gb_page_contents_content_#{content.id}"
   = enable_jwysiwyg_on_class(unique_class)
 
-  %label= content.section_label
-  = text_area_tag(id_of_text_area , content.text, :class => "large tall #{unique_class}")
+  %label.block_label= content.section_label
+  = text_area_tag(id_of_text_area , content.text, :class => "large tall #{unique_class}", :width => "545")

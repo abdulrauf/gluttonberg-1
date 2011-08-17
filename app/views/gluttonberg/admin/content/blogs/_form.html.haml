@@ -22,9 +22,8 @@
     
   
   - if can? :publish , Gluttonberg::Blog  
-    %fieldset
-      .fieldset#publish_meta
-        = f.publisable_dropdown
+    %fieldset#publish_meta
+      = f.publisable_dropdown
   = form_controls(admin_blogs_path)
 
 

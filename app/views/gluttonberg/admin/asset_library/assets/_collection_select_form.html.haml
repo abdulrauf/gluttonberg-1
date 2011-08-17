@@ -1,7 +1,8 @@
-= block("Collection") do
+%legend Collection
+%p
   = label_tag "collection" , "Create a new collection"    
   = text_field(nil , nil , {:name => 'new_collection[new_collection_name]'      , :class => "large collection text" }  )
-  %br
-  - unless @collections.blank?
+- unless @collections.blank?
+  %p
     = asset_form.label :asset_collection_ids , "Add asset to existing collection(s)"
     = asset_form.select("asset_collection_ids" ,  @collections.collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
