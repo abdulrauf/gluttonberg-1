@@ -390,13 +390,21 @@ form, .pageBlock {
   	border-bottom: 1px solid #dcdbd9; }
 
 	
-label {
+/*label {
   text-align: right;
   padding: 0.2em 0.6em 0.2em 0;
   margin: 1px 0 0 0;
   width: 12em;
   float: left;
   clear: left;
+ 	font-size: 14px;
+	font-family: Georgia, Serif; }
+*/
+
+label {
+  padding: 0.2em 0.6em 0.2em 0;
+  margin: 10px 0;
+	display: block;
  	font-size: 14px;
 	font-family: Georgia, Serif; }
 
@@ -597,13 +605,16 @@ form p.help {
   padding-left: 50px;
   padding-top: 7px;
   font-family: "Arial" "Verdana" sans-serif;
-  background: #feeabd no-repeat url("/gluttonberg/images/warning.gif") 20px center; }
+  background: #feeabd no-repeat url("/gluttonberg/images/warning.gif") 20px center;
+	position: absolute;
+	top: 145px;
+	width: 740px; }
   .unpublish_message .view-versions a {
     color: #a37200; }
 
 .view-versions {
   position: absolute;
-  right: 50px; }
+  right: 10px; }
 
 #select-version {
   border-bottom: 1px solid #dadada;
@@ -2720,6 +2731,7 @@ form#list_search_form{
 	text-align: left;
 	width: 100%;
 	margin-bottom: 5px;
+	padding-top: 35px;
 }
 
 #gluttonberg_page_localization_page_description_name {
@@ -2754,4 +2766,8 @@ p {
 	padding-bottom: 10px;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #EBE4D1;
+}
+
+.left_column input, .left_column input.text, .left_column input.password, .left_column textarea {
+	width: 533px;
 }
