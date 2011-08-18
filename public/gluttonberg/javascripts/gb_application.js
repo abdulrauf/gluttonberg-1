@@ -240,8 +240,8 @@ var AssetBrowser = {
     })
   },
   resizeDisplay: function() {
-    var newHeight = AssetBrowser.browser.innerHeight() - AssetBrowser.offsetHeight;
-    AssetBrowser.display.height(newHeight);
+    // var newHeight = AssetBrowser.browser.innerHeight() - AssetBrowser.offsetHeight;
+    // AssetBrowser.display.height(newHeight);
   },
   showOverlay: function() {
     AssetBrowser.overlay = $("#assetsDialogOverlay");
