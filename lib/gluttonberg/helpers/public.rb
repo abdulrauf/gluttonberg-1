@@ -135,9 +135,9 @@ module Gluttonberg
              html << "\n"
            end  
            html << stylesheet_link_tag( stylesheets_path(stylesheet.slug) +".css?#{stylesheet.version}" )  
-           unless stylesheet.css_postfix.blank? 
+           unless stylesheet.css_prefix.blank? 
              html << "\n"
-             html << stylesheet.css_postfix 
+             html << "<![endif]-->" 
            end  
          end  
          html << "\n"

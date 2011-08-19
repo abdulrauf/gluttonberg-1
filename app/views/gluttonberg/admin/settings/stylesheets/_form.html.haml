@@ -1,4 +1,4 @@
-
+- css_prefix_list = [["IE6 Only" , "<!--[if eq IE 6]>"] , ["IE7 Only" , "<!--[if eq IE 7]>"] , ["IE8 Only" , "<!--[if eq IE 8]>"] , ["IE9 Only" , "<!--[if eq IE 9]>"] , ["IE6 & IE7" , "<!--[if lte IE 7]>"] , ["IE6 & IE7 & IE8" , "<!--[if lte IE 8]>"] , ["Webkit based browsers (Safari, Chrome, Shiira etc)" , "if Webkit"] , ["Mobile Safari (iPhone / iPod Touch)" , "if SafMob"] , ["Opera" , "if Opera"] , ["Gecko based browsers (Firefox, Camino etc)" , "if Gecko"]]
 - unless @stylesheet.blank?
   = version_listing(@stylesheet.versions , @version )
 
@@ -13,12 +13,8 @@
     = f.text_field(:slug, :id => 'page_slug')
   %fieldset
     = f.label :css_prefix
-    = f.text_field(:css_prefix)
-    = "For example \"<!--[if lte IE 7]>\""
-  %fieldset
-    = f.label :css_postfix
-    = f.text_field(:css_postfix)
-    = "For example: \"<![endif]-->\" "
+    = f.select(:css_prefix , css_prefix_list , :include_blank => "All Browsers")
+    
   %fieldset
     = f.label :value , "CSS"
     = f.text_area(:value , :class => "fullscreen" )    
