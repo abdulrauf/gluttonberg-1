@@ -1,4 +1,4 @@
-- css_prefix_list = [["IE6 Only" , "<!--[if eq IE 6]>"] , ["IE7 Only" , "<!--[if eq IE 7]>"] , ["IE8 Only" , "<!--[if eq IE 8]>"] , ["IE9 Only" , "<!--[if eq IE 9]>"] , ["IE6 & IE7" , "<!--[if lte IE 7]>"] , ["IE6 & IE7 & IE8" , "<!--[if lte IE 8]>"] , ["Webkit based browsers (Safari, Chrome, Shiira etc)" , "if Webkit"] , ["Mobile Safari (iPhone / iPod Touch)" , "if SafMob"] , ["Opera" , "if Opera"] , ["Gecko based browsers (Firefox, Camino etc)" , "if Gecko"]]
+- css_prefix_list = [["IE6 Only" , "<!--[if eq IE 6]>"] , ["IE7 Only" , "<!--[if eq IE 7]>"] , ["IE8 Only" , "<!--[if eq IE 8]>"] , ["IE9 Only" , "<!--[if eq IE 9]>"] , ["IE6 & IE7" , "<!--[if lte IE 7]>"] , ["IE6 & IE7 & IE8" , "<!--[if lte IE 8]>"] , ["Webkit based browsers (Safari, Chrome, etc)" , "if Webkit"] , ["Firefox" , "if Gecko"]]
 - unless @stylesheet.blank?
   = version_listing(@stylesheet.versions , @version )
 
