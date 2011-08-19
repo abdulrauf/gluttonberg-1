@@ -12,7 +12,7 @@
     = f.label :slug
     = f.text_field(:slug, :id => 'page_slug')
   %fieldset
-    = f.label :css_prefix
+    = f.label :css_prefix , "Target Browser"
     = f.select(:css_prefix , css_prefix_list , :include_blank => "All Browsers")
     
   %fieldset
