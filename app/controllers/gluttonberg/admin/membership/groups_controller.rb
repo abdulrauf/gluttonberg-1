@@ -6,7 +6,7 @@ module Gluttonberg
       class GroupsController < Gluttonberg::Admin::Membership::BaseController
         before_filter :find_group, :only => [:delete, :edit, :update, :destroy]
         before_filter :authorize_user , :except => [:edit , :update]
-        drag_tree Group , :route_name => :admin_group_move
+        drag_tree Group , :route_name => :admin_membership_group_move
         
         def index
           @groups = Group.all
@@ -42,8 +42,8 @@ module Gluttonberg
         def delete
           display_delete_confirmation(
             :title      => "Delete “#{@group.name}” group?",
-            :url        => admin_group_path(@group),
-            :return_url => admin_groups_path  
+            :url        => admin_membership_group_path(@group),
+            :return_url => admin_membership_groups_path  
           )        
         end
   

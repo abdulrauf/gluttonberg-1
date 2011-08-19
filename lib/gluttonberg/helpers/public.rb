@@ -146,13 +146,7 @@ module Gluttonberg
          end 
        end
        
-       def current_localization_slug
-         if @locale
-           @locale.slug
-         else
-           nil
-         end
-       end
+       
        
     end # Public
   end # Helpers

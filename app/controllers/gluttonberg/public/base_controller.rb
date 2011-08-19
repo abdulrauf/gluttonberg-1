@@ -12,10 +12,11 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     # in this module.
     
     attr_accessor :page, :locale  
-    before_filter :retrieve_locale    
+    before_filter :retrieve_locale , :rails_locale
+        
     layout "public"
     
-    helper_method :current_user_session, :current_user , :current_member_session , :current_member
+    helper_method :current_user_session, :current_user , :current_member_session , :current_member , :current_localization_slug
     
     if Rails.env == "production"    
       rescue_from ActiveRecord::RecordNotFound, :with => :not_found
@@ -41,6 +42,14 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       end  
     end
     
+    def rails_locale
+      if env['gluttonberg.locale'].blank?
+        I18n.locale = I18n.default_locale
+      else
+        I18n.locale = env['gluttonberg.locale'].slug || I18n.default_locale
+      end
+      
+    end
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -69,6 +78,13 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     def current_member
       return @current_member if defined?(@current_member)
       @current_member = current_member_session && current_member_session.record
+      if !@current_member.blank? && @current_member.can_login?
+        
+      else
+         current_member_session.destroy unless current_member_session.blank?
+         @current_member = nil
+      end  
+      @current_member
     end
 
     def require_member
@@ -131,6 +147,14 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     
     def internal_server_error
       render :layout => "bare" , :template => 'gluttonberg/public/exceptions/internal_server_error'
+    end
+    
+    def current_localization_slug
+       if @locale
+         @locale.slug
+       else
+         nil
+       end
     end
 
 end

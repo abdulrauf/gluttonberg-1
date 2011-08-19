@@ -28,7 +28,7 @@ module Gluttonberg
   
     def deliver_password_reset_instructions!  
       reset_perishable_token!
-      MemberNotifier.deliver_password_reset_instructions(self.id)  
+      MemberNotifier.password_reset_instructions(self.id).deliver  
     end
     
     def groups_name(join_str=", ")
@@ -39,7 +39,9 @@ module Gluttonberg
       end
     end
     
-    
+    def can_login?
+      !respond_to?(:can_login) || self.can_login == true
+    end
     
     def self.enable_members
       if Rails.configuration.enable_members == true || Rails.configuration.enable_members.kind_of?(Hash)

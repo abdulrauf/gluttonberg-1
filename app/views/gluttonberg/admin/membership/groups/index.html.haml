@@ -1,8 +1,8 @@
 = sub_nav do
-  = nav_link("New Group", new_admin_group_url )
+  = nav_link("New Group", new_admin_membership_group_url )
   
 - @window_title = "Membership"
-- @page_title = "#{link_to "Membership", admin_membership_path} > Groups"
+- @page_title = "#{link_to "Membership", admin_membership_root_path} > Groups"
 - @page_image = "/gluttonberg/images/sidebar/icon_library.png"
 - if @groups.empty?
   %p.empty No groups available
@@ -22,6 +22,6 @@
           %td= group.default == true ? "Yes" : ""  
           %td.controls
             %ul
-              %li= link_to("Edit", edit_admin_group_url(group)  )
-              %li= link_to("Delete", delete_admin_group_url(group) )
+              %li= link_to("Edit", edit_admin_membership_group_url(group)  )
+              %li= link_to("Delete", delete_admin_membership_group_url(group) )
 

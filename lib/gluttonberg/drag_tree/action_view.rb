@@ -5,7 +5,7 @@ module Gluttonberg
         
 
         def drag_tree_url(klass = self.class)          
-          controller_class = @controller.class          
+          controller_class = controller.class          
           if controller_class.respond_to?(:drag_tree_route_name) then
             url_for(controller_class.drag_tree_route_name)
           else
@@ -16,7 +16,7 @@ module Gluttonberg
 
         def drag_tree_table_class(klass = self.class)
           # drag-tree treeTable
-          controller_class = @controller.class
+          controller_class = controller.class
           css_class_str = ''
           if controller_class.respond_to?(:drag_class) then
             if controller_class.drag_class then

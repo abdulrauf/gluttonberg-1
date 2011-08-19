@@ -103,14 +103,12 @@ module Gluttonberg
       # If it's passed a label this method will return a fieldset, otherwise it
       # will just return the contents wrapped in a block.
       def block(label = nil, opts = {}, &blk)
-        (opts[:class] ||= "") << " fieldset"
-        opts[:class].strip!
         if label
           field_set_tag(label) do
-            content_tag(:div, opts, &blk)
+            content_tag(:fieldset, opts, &blk)
           end
         else
-          content_tag(:div, opts, &blk)
+          content_tag(:fieldset, opts, &blk)
         end
       end
 

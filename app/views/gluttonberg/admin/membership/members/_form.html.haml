@@ -39,4 +39,4 @@
         = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
   
     %fieldset
-      = form_controls(admin_members_path)
+      = form_controls(admin_membership_members_path)

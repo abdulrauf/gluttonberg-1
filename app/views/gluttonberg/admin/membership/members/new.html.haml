@@ -1,4 +1,4 @@
 - @window_title = "Membership"
-- @page_title = "#{link_to "Membership", admin_membership_path} > #{link_to("Members", admin_members_path)} > Add new member"
+- @page_title = "#{link_to "Membership", admin_membership_root_path} > #{link_to("Members", admin_membership_members_path)} > Add new member"
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
-= render :partial => "form", :locals => { :url => admin_members_path }
+= render :partial => "form", :locals => { :url => admin_membership_members_path }

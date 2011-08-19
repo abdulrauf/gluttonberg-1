@@ -1,16 +1,16 @@
 - @window_title = "Membership"
-- @page_title = "#{link_to "Membership", admin_membership_path} > Members"
+- @page_title = "#{link_to "Membership", admin_membership_root_path} > Members"
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
 = sub_nav do
-  = nav_link("New", new_admin_member_path) 
-  = nav_link("Export" , admin_members_export_path)
-  = nav_link("Import" , admin_members_import_path)
+  = nav_link("New", new_admin_membership_member_path) 
+  = nav_link("Export" , admin_membership_members_export_path)
+  = nav_link("Import" , admin_membership_members_import_path)
 
-- sorter_url = admin_members_path  
+- sorter_url = admin_membership_members_path  
 - if @members.empty?
   %p.empty No Members
 - else
-  %form{:action => admin_members_path , :id => "list_search_form"}
+  %form{:action => admin_membership_members_path , :id => "list_search_form"}
     = text_field_tag :query , params[:query]
     = submit_tag "Search" , :class => "button"
   %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of members"}
@@ -38,10 +38,10 @@
           %td.controls
             %ul
               - if member.welcome_email_sent == true
-                %li= link_to("Resend welcome email" , welcome_admin_member_path(member))
+                %li= link_to("Resend welcome email" , welcome_admin_membership_member_path(member))
               - else
-                %li= link_to("Send welcome email" , welcome_admin_member_path(member))
-              %li= link_to("Edit", edit_admin_member_path(member))
-              %li= link_to "Delete", delete_admin_member_path(member)
+                %li= link_to("Send welcome email" , welcome_admin_membership_member_path(member))
+              %li= link_to("Edit", edit_admin_membership_member_path(member))
+              %li= link_to "Delete", delete_admin_membership_member_path(member)
     
   = will_paginate(@members)

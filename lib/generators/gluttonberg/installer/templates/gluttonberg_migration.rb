@@ -275,6 +275,7 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.boolean :profile_confirmed,  :default => false
       t.boolean :welcome_email_sent,  :default => false
       t.string :confirmation_key
+      t.boolean :gb_members , :can_login , :default => true
       t.timestamps
     end
     

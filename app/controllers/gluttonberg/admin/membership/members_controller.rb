@@ -10,9 +10,9 @@ module Gluttonberg
         
         def index
           unless params[:query].blank?
-            @members = Member.order(get_order).where("first_name LIKE '%#{params[:query]}%' OR last_name LIKE '%#{params[:query]}%' OR email LIKE '%#{params[:query]}%' OR bio LIKE '%#{params[:query]}%' " )
+            @members = Member.order(get_order).where("first_name LIKE '%#{params[:query]}%' OR last_name LIKE '%#{params[:query]}%' OR email LIKE '%#{params[:query]}%' OR bio LIKE '%#{params[:query]}%' " ).includes(:groups)
           else  
-            @members = Member.order(get_order)
+            @members = Member.order(get_order).includes(:groups)
           end
           @members = @members.paginate(:page => params[:page] , :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") )
         end
@@ -28,6 +28,9 @@ module Gluttonberg
               :password => @password ,
               :password_confirmation => @password
           }
+          if !params[:gluttonberg_member][:group_ids].blank? && params[:gluttonberg_member][:group_ids].kind_of?(String)
+            params[:gluttonberg_member][:group_ids] = [params[:gluttonberg_member][:group_ids]] 
+          end
           @member = Member.new(params[:gluttonberg_member].merge(password_hash))
           @member.profile_confirmed = true
           
@@ -47,6 +50,10 @@ module Gluttonberg
           if params[:gluttonberg_member] && params[:gluttonberg_member]["image_delete"] == "1"
             params[:gluttonberg_member][:image] = nil
           end
+          
+          if !params[:gluttonberg_member][:group_ids].blank? && params[:gluttonberg_member][:group_ids].kind_of?(String)
+            params[:gluttonberg_member][:group_ids] = [params[:gluttonberg_member][:group_ids]] 
+          end
           if @member.update_attributes(params[:gluttonberg_member])
             flash[:notice] = "Member account updated!"
             redirect_to  :action => :index
@@ -59,8 +66,8 @@ module Gluttonberg
         def delete
           display_delete_confirmation(
             :title      => "Delete “#{@member.email}” member?",
-            :url        => admin_member_path(@member),
-            :return_url => admin_members_path  
+            :url        => admin_membership_member_path(@member),
+            :return_url => admin_membership_members_path  
           )        
         end
   

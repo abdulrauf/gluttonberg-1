@@ -27,7 +27,11 @@ Rails.application.routes.draw do
       put "(/:locale)/member/profile" => "members#update" 
       get "(/:locale)/member/profile" => "members#show", :as => :member_profile
       match "(/:locale)/member/profile/edit" => "members#edit", :as => :member_profile_edit
-      resources :members
+      
+      scope "(/:locale)" do
+        resources :members
+      end
+      
       resources :member_password_resets
       get 'stylesheets/:id' => "pages#stylesheets", :as =>  :stylesheets
     end
@@ -91,8 +95,8 @@ Rails.application.routes.draw do
         match "/stylesheets/move(.:format)" => "stylesheets#move_node" , :as=> :stylesheet_move 
       end  
       
-      scope :module => 'membership' do
-        match 'membership' => "main#index",      :as => :membership
+      namespace :membership do
+        root :to =>  "main#index"
         match "/groups/move(.:format)" => "groups#move_node" , :as=> :group_move
         match "members/export" => "members#export" , :as => :members_export
         match 'members/new_bulk'  => "members#new_bulk" , :as => :members_import
@@ -104,7 +108,21 @@ Rails.application.routes.draw do
         resources :groups do
           get 'delete', :on => :member
         end
-      end  
+      end
+      # scope :module => 'membership' do
+      #         match 'membership' => "main#index",      :as => :membership
+      #         match "/groups/move(.:format)" => "groups#move_node" , :as=> :group_move
+      #         match "members/export" => "members#export" , :as => :members_export
+      #         match 'members/new_bulk'  => "members#new_bulk" , :as => :members_import
+      #         match 'members/create_bulk'  => "members#create_bulk" , :as => :members_bulk_create
+      #         resources :members do
+      #           get 'delete', :on => :member
+      #           get 'welcome' , :on => :member
+      #         end
+      #         resources :groups do
+      #           get 'delete', :on => :member
+      #         end
+      #       end  
       
       scope :module => 'AssetLibrary' do
         # asset library related routes

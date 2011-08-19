@@ -16,7 +16,7 @@ class MemberNotifier < ActionMailer::Base
     setup_email
     @subject += "Confirmation Instructions"
     @recipients = member.email  
-    @member_confirmation_url = member_confirmation_url(member.confirmation_key)
+    @member_confirmation_url = member_confirmation_url(:key => member.confirmation_key)
   end
   
   # welcome email will be sent to member when admin user will create member. 

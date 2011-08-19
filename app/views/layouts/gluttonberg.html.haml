@@ -68,13 +68,13 @@
               = active_link_to("Add assets in bulk", admin_add_assets_in_bulk_path, :title => "Add assets in bulk")
         - if Gluttonberg::Member.enable_members == true
           %li
-            = active_link_to("Members", admin_membership_path, :id => "membership_nav" , :title => "Members")
+            = active_link_to("Members", admin_membership_root_path, :id => "membership_nav" , :title => "Members")
             %a.nav_trigger{ :href => "javascript:;" }
             %ul.subnavigation
               %li
-                = active_link_to("List", admin_members_path, :title => "Members")
+                = active_link_to("List", admin_membership_members_path, :title => "Members")
               %li
-                = active_link_to("Groups", admin_groups_path, :title => "Groups")
+                = active_link_to("Groups", admin_membership_groups_path, :title => "Groups")
           
         %li
           = active_link_to("Settings", admin_settings_path, :id => "settings_nav" , :title => "Settings")
