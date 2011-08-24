@@ -2742,7 +2742,7 @@ form#list_search_form{
 	padding-top: 35px;
 }
 
-#gluttonberg_page_localization_page_description_name {
+#gluttonberg_page_localization_page_description_name , #gluttonberg_page_localization_page_group_ids {
 	width: 270px;
 }
 

@@ -23,8 +23,7 @@
       %p
         = f.label :featured_image_id
         = f.asset_browser( :featured_image_id ,  opts = { :filter => "image"   } )  
-        = f.clear_asset( :featured_image_id , opts = {  :button_class => "button clear_button"} )
-      
+        
       %p
         = f.label :excerpt
         = f.text_area(:excerpt  , :class => "jwysiwyg" )
