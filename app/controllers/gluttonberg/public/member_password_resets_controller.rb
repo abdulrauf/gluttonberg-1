@@ -1,6 +1,6 @@
 module Gluttonberg
   module Public
-    class MemberPasswordResetsController < Gluttonberg::Public::ApplicationController  
+    class MemberPasswordResetsController < Gluttonberg::Public::BaseController  
       skip_before_filter :require_member
       before_filter :load_member_using_perishable_token, :only => [:edit, :update]
       
