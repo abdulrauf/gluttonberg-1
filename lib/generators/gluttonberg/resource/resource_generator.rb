@@ -10,6 +10,9 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
   argument :resource_name, :type => :string, :required => true
   argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 
+  #hook_for :orm, :required => true
+  hook_for :draggable, :aliases => "-d" , :type => :boolean
+
   def initialize(args, *options)
     super(args, *options)
     parse_attributes!
@@ -37,7 +40,11 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
   end
 
   def add_route    
-    route("namespace :admin do\n resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
+    if draggable?
+      route("namespace :admin do\n match \"/#{plural_name}/move(.:format)\" => \"#{plural_name}#move_node\" , :as=> :#{singular_name}_move \n  resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
+    else
+      route("namespace :admin do\n resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
+    end
     route("resources :#{plural_name}")
   end
   
@@ -109,6 +116,10 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
 
     def plural_name
       @plural_name ||= singular_name.pluralize
+    end
+    
+    def draggable?
+      !(options[:draggable].blank?) 
     end
 
 end

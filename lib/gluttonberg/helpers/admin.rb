@@ -349,7 +349,13 @@ module Gluttonberg
         }.html_safe
       end
       
-      
+      def sortable_column(column, title = nil)
+        title ||= column.titleize
+        css_class = column == sort_column ? "current #{sort_direction}" : nil
+        direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+        new_params = params.merge(:sort => column, :direction => direction)
+        link_to title, new_params, {:class => css_class}
+      end
       
     end # Admin
   end # Helpers

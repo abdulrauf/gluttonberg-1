@@ -2,9 +2,19 @@ module Admin
   class <%= plural_class_name %>Controller < Gluttonberg::Admin::BaseController
     before_filter :authorize_user , :except => [:destroy , :delete]  
     before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]
+    <%if draggable? %>
+    drag_tree <%= class_name %> , :route_name => :admin_<%= singular_name %>_move
+    <%else%>
+    helper_method :sort_column, :sort_direction
+    <%end%>
     
     def index
+      <%if draggable? %>
       @<%= plural_name %> = <%= class_name %>.order("position ASC ")
+      <% else %>
+      @<%= plural_name %> = <%= class_name %>.order(sort_column + " " + sort_direction)
+      @<%= plural_name %> = @<%= plural_name %>.paginate(:page => params[:page], :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items"))
+      <% end %>
     end
   
     def show
@@ -70,6 +80,16 @@ module Admin
       def authorize_user_for_destroy
         authorize! :destroy, <%= class_name %>
       end
+      
+      <%unless draggable? %>
+      def sort_column
+        <%= class_name %>.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+      end
+
+      def sort_direction
+        %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      end
+      <%end%>
 
   end
 end
