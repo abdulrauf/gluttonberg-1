@@ -5,10 +5,20 @@
 = sub_nav do
   = nav_link('New', new_admin_<%= singular_name %>_path)
 
+  
+<% unless draggable? %>
+- if !@<%= plural_name %>.blank? || !params[:query].blank?
+  - form_tag(admin_<%=plural_name%>_path, :method => :get  , :id => "list_search_form") do
+    = text_field_tag :query, params[:query]
+    = submit_tag "Search" , :class => "button"
+    
+<%end%>
+  
 - if @<%= plural_name %>.empty?
   %p.empty
     No <%= plural_class_name %>
 - else
+  
   <% if draggable? %>
   %table{:id => 'pages_table', :class => (can?(:reorder , <%=class_name%>) ? "#{drag_tree_table_class} " : " " ), :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "<%= plural_name %>" , :rel => drag_tree_url }
   <%else%>  

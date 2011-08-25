@@ -10,7 +10,6 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
   argument :resource_name, :type => :string, :required => true
   argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 
-  #hook_for :orm, :required => true
   hook_for :draggable, :aliases => "-d" , :type => :boolean
 
   def initialize(args, *options)

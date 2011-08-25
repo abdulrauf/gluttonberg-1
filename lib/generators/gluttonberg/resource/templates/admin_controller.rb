@@ -12,7 +12,7 @@ module Admin
       <%if draggable? %>
       @<%= plural_name %> = <%= class_name %>.order("position ASC ")
       <% else %>
-      @<%= plural_name %> = <%= class_name %>.order(sort_column + " " + sort_direction)
+      @<%= plural_name %> = <%= class_name %>.order(sort_column + " " + sort_direction).where(prepare_search_conditions)
       @<%= plural_name %> = @<%= plural_name %>.paginate(:page => params[:page], :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items"))
       <% end %>
     end
@@ -89,6 +89,17 @@ module Admin
       def sort_direction
         %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
       end
+      
+      def prepare_search_conditions
+        conditions = ""
+        unless params[:query].blank?
+          <% index = 0 %>
+          <%attributes.each_with_index do |attr| %><%if ["string" , "text"].include?(attr.type.to_s) %>  
+            <% if index > 0 %>conditions << " OR " <%end%> <%index +=1 %> 
+            conditions << "<%=attr.name%> LIKE '%#{params[:query]}%'"<%end%> <%end%>  
+        end  
+        conditions
+      end  
       <%end%>
 
   end
