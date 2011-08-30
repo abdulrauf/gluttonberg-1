@@ -1,4 +1,3 @@
-
 - unless @blog.blank?
   = version_listing(@blog.versions , @version )
 
@@ -11,7 +10,7 @@
     = f.text_field(:name, :id => "page_title" , :class => "required")
     %br
     = f.label :slug
-    = f.text_field(:slug, :id => 'page_slug')
+    = f.text_field(:slug, :id => 'page_slug' , :donotmodify => (action_name == "edit"  || action_name == "update"))
     %br
     = f.label :description
     = f.text_area(:description , :class => "jwysiwyg" )    
