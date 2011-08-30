@@ -3,7 +3,11 @@
   <% attributes.each do |attribute| -%>
   %p
       = f.label :<%= attribute.name %>
+      <% if( attribute.name == "slug" && (action_name == "edit"  || action_name == "update") ) %>
+      = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>" , :donotmodify => true
+      <%else%>
       = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
+      <%end%>
   <% end %>
 
 .right_column
