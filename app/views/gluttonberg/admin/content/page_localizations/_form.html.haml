@@ -16,7 +16,7 @@
       = f.text_field(:navigation_label)
       %br
       = f.label :slug
-      = f.text_field(:slug, :id => 'page_slug')
+      = f.text_field(:slug, :id => 'page_slug' , :donotmodify => (action_name == "edit"  || action_name == "update"))
   
   - if @page_localization.contents.length >= 1   
     = block("Content") do
