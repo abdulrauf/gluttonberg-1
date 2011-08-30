@@ -7,7 +7,7 @@
     = f.text_field(:title, :id => "page_title" , :class => "required large")
   %fieldset
     = f.label :slug
-    = f.text_field(:slug, :id => 'page_slug' , :class => "required large")
+    = f.text_field(:slug, :id => 'page_slug' , :class => "required large" , :donotmodify => (action_name == "edit"  || action_name == "update"))
   %fieldset
     = f.label :description
     = f.text_area(:description , :class => "jwysiwyg" )
