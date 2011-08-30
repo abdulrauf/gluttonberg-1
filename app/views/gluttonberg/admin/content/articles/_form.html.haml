@@ -1,4 +1,3 @@
-
 - unless @article.blank?
   = version_listing(@article.versions , @version )
 
@@ -13,7 +12,7 @@
       = f.text_field(:title, :id => "page_title" , :class => "required")
     %p
       = f.label :slug
-      = f.text_field(:slug, :id => 'page_slug')
+      = f.text_field(:slug, :id => 'page_slug' , :donotmodify => (action_name == "edit"  || action_name == "update"))
     %p
       = f.label :author
       = f.select("author_id" ,  @authors.collect{|a| [a.email , a.id] } , :class => "required" )
