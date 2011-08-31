@@ -2,7 +2,7 @@
 - @page_title = "#{link_to "Settings", admin_settings_path} > Users"
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
 = sub_nav do
-  - if current_user.super_admin?
+  - if can? :manage, Gluttonberg::User
     = nav_link("New", new_admin_user_path) 
   
 - if @users.empty?
@@ -12,7 +12,7 @@
     %thead
       %tr
         %th Name
-        - if current_user.super_admin?
+        - if can? :manage, Gluttonberg::User
           %th Type
         %th.controls Controls
     %tbody
@@ -21,12 +21,12 @@
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
           %td= user.email
-          - if current_user.super_admin?       
+          - if can? :manage, Gluttonberg::User       
             %td= user.role.humanize
           %td.controls
             %ul
               %li= link_to("Edit", edit_admin_user_path(user))
-              - if current_user.super_admin?     
+              - if can? :manage, Gluttonberg::User     
                 %li= link_to "Delete", delete_admin_user_path(user)
     
   = will_paginate(@users)
