@@ -12,9 +12,17 @@ module Gluttonberg
             redirect_to :action => "edit" , :id => current_user.id
           end
           if current_user.super_admin?
-            @users = User.all
+            unless params[:query].blank?
+              @users = User.order(get_order).where("first_name LIKE '%#{params[:query]}%' OR last_name LIKE '%#{params[:query]}%' OR email LIKE '%#{params[:query]}%' OR bio LIKE '%#{params[:query]}%' " )
+            else  
+              @users = User.order(get_order)
+            end
           else
-            @users = User.find(:all , :conditions => ["role != ?" , "super_admin"] )
+            unless params[:query].blank?
+              @users = User.order(get_order).where("role != 'super_admin' AND (first_name LIKE '%#{params[:query]}%' OR last_name LIKE '%#{params[:query]}%' OR email LIKE '%#{params[:query]}%' OR bio LIKE '%#{params[:query]}%' )" )
+            else  
+              @users = User.find(:all , :conditions => ["role != ?" , "super_admin"] , :order =>  get_order)
+            end
           end
           
           @users = @users.paginate(:page => params[:page] , :per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items") )
