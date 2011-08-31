@@ -19,10 +19,22 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
     def get_order
       order_type = params[:order_type].blank? ? "asc" : params[:order_type]
       case params[:order]
-      when 'name'
+      when 'asset_name'
         "gb_assets.name #{order_type}"
+      when 'first_name'
+        "first_name #{order_type}"
+      when 'email'
+        "email #{order_type}" 
+      when 'role'
+        "role #{order_type}"   
+      when 'member_groups'
+        "name #{order_type}"  
+      when 'name'
+        "name #{order_type}"  
       when 'date-updated'
         "updated_at #{order_type}"
+      when 'created_at'
+        "created_at #{order_type}"  
       else
         "created_at #{order_type}"
       end
