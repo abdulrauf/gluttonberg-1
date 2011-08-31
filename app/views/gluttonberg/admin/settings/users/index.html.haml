@@ -4,25 +4,38 @@
 = sub_nav do
   - if can? :manage, User
     = nav_link("New", new_admin_user_path) 
+
+- sorter_url = admin_users_path
   
 - if @users.empty?
   %p.empty No Users
 - else
+  %form{:action => admin_users_path , :id => "list_search_form"}
+    = text_field_tag :query , params[:query]
+    = submit_tag "Search" , :class => "button"
+    
   %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of users"}
     %thead
       %tr
-        %th Name
+        %th= sorter_link("Name",   "first_name",   sorter_url )  
+        %th= sorter_link("Email",   "email",   sorter_url )  
         - if can? :manage, User
-          %th Type
+          %th= sorter_link("Type",   "role",   sorter_url )  
+        %th=sorter_link("Signup Date",   "date-added",   sorter_url ) 
         %th.controls Controls
+        
     %tbody
       - i = 0
       - for user in @users
         - i += 1
         %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
-          %td= user.email
+          
+          %td= user.full_name
+          %td= mail_to user.email , user.email
           - if can? :manage, User       
             %td= user.role.humanize
+          %td
+            = date_format user.created_at  
           %td.controls
             %ul
               %li= link_to("Edit", edit_admin_user_path(user))
