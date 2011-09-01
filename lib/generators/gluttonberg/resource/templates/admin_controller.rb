@@ -71,6 +71,19 @@ module Admin
       end
     end
     
+    def import
+      unless params[:csv].blank?
+        @feedback = Coder.importCSV(params[:csv].tempfile.path)
+        if @feedback == true
+          flash[:notice] = "All <%= plural_name.titleize.downcase %> were successfully imported."
+          redirect_to admin_<%= plural_name %>_path
+        end
+      end
+    end
+    
+    def export
+    end
+    
     private 
       
       def authorize_user

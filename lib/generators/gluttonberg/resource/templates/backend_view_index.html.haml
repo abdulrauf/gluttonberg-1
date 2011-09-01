@@ -4,7 +4,7 @@
 
 = sub_nav do
   = nav_link('New', new_admin_<%= singular_name %>_path)
-
+  = nav_link('Import', admin_<%= plural_name %>_import_path)
   
 <% unless draggable? %>
 - if !@<%= plural_name %>.blank? || !params[:query].blank?

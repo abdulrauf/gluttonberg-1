@@ -554,13 +554,21 @@ div.error {
 }
   
   div.error h2, div.error ul, div.error p {
-    margin-left: 10px; }
+    margin-left: 10px; 
+    margin-bottom: 10px;
+    color: black;
+  }
   div.error h2, div.error p {
     color: black; }
   div.error li {
     font-size: 1.2em;
     padding: 0.3em 0 0 0;
     display: block; }
+  
+    div.error ul ul li {
+      font-size: .9em;
+      padding: 0.3em 0 0 0;
+      display: block; }  
     
 
 /* Inline help */

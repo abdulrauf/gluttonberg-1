@@ -64,6 +64,7 @@ module Gluttonberg
 
     initializer "setup gluttonberg components" do |app| 
       Gluttonberg::Content::Versioning.setup
+      Gluttonberg::Content::ImportExportCSV.setup 
       Gluttonberg::Content::CleanHtml.setup
       Gluttonberg::PageDescription.setup
       

@@ -7,6 +7,7 @@ require File.join(content, "content", "localization")
 require File.join(content, "content", "publishable")
 require File.join(content, "content", "versioning")
 require File.join(content, "content", "clean_html")
+require File.join(content, "content", "import_export_csv")
 
 module Gluttonberg
   # The content module contains a whole bunch classes and mixins related to the 

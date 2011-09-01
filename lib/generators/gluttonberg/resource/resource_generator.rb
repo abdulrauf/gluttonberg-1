@@ -11,6 +11,7 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
   argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 
   hook_for :draggable, :aliases => "-d" , :type => :boolean
+  hook_for :importable, :aliases => "-i" , :type => :boolean
 
   def initialize(args, *options)
     super(args, *options)
@@ -40,9 +41,9 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
 
   def add_route    
     if draggable?
-      route("namespace :admin do\n match \"/#{plural_name}/move(.:format)\" => \"#{plural_name}#move_node\" , :as=> :#{singular_name}_move \n  resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
+      route("namespace :admin do\n match \"/#{plural_name}/move(.:format)\" => \"#{plural_name}#move_node\" , :as=> :#{singular_name}_move \n match \"/#{plural_name}/import(.:format)\" => \"#{plural_name}#import\" , :as=> :#{plural_name}_import \n match \"/#{plural_name}/export(.:format)\" => \"#{plural_name}#export\" , :as=> :#{plural_name}_export \n  resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
     else
-      route("namespace :admin do\n resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
+      route("namespace :admin do  \n match \"/#{plural_name}/import(.:format)\" => \"#{plural_name}#import\" , :as=> :#{plural_name}_import \n match \"/#{plural_name}/export(.:format)\" => \"#{plural_name}#export\" , :as=> :#{plural_name}_export   \n   resources :#{plural_name} do\n member do\n get 'delete'\n end\n end\n end")
     end
     route("resources :#{plural_name}")
   end
@@ -60,6 +61,7 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
         'backend_view_edit.html.haml' => File.join('app/views/admin', plural_name, "edit.html.haml"),
         'backend_view_form.html.haml' => File.join('app/views/admin', plural_name, "_form.html.haml"),
         'backend_view_show.html.haml' => File.join('app/views/admin', plural_name, "show.html.haml"),
+        'backend_view_import.html.haml' => File.join('app/views/admin', plural_name, "import.html.haml"),
         'public_view_index.html.haml' => File.join('app/views', plural_name, "index.html.haml"),
         'public_view_show.html.haml' => File.join('app/views', plural_name, "show.html.haml")
       }

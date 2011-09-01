@@ -2,7 +2,7 @@
 - @page_title = "#{link_to "Settings", admin_settings_path} > Users"
 - @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
 = sub_nav do
-  - if current_user.super_admin?
+  - if can? :manage, User
     = nav_link("New", new_admin_user_path) 
 
 - sorter_url = admin_users_path
@@ -19,7 +19,7 @@
       %tr
         %th= sorter_link("Name",   "first_name",   sorter_url )  
         %th= sorter_link("Email",   "email",   sorter_url )  
-        - if current_user.super_admin?
+        - if can? :manage, User
           %th= sorter_link("Type",   "role",   sorter_url )  
         %th=sorter_link("Signup Date",   "date-added",   sorter_url ) 
         %th.controls Controls
@@ -32,14 +32,14 @@
           
           %td= user.full_name
           %td= mail_to user.email , user.email
-          - if current_user.super_admin?       
+          - if can? :manage, User       
             %td= user.role.humanize
           %td
             = date_format user.created_at  
           %td.controls
             %ul
               %li= link_to("Edit", edit_admin_user_path(user))
-              - if current_user.super_admin?     
+              - if can? :manage, User     
                 %li= link_to "Delete", delete_admin_user_path(user)
     
   = will_paginate(@users)
