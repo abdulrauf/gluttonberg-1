@@ -38,3 +38,4 @@ module Gluttonberg
   require 'jeditable-rails'
 end
 
+

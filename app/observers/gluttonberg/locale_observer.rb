@@ -13,7 +13,6 @@ module Gluttonberg
           :locale_id   => locale.id
         )
         
-        
         # create content localizations
         unless page.description.sections.empty?
           Rails.logger.info("Generating stubbed content for all pages using new localizations")
@@ -36,7 +35,7 @@ module Gluttonberg
 
       
     
-    def after_update(locale)   
+    def after_update(locale)
       existing_localization_ids = []
       remove_list = []
       new_localizations = []

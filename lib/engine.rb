@@ -29,7 +29,7 @@ module Gluttonberg
         "Gluttonberg::PlainTextContentLocalization" => [:text] , 
         "Gluttonberg::HtmlContentLocalization" => [:text] 
     }
-    
+    config.multisite = false
 
     config.enable_members = false
     config.member_csv_metadata = { :first_name => "FIRST NAME" , :last_name => "LAST NAME" ,  :email => "EMAIL" , :groups => "GROUPS" , :bio => "BIO" }
