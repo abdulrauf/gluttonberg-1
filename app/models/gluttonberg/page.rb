@@ -43,7 +43,6 @@ module Gluttonberg
         if Rails.configuration.multisite != true
           page_desc = PageDescription.all.find{|key , val|  val.home_for_domain?(domain_name) }
           page_desc = page_desc.last unless page_desc.blank?
-          puts "-#{domain_name}--------- #{page_desc}"
           unless page_desc.blank?
             pages = joins(:localizations).where("locale_id = ? AND description_name = ?", locale.id, page_desc.name)
           end
