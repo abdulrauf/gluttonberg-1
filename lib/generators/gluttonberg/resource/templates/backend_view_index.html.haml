@@ -4,8 +4,9 @@
 
 = sub_nav do
   = nav_link('New', new_admin_<%= singular_name %>_path)
+  <% if importable? %>
   = nav_link('Import', admin_<%= plural_name %>_import_path)
-  
+  <% end %>
 <% unless draggable? %>
 - if !@<%= plural_name %>.blank? || !params[:query].blank?
   - form_tag(admin_<%=plural_name%>_path, :method => :get  , :id => "list_search_form") do

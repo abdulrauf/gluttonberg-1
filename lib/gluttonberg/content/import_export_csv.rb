@@ -19,8 +19,12 @@ module Gluttonberg
       
       module ClassMethods
         
-        def import_export_csv(import_export_columns)
-          @@import_export_columns = import_export_columns
+        def import_export_csv(import_export_columns=nil)
+          if import_export_columns.blank?
+            @@import_export_columns = self.new.attributes.keys
+          else
+            @@import_export_columns = import_export_columns
+          end  
         end
         
         def import_export_columns

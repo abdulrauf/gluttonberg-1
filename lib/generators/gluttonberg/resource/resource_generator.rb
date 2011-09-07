@@ -122,5 +122,9 @@ class Gluttonberg::ResourceGenerator < Rails::Generators::Base
     def draggable?
       !(options[:draggable].blank?) 
     end
+    
+    def importable?
+      !(options[:importable].blank?) 
+    end
 
 end

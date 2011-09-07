@@ -70,10 +70,10 @@ module Admin
         redirect_to admin_<%= plural_name %>_path
       end
     end
-    
+    <% if importable? %>
     def import
       unless params[:csv].blank?
-        @feedback = Coder.importCSV(params[:csv].tempfile.path)
+        @feedback = <%= class_name %>.importCSV(params[:csv].tempfile.path)
         if @feedback == true
           flash[:notice] = "All <%= plural_name.titleize.downcase %> were successfully imported."
           redirect_to admin_<%= plural_name %>_path
@@ -83,6 +83,7 @@ module Admin
     
     def export
     end
+    <% end %>
     
     private 
       
