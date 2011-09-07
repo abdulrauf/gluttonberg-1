@@ -202,7 +202,11 @@ module Gluttonberg
     
     # Checks to see if this is home for a domain. Duh.
     def home_for_domain?(domain_name)
-      @options[:home] && Rails.configuration.multisite[@options[:domain]] == domain_name
+      if Rails.configuration.multisite == false
+        home?
+      else
+        @options[:home] && Rails.configuration.multisite[@options[:domain]] == domain_name
+      end  
     end
     
     # Returns the path that this description wants to redirect to. It accepts 
