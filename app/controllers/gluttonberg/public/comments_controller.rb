@@ -14,12 +14,21 @@ module Gluttonberg
             #unsubscribe
             @subscription.destroy 
           end
-          redirect_to blog_article_path(@blog.slug, @article.slug)
+          redirect_to blog_article_path(current_localization_slug , @blog.slug, @article.slug)
         else
-          redirect_to blog_article_path(@blog.slug, @article.slug)
+          redirect_to blog_article_path(current_localization_slug , @blog.slug, @article.slug)
         end
       end
   
+      private 
+        def current_localization_slug
+           if @locale
+             @locale.slug
+           else
+             nil
+           end
+        end
     end
+    
   end
 end

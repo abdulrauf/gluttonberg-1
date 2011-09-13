@@ -30,12 +30,9 @@ module Gluttonberg
     
     # Load the matching localization as specified in the options
     def load_localization(locale = nil)
-      puts "================ #{locale}"
       if locale.blank? || locale.id.blank?
-        puts "================ first case"
         @current_localization = load_default_localizations
       else  
-        puts "================ 2nd case"
         @current_localization = localizations.where("locale_id = ?", locale.id).first
       end   
       @current_localization

@@ -5,7 +5,7 @@
   - @articles.each do |article|
     .article
       %h2
-        = link_to article.title, blog_article_path(@blog.slug, article.slug)
+        = link_to article.title, blog_article_path(current_localization_slug ,@blog.slug, article.slug)
         by
         = article.author.email
       %p
