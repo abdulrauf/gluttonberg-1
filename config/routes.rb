@@ -64,6 +64,7 @@ Rails.application.routes.draw do
             end
           end
         end
+        
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
         resources :galleries do
           get 'delete', :on => :member
@@ -109,20 +110,7 @@ Rails.application.routes.draw do
           get 'delete', :on => :member
         end
       end
-      # scope :module => 'membership' do
-      #         match 'membership' => "main#index",      :as => :membership
-      #         match "/groups/move(.:format)" => "groups#move_node" , :as=> :group_move
-      #         match "members/export" => "members#export" , :as => :members_export
-      #         match 'members/new_bulk'  => "members#new_bulk" , :as => :members_import
-      #         match 'members/create_bulk'  => "members#create_bulk" , :as => :members_bulk_create
-      #         resources :members do
-      #           get 'delete', :on => :member
-      #           get 'welcome' , :on => :member
-      #         end
-      #         resources :groups do
-      #           get 'delete', :on => :member
-      #         end
-      #       end  
+      
       
       scope :module => 'AssetLibrary' do
         # asset library related routes

@@ -1,25 +1,28 @@
 
-- unless @article.blank?
-  = version_listing(@article.versions , @version )
+- unless @article_localization.blank?
+  /= version_listing(@article_localization.versions , @article_localization )
 
-= form_for(@article, :url => url , :html => {:class => "validation"}) do  |f|
-  = gb_error_messages_for(@article)
+= form_for(@article_localization, :url => url , :html => {:class => "validation"}) do  |f|
+  = gb_error_messages_for(@article_localization)
   .left_column
     %fieldset
       %legend Article
     
-      %p
-        = f.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
-        = f.hidden_field(:blog_id, :value => @blog.id) if @article.blog_id.blank?
+      = f.fields_for :article , @article do |article_form|  
+        %p
+          = article_form.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
+          = article_form.hidden_field(:blog_id, :value => @blog.id) if @article.blog_id.blank?
       %p
         = f.label :title
         = f.text_field(:title, :id => "page_title" , :class => "required")
-      %p
-        = f.label :slug
-        = f.text_field(:slug, :id => 'page_slug' , :donotmodify => (action_name == "edit"  || action_name == "update"))
-      %p
-        = f.label :author
-        = f.select("author_id" ,  @authors.collect{|a| [a.email , a.id] } , :class => "required" )
+      
+      = f.fields_for :article , @article do |article_form|  
+        %p
+          = article_form.label :slug
+          = article_form.text_field(:slug, :id => 'page_slug' , :donotmodify => (action_name == "edit"  || action_name == "update"))
+        %p
+          = article_form.label :author
+          = article_form.select("author_id" ,  @authors.collect{|a| [a.email , a.id] } , :class => "required" )
       %p
         = f.label :featured_image_id
         = f.asset_browser( :featured_image_id ,  opts = { :filter => "image"   } )  
@@ -31,21 +34,23 @@
         = f.label :body
         = f.text_area(:body  , :class => "jwysiwyg" )
     
-      %p
-        = f.label :article_category_list , "Category"
-        = f.text_field(:article_category_list, :class => "tags" , :rel => tags_string("article_category") ) 
-    
-      %p
-        = f.label :tag_list , "Tags"
-        = f.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )   
+      = f.fields_for :article , @article do |article_form| 
+        %p
+          = article_form.label :article_category_list , "Category"
+          = article_form.text_field(:article_category_list, :class => "tags" , :rel => tags_string("article_category") ) 
+
+        %p
+          = article_form.label :tag_list , "Tags"
+          = article_form.text_field(:tag_list, :class => "tags" , :rel => tags_string("tag") )   
       
-      %p
-        = f.label :disable_comments
-        = f.check_box(:disable_comments, :id => 'disable_comments')  
+        %p
+          = article_form.label :disable_comments
+          = article_form.check_box(:disable_comments, :id => 'disable_comments')  
 
   .right_column
     - if can? :publish , Gluttonberg::Article  
-      = f.publisable_dropdown 
+      = f.fields_for :article , @article do |article_form| 
+        = article_form.publisable_dropdown 
     = form_controls(admin_blog_articles_path(@blog))
 
 

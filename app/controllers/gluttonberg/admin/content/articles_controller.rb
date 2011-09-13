@@ -10,6 +10,7 @@ module Gluttonberg
         before_filter :authorize_user , :except => [:destroy , :delete]  
         before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]  
         
+        
         def index
           conditions = {:blog_id => @blog.id}
           conditions[:user_id] = current_user.id unless current_user.super_admin?
@@ -23,12 +24,16 @@ module Gluttonberg
         
         def new
           @article = Article.new
+          @article_localization = ArticleLocalization.new(:article => @article , :locale_id => Locale.first_default.id)
           @authors = User.all
         end
         
         def create
-          @article = Article.new(params[:gluttonberg_article])
+          params[:gluttonberg_article_localization][:article][:title] = params[:gluttonberg_article_localization][:title]
+          article_attributes = params["gluttonberg_article_localization"].delete(:article)
+          @article = Article.new(article_attributes)
           if @article.save
+            @article_localization = ArticleLocalization.create(params[:gluttonberg_article_localization].merge(:locale_id => Locale.first_default.id , :article_id => @article.id))
             flash[:notice] = "The article was successfully created."
             redirect_to admin_blog_articles_path(@article.blog)
           else
@@ -46,7 +51,9 @@ module Gluttonberg
         end
         
         def update
-          if @article.update_attributes(params[:gluttonberg_article])
+          article_attributes = params["gluttonberg_article_localization"].delete(:article)
+          if @article_localization.update_attributes(params[:gluttonberg_article_localization])
+            @article_localization.article.update_attributes(article_attributes)
             flash[:notice] = "The article was successfully updated."
             redirect_to admin_blog_articles_path(@blog)
           else
@@ -81,9 +88,10 @@ module Gluttonberg
           end
           
           def find_article
-            conditions = { :id => params[:id] }
-            conditions[:user_id] = current_user.id unless current_user.super_admin?
-            @article = Article.find(:first , :conditions => conditions )
+            conditions = { :article_id => params[:id] , :locale_id => Locale.first_default.id}
+            #conditions[:user_id] = current_user.id unless current_user.super_admin?
+            @article_localization = ArticleLocalization.find(:first , :conditions => conditions)
+            @article = Article.find(:first , :conditions => {:id => params[:id]})
           end
           
           def authorize_user

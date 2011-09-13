@@ -203,7 +203,7 @@ module Gluttonberg
         content.html_safe
       end
       
-      def version_listing(versions , selected_version_num )
+      def version_listing(versions , selected_version_num)
         unless versions.blank?
           output = "<div class='historycontrols'>"
           selected = versions.last.version
@@ -213,8 +213,8 @@ module Gluttonberg
             link = version.version
             snippet = "V#{version.version} - Updated #{version.updated_at.to_s(:long)}  "  unless version.updated_at.blank?        
             if version.version.to_i == selected_version_num.to_i
-              selected = link      
-              selected_version   = version   
+              selected = link
+              selected_version = version   
             end  
             collection << [snippet , link]
           end 
