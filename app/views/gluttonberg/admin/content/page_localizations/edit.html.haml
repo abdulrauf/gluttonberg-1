@@ -13,10 +13,9 @@
   %ul
     - if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
       - for localization in @page.localizations
-        - pair = "#{localization.locale.slug}"
         %li{:class => "#{ (@page_localization.locale.id ==  localization.locale.id ) ? 'ui-tabs-selected ui-state-active' : '' }"}
           %a{:href => edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id) ,:id=>"edit_content_tab",:class=>"button"}
-            = "Edit #{localization.locale.slug}" 
+            = "Edit #{localization.locale.name}" 
 
 #edit_content_tab_section.ui-tabs-panel.ui-widget-content.ui-corner-bottom
   = render :partial => "form" , :locals => { :url => admin_page_page_localization_path( :page_id => params[:page_id], :id => @page_localization) }

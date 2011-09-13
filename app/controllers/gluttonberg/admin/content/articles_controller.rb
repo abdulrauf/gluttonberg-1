@@ -33,13 +33,14 @@ module Gluttonberg
           article_attributes = params["gluttonberg_article_localization"].delete(:article)
           @article = Article.new(article_attributes)
           if @article.save
-            @article_localization = ArticleLocalization.create(params[:gluttonberg_article_localization].merge(:locale_id => Locale.first_default.id , :article_id => @article.id))
+            Locale.all.each do |locale|
+              @article_localization = ArticleLocalization.create(params[:gluttonberg_article_localization].merge(:locale_id => locale.id , :article_id => @article.id))
+            end
             flash[:notice] = "The article was successfully created."
-            redirect_to admin_blog_articles_path(@article.blog)
+            redirect_to edit_admin_blog_article_path(@article.blog, @article)
           else
             render :edit
           end
-          
         end
         
         def edit
@@ -72,7 +73,7 @@ module Gluttonberg
         end
         
         def destroy
-          if @article.delete
+          if @article.destroy
             flash[:notice] = "The article was successfully deleted."
             redirect_to admin_blog_articles_path(@blog)
           else
@@ -88,9 +89,13 @@ module Gluttonberg
           end
           
           def find_article
-            conditions = { :article_id => params[:id] , :locale_id => Locale.first_default.id}
-            #conditions[:user_id] = current_user.id unless current_user.super_admin?
-            @article_localization = ArticleLocalization.find(:first , :conditions => conditions)
+            if params[:localization_id].blank?
+              conditions = { :article_id => params[:id] , :locale_id => Locale.first_default.id}
+              #conditions[:user_id] = current_user.id unless current_user.super_admin?
+              @article_localization = ArticleLocalization.find(:first , :conditions => conditions)
+            else
+              @article_localization = ArticleLocalization.find(params[:localization_id])
+            end
             @article = Article.find(:first , :conditions => {:id => params[:id]})
           end
           
