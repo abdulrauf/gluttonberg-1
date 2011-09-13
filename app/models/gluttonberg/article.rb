@@ -9,10 +9,8 @@ module Gluttonberg
     belongs_to :user #created by
     has_many :comments, :as => :commentable, :dependent => :destroy
     has_many :localizations, :class_name => "Gluttonberg::ArticleLocalization" , :foreign_key => :article_id  , :dependent => :destroy 
-    validates_presence_of :title
 
     acts_as_taggable_on :article_category , :tag
-    #attr_reader :current_localization 
     attr_accessor :name
     delegate :title , :body , :excerpt , :featured_image_id , :featured_image  , :to => :current_localization
     

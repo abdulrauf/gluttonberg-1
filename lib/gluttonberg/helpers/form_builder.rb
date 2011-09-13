@@ -51,7 +51,7 @@ module Gluttonberg
       def field(field, attribute, options, size = nil)
         content = label(attribute, options) + field
         klass = size ? 'field ' + size : 'field'
-        content_tag(:div, content, :class => klass)
+        content_tag(:p, content, :class => klass)
       end
     end # FormBuilder
   end # Helpers

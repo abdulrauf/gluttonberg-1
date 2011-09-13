@@ -6,7 +6,7 @@
     %h2
       = @article.title
       by
-      = @article.author.email
+      = @article.author.full_name
       = asset_tag(@article.featured_image , :small_thumb)
     %p
       = @article.body.html_safe
@@ -27,7 +27,7 @@
               - if comment.author.blank?
                 Anonymous
               - else
-                = comment.author.email
+                = comment.author.full_name
             .time
               = time_ago_in_words(comment.created_at)
               ago

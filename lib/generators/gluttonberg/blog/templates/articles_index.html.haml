@@ -7,7 +7,7 @@
       %h2
         = link_to article.title, blog_article_path(current_localization_slug ,@blog.slug, article.slug)
         by
-        = article.author.email
+        = article.author.full_name
       %p
         = asset_tag(article.featured_image , :small_thumb)
         = article.excerpt.html_safe

@@ -29,7 +29,7 @@ module Gluttonberg
         end
         
         def create
-          params[:gluttonberg_article_localization][:article][:title] = params[:gluttonberg_article_localization][:title]
+          params[:gluttonberg_article_localization][:article][:name] = params[:gluttonberg_article_localization][:title]
           article_attributes = params["gluttonberg_article_localization"].delete(:article)
           @article = Article.new(article_attributes)
           if @article.save

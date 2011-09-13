@@ -6,7 +6,7 @@
     = f.text_field(:name)
     = f.text_field(:slug)
     = f.select(:slug_type , options_for_select(Gluttonberg::Locale.all_slug_types , @locale.slug_type ) , :include_blank => "Select Locale Type" , :class => "required" )
-    .field
+    %p
       %label{:for => "gluttonberg_locale_default"} Default
       = f.check_box(:default, :boolean => true , :class => "checkbox")
       
