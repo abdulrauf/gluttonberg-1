@@ -33,9 +33,9 @@ $(document).ready(function() {
 
 function setHeightForLeftNav(){
 	try{
-	  new_height = $("body").height();
+	  new_height = $("body").height() - 50;
 	  if(new_height < $(window).height() )
-	  	new_height = $(window).height() 
+	  	new_height = $(window).height() - 82; 
 	  $("#sidebar").height(new_height);
 	}catch(e){}
 }
