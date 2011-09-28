@@ -1,7 +1,7 @@
 - @window_title = "Content"
 - @page_title = "#{link_to "Content", admin_content_path} > #{link_to("<%= plural_class_name %>", admin_<%= plural_name %>_path)} > Edit #{@<%= singular_name %>.title_or_name?}"
 
-- @page_image = "/gluttonberg/javascripts/sidebar/icon_content.png"
+- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
 
 = form_for(@<%= singular_name %>, :url => admin_<%= singular_name %>_path(@<%= singular_name %>)) do  |f|
   = gb_error_messages_for(@<%= singular_name %>)
