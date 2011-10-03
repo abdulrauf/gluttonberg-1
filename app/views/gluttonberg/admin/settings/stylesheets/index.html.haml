@@ -27,8 +27,8 @@
           %td= link_to stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}" , stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}"  
           %td
             -css =  css_prefix_list.find{|c| c.last == stylesheet.css_prefix}
-           	- unless css.blank?
-           	  = css.first
+            - unless css.blank?
+              = css.first
            	- else
            	  All Browsers
           %td
