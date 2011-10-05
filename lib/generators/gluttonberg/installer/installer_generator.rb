@@ -66,11 +66,9 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
      # config.enable_gallery = true  
        
      # You can customize your thumbnails. For geometry values please read ImageMagick documentation
-     # config.thumbnails = { 
-     #   :jwysiwyg_image => {:label => "Thumb for jwysiwyg", :filename => "_jwysiwyg_image", :geometry => "250x200"} ,
-     #   :show_page_image => {:label => "Image for show page", :filename => "show_page_image", :geometry => "500x350"} ,
-     #   .....
-     # }
+     config.thumbnails = { 
+       :jwysiwyg_image => {:label => "Thumb for jwysiwyg", :filename => "_jwysiwyg_image", :geometry => "250x200"} 
+     }
      
       
     }
