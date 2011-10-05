@@ -82,6 +82,10 @@ module Admin
     end
     
     def export
+      csv_data = <%= class_name %>.exportCSV(<%= class_name %>.all )
+      unless csv_data.blank?
+        send_data csv_data, :type => 'text/csv' , :disposition => 'attachment' , :filename => "#{<%= plural_name.titleize.downcase %>} at #{Time.now.strftime('%Y-%m-%d')}.csv"
+      end
     end
     <% end %>
     

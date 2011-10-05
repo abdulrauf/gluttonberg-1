@@ -48,8 +48,8 @@ module Gluttonberg
           end  
 
           import_column_names = @@import_export_columns
-          if local_options && local_options.has_key?(:import_export_columns)
-            import_column_names = local_options[:import_export_columns]
+          if local_options && local_options.has_key?(:import_columns)
+            import_column_names = local_options[:import_columns]
           end
           
           if import_column_names.blank?
@@ -109,6 +109,39 @@ module Gluttonberg
           else  
             nil
           end  
+        end
+        
+        def exportCSV(all_records , local_options = {})
+          export_column_names = @@import_export_columns
+          if local_options && local_options.has_key?(:export_columns)
+            export_column_names = local_options[:export_columns]
+          end
+          
+          if export_column_names.blank?
+            raise "Please define export_column_names property"
+          end
+          
+          csv_class_name = nil
+          if RUBY_VERSION >= "1.9"
+            require 'csv'
+            csv_class_name = CSV
+          else
+            csv_class_name = FasterCSV
+          end
+          
+          csv_string = csv_class_name.generate do |csv|
+              csv << export_column_names.collect{|c| c.humanize}
+
+              all_records.each do |record|
+                  row = []
+                  export_column_names.each do |column|
+                    row << record.send(column)
+                  end
+                  csv << row
+              end        
+          end
+          
+          csv_string
         end
         
       end
