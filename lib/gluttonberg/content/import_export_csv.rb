@@ -121,6 +121,9 @@ module Gluttonberg
             raise "Please define export_column_names property"
           end
           
+          export_column_names << "published_at"
+          export_column_names << "updated_at"
+          
           csv_class_name = nil
           if RUBY_VERSION >= "1.9"
             require 'csv'
