@@ -40,7 +40,7 @@ module Gluttonberg
         page
       elsif path.blank? #looking for home
         locale = Gluttonberg::Locale.first_default if locale.blank?
-        if Rails.configuration.multisite != true
+        if Rails.configuration.multisite == true
           page_desc = PageDescription.all.find{|key , val|  val.home_for_domain?(domain_name) }
           page_desc = page_desc.last unless page_desc.blank?
           unless page_desc.blank?
