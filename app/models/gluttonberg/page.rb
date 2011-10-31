@@ -24,6 +24,28 @@ module Gluttonberg
     
     attr_accessor :current_localization, :locale_id, :paths_need_recaching
     
+    def easy_contents(section_name, opts = {})
+      begin
+        section_name = section_name.to_sym
+        load_localization
+        content = localized_contents.pluck {|c| c.section[:name] == section_name}
+        if content.class.name == "Gluttonberg::ImageContent"
+          if opts[:url_for].blank?
+            content.asset.url
+          else
+            content.asset.url_for(opts[:url_for].to_sym)             
+          end
+        elsif content.class.name == "Gluttonberg::HtmlContent"
+          content.current_localization.text.html_safe
+        elsif content.class.name == "Gluttonberg::PlainTextContent"
+          content.current_localization.text
+        else
+          nil
+        end
+      rescue
+        nil
+      end
+    end
     
     # A custom finder used to find a page + locale combination which most
     # closely matches the path specified. It will also optionally limit it's
