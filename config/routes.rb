@@ -138,9 +138,9 @@ Rails.application.routes.draw do
       
       scope "(/:locale)" do
         resources :members
+        resources :member_password_resets
       end
       
-      resources :member_password_resets
       get 'stylesheets/:id' => "pages#stylesheets", :as =>  :stylesheets
     end
     
