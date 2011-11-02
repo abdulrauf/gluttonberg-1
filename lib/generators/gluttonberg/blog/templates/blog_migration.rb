@@ -71,6 +71,7 @@ class BlogMigration < ActiveRecord::Migration
   def self.down
     drop_table :gb_comments
     drop_table :gb_articles
+    drop_table :gb_article_localizations
     drop_table :gb_blogs
     drop_table :gb_comment_subscriptions
   end
