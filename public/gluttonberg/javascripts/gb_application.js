@@ -108,18 +108,9 @@ function initSlugManagement() {
 // input/textarea tags with .tags class will be initlized as
 function init_tag_area() {
   try {
-    $(".tags").each(function(){
-      var sources = [];
-      if($(this).attr('rel') != null){
-        sources = $(this).attr('rel').split(",");
-      }
-      $(this).autocomplete({
-          source: sources
-      });
-    })
-    // $('.tags').tagarea({
-    //       separator: ','
-    //     });
+    $('.tags').tagarea({
+      separator: ','
+    });
   } catch(e) {
     console.log(e)
   }
