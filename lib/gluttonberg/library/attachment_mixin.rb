@@ -183,7 +183,7 @@ module Gluttonberg
             end  
       			projected_width = actual_width * crossover_ratio
       			      
-            "#{(projected_width).to_i}x#{(projected_width/ratio_actual).to_i}"
+            "#{(projected_width).ceil}x#{(projected_width/ratio_actual).ceil}"
          end
         
         def generate_cropped_image(x , y , w , h, image_type)
