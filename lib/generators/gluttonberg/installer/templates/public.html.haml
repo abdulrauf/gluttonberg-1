@@ -1,12 +1,18 @@
 !!!
 %html
   %head
-    %title GluttonbergTest
+    %title= website_title
+    = javascript_include_tag "", :charset => "utf-8"
+    = stylesheet_link_tag ""
     = csrf_meta_tag
     = google_analytics_js_tag
     = keywords_meta_tag
     = description_meta_tag
-  %body
+    %meta{:content=>"/images/thumb.jpg",:property=>"og:image"}
+    %meta{:content=>"#{website_title}",:property=>"og:title"}
+    %meta{:content=>"#{Gluttonberg::Setting.get_setting("description")}",:property=>"og:description"}
+    %link{ :rel=>"shortcut icon", :href=>"/images/favicon.png"}
+  %body{:class=>body_class(@page)}
     - @pages = Gluttonberg::Page.find(:all , :conditions => { :home => true } )
     - slug = @locale ? @locale.slug : ""
     = navigation_tree(@pages, :id => "navigation" , :slug => slug   )

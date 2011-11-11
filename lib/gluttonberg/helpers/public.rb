@@ -146,6 +146,14 @@ module Gluttonberg
          end 
        end
        
+      def body_class(page)
+           if page
+             page.slug
+           else
+             "blog"
+           end
+      end
+       
        
        
     end # Public
