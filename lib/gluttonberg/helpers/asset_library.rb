@@ -5,7 +5,7 @@ module Gluttonberg
        #  nice and clean public url of assets
        def asset_url(asset , opts = {})
          url = ""
-         if RAILS_ENV=="development"
+         if Rails.env=="development"
            url = "http://#{request.host}:#{request.port}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
          else
            url = "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
