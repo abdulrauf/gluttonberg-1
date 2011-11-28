@@ -146,4 +146,10 @@ Rails.application.routes.draw do
     
     
   end
+  
+  scope :module => 'Gluttonberg' do
+    scope :module => 'Public' do
+      get "*a" => "pages#error_404"
+    end
+  end
 end
