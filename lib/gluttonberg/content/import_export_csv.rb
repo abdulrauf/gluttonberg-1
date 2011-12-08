@@ -141,7 +141,7 @@ module Gluttonberg
           end
           
           csv_string = csv_class_name.generate do |csv|
-              csv << export_column_names.collect{|c| c.humanize}
+              csv << export_column_names
 
               all_records.each do |record|
                   row = []
