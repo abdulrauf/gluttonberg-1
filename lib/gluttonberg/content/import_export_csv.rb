@@ -78,8 +78,12 @@ module Gluttonberg
               if local_options[:unique_key]
                 record = self.where(local_options[:unique_key] => record_info[local_options[:unique_key].to_s]).first
               end
-              # make object
-              record = self.new(record_info) if record.blank?
+              if record.blank?
+                # make object
+                record = self.new(record_info) 
+              else
+                record.attributes = record.attributes.merge(record_info)  
+              end
               records << record
               if record.valid?
                 feedback << true
