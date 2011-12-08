@@ -74,8 +74,12 @@ module Gluttonberg
                   record_info[key] = row[val]
                 end
               end
+              record = nil
+              if local_options[:unique_key]
+                record = self.where(local_options[:unique_key] => record_info[local_options[:unique_key].to_s]).first
+              end
               # make object
-              record = self.new(record_info)
+              record = self.new(record_info) if record.blank?
               records << record
               if record.valid?
                 feedback << true
