@@ -105,7 +105,7 @@ module Gluttonberg
       
         collection = AssetCollection.find_by_name("BULKS")
       
-        files = Dir.entries(RAILS_ROOT+"/bulks")
+        files = Dir.entries(Rails.root+"/bulks")
         files.each do |entry|
           unless entry.starts_with?(".") || entry.starts_with?("__")   
             file = MyFile2.init(entry)            
@@ -138,10 +138,10 @@ module Gluttonberg
     attr_accessor :original_filename , :content_type , :size
 
     def self.init(filename)
-      file = MyFile2.new(RAILS_ROOT+"/bulks/" + filename) 
+      file = MyFile2.new(Rails.root+"/bulks/" + filename) 
       file.original_filename = filename
       file.content_type = find_content_type(filename)
-      file.size = File.size(RAILS_ROOT+"/bulks/" + filename)
+      file.size = File.size(Rails.root+"/bulks/" + filename)
       file
     end  
 

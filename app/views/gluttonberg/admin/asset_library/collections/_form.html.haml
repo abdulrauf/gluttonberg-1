@@ -1,4 +1,4 @@
-= form_for( :collection , @collection , :url => url_opts ,  :html => { :method => method_name, :class => "nosubnav validation"} ) do |collection_form|
+= form_for( @collection , :as => :collection , :url => url_opts ,  :html => { :method => method_name, :class => "nosubnav validation"} ) do |collection_form|
   = gb_error_messages_for(@collection)
   = block("Collection") do
     = collection_form.label :name

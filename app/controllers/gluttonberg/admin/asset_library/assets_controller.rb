@@ -257,7 +257,7 @@ module Gluttonberg
             # also removes zip tmp file
             def open_zip_file_and_make_assets
               zip = params[:asset][:file]
-              dir = File.join(RAILS_ROOT,"tmp")
+              dir = File.join(Rails.root,"tmp")
               dir = File.join(dir,Time.now.to_i.to_s)                
       
               FileUtils.mkdir_p(dir)              
