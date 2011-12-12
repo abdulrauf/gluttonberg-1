@@ -74,8 +74,16 @@ module Gluttonberg
                   record_info[key] = row[val]
                 end
               end
-              # make object
-              record = self.new(record_info)
+              record = nil
+              if local_options[:unique_key]
+                record = self.where(local_options[:unique_key] => record_info[local_options[:unique_key].to_s]).first
+              end
+              if record.blank?
+                # make object
+                record = self.new(record_info) 
+              else
+                record.attributes = record.attributes.merge(record_info)  
+              end
               records << record
               if record.valid?
                 feedback << true
@@ -133,7 +141,7 @@ module Gluttonberg
           end
           
           csv_string = csv_class_name.generate do |csv|
-              csv << export_column_names.collect{|c| c.humanize}
+              csv << export_column_names
 
               all_records.each do |record|
                   row = []
