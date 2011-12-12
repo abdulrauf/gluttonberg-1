@@ -20,7 +20,7 @@ module Gluttonberg
         end
         if @member && @member.save
           if Member.does_email_verification_required
-            MemberNotifier.confirmation_instructions(@member.id).deliver
+            MemberNotifier.confirmation_instructions(@member.id,current_localization_slug).deliver
             flash[:notice] = "Please check your email for a confirmation."
           else
             flash[:notice] = "Your registration is now complete."
@@ -53,7 +53,7 @@ module Gluttonberg
           confirmation_key = Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..24]
           current_member.update_attributes(:confirmation_key => confirmation_key)
         end
-        MemberNotifier.confirmation_instructions(current_member.id).deliver if current_member && !current_member.profile_confirmed
+        MemberNotifier.confirmation_instructions(current_member.id,current_localization_slug).deliver if current_member && !current_member.profile_confirmed
         flash[:notice] = "Please check your email for a confirmation."
         redirect_to member_profile_url
       end

@@ -3,6 +3,8 @@
 $(document).ready(function() {
 
   $("#tabs").tabs();
+  
+  setHeightForLeftNav();
 
   dragTreeManager.init();
 
@@ -29,7 +31,14 @@ $(document).ready(function() {
 
 });
 
-
+function setHeightForLeftNav(){
+	try{
+	  new_height = $("body").height() - 50;
+	  if(new_height < $(window).height() )
+	  	new_height = $(window).height() - 82; 
+	  $("#sidebar").height(new_height);
+	}catch(e){}
+}
 
 function enable_jwysiwyg_on(selector) {
   $(document).ready(function() {

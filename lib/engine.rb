@@ -10,6 +10,7 @@ module Gluttonberg
     config.admin_path = '/admin'
     config.app_name = 'Gluttonberg 2.0'
     config.localize = true
+    config.flagged_content = false
     config.active_record.observers = ['gluttonberg/page_observer' , 'gluttonberg/page_localization_observer' , 'gluttonberg/locale_observer' ]
         
     config.thumbnails = {   }
@@ -29,7 +30,7 @@ module Gluttonberg
         "Gluttonberg::PlainTextContentLocalization" => [:text] , 
         "Gluttonberg::HtmlContentLocalization" => [:text] 
     }
-    
+    config.multisite = false
 
     config.enable_members = false
     config.member_csv_metadata = { :first_name => "FIRST NAME" , :last_name => "LAST NAME" ,  :email => "EMAIL" , :groups => "GROUPS" , :bio => "BIO" }
@@ -64,6 +65,7 @@ module Gluttonberg
 
     initializer "setup gluttonberg components" do |app| 
       Gluttonberg::Content::Versioning.setup
+      Gluttonberg::Content::ImportExportCSV.setup 
       Gluttonberg::Content::CleanHtml.setup
       Gluttonberg::PageDescription.setup
       

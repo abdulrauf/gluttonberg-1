@@ -25,6 +25,7 @@ module Gluttonberg
       @options = {
         :name       => name,
         :home       => false,
+        :domain       => nil, 
         :behaviour  => :default,
         :layout     => "public",
         :view       => "default"
@@ -124,6 +125,11 @@ module Gluttonberg
       end
     end
     
+    # Set a description as the home page.
+    def domain(domain_name)
+      @options[:domain] = domain_name
+    end
+    
     # Sugar for defining a section.
     def section(name, &blk)
       new_section = Section.new(name , @position)
@@ -135,6 +141,10 @@ module Gluttonberg
     
     def top_level_page?
        @options[:name] == :top_level_page
+    end
+    
+    def name
+       @options[:name]
     end
     
     def redirection_required?
@@ -188,6 +198,15 @@ module Gluttonberg
     # Checks to see if this is home. Duh.
     def home?
       @options[:home]
+    end
+    
+    # Checks to see if this is home for a domain. Duh.
+    def home_for_domain?(domain_name)
+      if Rails.configuration.multisite == false
+        home?
+      else
+        @options[:home] && Rails.configuration.multisite[@options[:domain]] == domain_name
+      end  
     end
     
     # Returns the path that this description wants to redirect to. It accepts 

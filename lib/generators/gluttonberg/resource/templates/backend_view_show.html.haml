@@ -14,7 +14,7 @@
     %dl
     <% attributes.each do |attribute| -%>
   %dt <%= attribute.name %>
-      %dd #{@<%= singular_name %>.<%= attribute.name %>}
+      %dd #{@<%= singular_name %>.<%= attribute.name %>.humanize}
     <% end %>
 
   %dl.meta

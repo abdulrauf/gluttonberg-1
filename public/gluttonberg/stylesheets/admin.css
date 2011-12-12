@@ -554,13 +554,21 @@ div.error {
 }
   
   div.error h2, div.error ul, div.error p {
-    margin-left: 10px; }
+    margin-left: 10px; 
+    margin-bottom: 10px;
+    color: black;
+  }
   div.error h2, div.error p {
     color: black; }
   div.error li {
     font-size: 1.2em;
     padding: 0.3em 0 0 0;
     display: block; }
+  
+    div.error ul ul li {
+      font-size: .9em;
+      padding: 0.3em 0 0 0;
+      display: block; }  
     
 
 /* Inline help */
@@ -2800,3 +2808,74 @@ p {
 #content_sortable .orderable-list-item {
 	background: #DFDFDF;
 }
+
+/* Sortable columns */
+/* tables */
+table.gb_tablesorter {
+    font-family:arial;
+    background-color: #CDCDCD;
+    margin:10px 0pt 15px;
+    font-size: 8pt;
+    width: 100%;
+    text-align: left;
+}
+table.gb_tablesorter thead tr th, table.gb_tablesorter tfoot tr th {
+    background-color: #e6EEEE;
+    border: 1px none #FFF;
+    font-size: 10pt;
+    /*padding: 4px; */
+}
+table.gb_tablesorter thead tr .header {
+    cursor: pointer;
+    background: #ececec;
+}
+table.gb_tablesorter thead tr .header:hover {
+    cursor: pointer;
+    background: #ececec url(bg.gif) no-repeat center 32px;
+}
+table.gb_tablesorter tbody td {
+    color: #3D3D3D;
+    /*padding: 4px;*/
+    background-color: #FFF;
+    vertical-align: top;
+}
+table.gb_tablesorter thead tr .asc, table.gb_tablesorter thead tr .asc:hover {
+    background: url(asc.gif) no-repeat center 32px;
+    background-color: #FD0;
+}
+table.gb_tablesorter thead tr .desc, table.gb_tablesorter thead tr .desc:hover {
+    background: url(desc.gif) no-repeat center 32px;
+    background-color: #FD0;
+}
+table.gb_tablesorter thead tr .desc, table.gb_tablesorter thead tr .asc {
+background-color: #FD0;
+color: black;
+}
+
+table.gb_tablesorter thead th{
+  color: #000 !important;
+}
+
+
+table.gb_tablesorter thead tr .header th.first {
+  -moz-border-radius-topleft: 4px !important;
+  -webkit-border-top-left-radius: 4px !important;
+}
+
+table.gb_tablesorter thead tr .header th.last {
+  -moz-border-radius-topright: 4px !important;
+  -webkit-border-top-right-radius: 4px !important;
+}
+.pager {
+  padding:0px;
+}
+
+#pager form{
+  padding:0px;
+  margin:0px;
+}
+
+.pager form img {
+  margin: 0 0 -4px;
+}
+

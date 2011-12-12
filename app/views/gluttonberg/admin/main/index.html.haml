@@ -7,26 +7,31 @@
       - unless @blogs.blank?
           
         %h3 Post to Blog
-        = form_for(@article, :url => admin_blog_articles_path(@blogs.first.id) , :html => {:class => "validation"}) do  |f|
-          = gb_error_messages_for(@article)
+        = form_for(@article_localization, :url => admin_blog_articles_path(@blogs.first.id) , :html => {:class => "validation"}) do  |f|
+          = gb_error_messages_for(@article_localization)
           = block() do
-            = f.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
-            = f.hidden_field(:author_id, :value => current_user.id)
-            %p
-              %label
-                Post to
-              = f.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
+            
+            = f.fields_for :article , @article do |article_form| 
+              = article_form.hidden_field(:user_id, :value => current_user.id) if @article.user_id.blank?
+              = article_form.hidden_field(:author_id, :value => current_user.id)
+              %p
+                %label
+                  Post to
+                = article_form.select(:blog_id, @blogs.collect{|a| [a.name , a.id] } ) 
             %p
               = f.label :title
               = f.text_field(:title, :id => "page_title" , :class => "required")
+            
             %p
-              = f.label :slug
-              = f.text_field(:slug, :id => 'page_slug')
+              = f.fields_for :article , @article do |article_form| 
+                = article_form.label :slug
+                = article_form.text_field(:slug, :id => 'page_slug')
             %p
               = f.text_area(:body  , :class => "jwysiwyg required" )
             %p
-              = f.label :disable_comments
-              = f.check_box(:disable_comments, :id => 'disable_comments')  
+              = f.fields_for :article , @article do |article_form| 
+                = article_form.label :disable_comments
+                = article_form.check_box(:disable_comments, :id => 'disable_comments')  
 
           %p.controls    
             = f.submit("Post" , :class => "button")

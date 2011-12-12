@@ -1,26 +1,61 @@
 - @window_title = "Content"
 - @page_title = "#{link_to "Content", admin_content_path} > <%= plural_class_name %>"
 - @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+
 = sub_nav do
   = nav_link('New', new_admin_<%= singular_name %>_path)
-
+  <% if importable? %>
+  = nav_link('Import', admin_<%= plural_name %>_import_path)
+  = nav_link('Export', admin_<%= plural_name %>_export_path)
+  <% end %>
+<% unless draggable? %>
+- if !@<%= plural_name %>.blank? || !params[:query].blank?
+  - form_tag(admin_<%=plural_name%>_path, :method => :get  , :id => "list_search_form") do
+    = text_field_tag :query, params[:query]
+    = submit_tag "Search" , :class => "button"
+    
+<%end%>
+  
 - if @<%= plural_name %>.empty?
   %p.empty
     No <%= plural_class_name %>
 - else
+  
+  <% if draggable? %>
+  %table{:id => 'pages_table', :class => (can?(:reorder , <%=class_name%>) ? "#{drag_tree_table_class} " : " " ), :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "<%= plural_name %>" , :rel => drag_tree_url }
+  <%else%>  
   %table{:cellpadding => 0, :cellspacing => 0}
+  <%end%>
     %thead
       %tr
+        <% if draggable? %>
         %th Name
         %th Published At
+        %th Created At
+        <%else %>
+        %th= sortable_column("<%= attributes.find{|attr| attr.name == "name"}.blank? ? "title" : "name" %>" , "Name")
+        %th= sortable_column("published_at" , "Published At")
+        %th= sortable_column("created_at" , "Created At")
+        <%end %>
         %th.controls Controls
     %tbody
       - @<%= plural_name %>.each do |<%= singular_name %>|
+        <% if draggable? %>
+        %tr{:id => drag_tree_row_id(<%= singular_name %>), :class => drag_tree_row_class(<%= singular_name %>) + "#{cycle("even", "odd")}"}
+        <%else%>
         %tr{ :class => "#{cycle("even", "odd")}"}
-          %td= <%= singular_name %>.title_or_name?
+        <%end%>
+          %td
+            <% if draggable? %>
+            %span{:class => "#{drag_tree_drag_point_class} page" , :rel => drag_tree_row_id(<%= singular_name %>)}
+            <%end%>
+            = <%= singular_name %>.title_or_name?
+            
           %td
             - unless <%= singular_name%>.published_at.blank?
               = <%= singular_name%>.published_at.strftime("%d/%m/%Y at %H:%M")
+          %td
+            = <%= singular_name%>.created_at.strftime("%d/%m/%Y at %H:%M")
           %td.controls
             %ul
               %li
@@ -30,3 +65,7 @@
               - if can? :destroy , <%= class_name %>
                 %li
                   = link_to "Delete", delete_admin_<%= singular_name %>_path(<%= singular_name %>)
+  
+  <% unless draggable? %>                
+  = will_paginate @<%= plural_name %>
+  <%end%>

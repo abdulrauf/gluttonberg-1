@@ -3,5 +3,5 @@
   
 <% attributes.each do |attribute| -%>
 %p
-  = @<%= singular_name %>.<%= attribute.name %>
+  = @<%= singular_name %>.<%= attribute.name %>.humanize
 <% end %>

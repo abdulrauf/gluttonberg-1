@@ -79,7 +79,6 @@ class Gluttonberg::Public::BaseController < ActionController::Base
       return @current_member if defined?(@current_member)
       @current_member = current_member_session && current_member_session.record
       if !@current_member.blank? && @current_member.can_login?
-        
       else
          current_member_session.destroy unless current_member_session.blank?
          @current_member = nil
@@ -119,7 +118,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     end
     
     def store_location
-      session[:return_to] = request.request_uri
+      session[:return_to] = request.url
     end
 
     def redirect_back_or_default(default)
@@ -153,8 +152,12 @@ class Gluttonberg::Public::BaseController < ActionController::Base
        if @locale
          @locale.slug
        else
-         nil
+         Gluttonberg::Locale.first_default.slug
        end
+    end
+
+    def localized_text(english , chineese)
+      (current_localization_slug == "cn" ? chineese : english ) 
     end
 
 end

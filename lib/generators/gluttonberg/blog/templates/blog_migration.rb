@@ -12,14 +12,10 @@ class BlogMigration < ActiveRecord::Migration
     end
     
     create_table :gb_articles do |t|
-      t.string :title, :null => false
       t.string :slug, :null => false
-      t.text :excerpt
-      t.text :body
       t.integer :blog_id, :null => false
       t.integer :user_id, :null => false
       t.integer :author_id, :null => false      
-      t.integer :featured_image_id
       t.column :state , :string #use for publishing
       t.column :disable_comments , :boolean , :default => false 
       t.datetime :published_at 
@@ -47,6 +43,17 @@ class BlogMigration < ActiveRecord::Migration
       t.timestamps
     end
     
+    create_table :gb_article_localizations do |t|
+      t.string :title, :null => false
+      t.text :excerpt
+      t.text :body
+      t.integer :featured_image_id
+      t.column :article_id, :integer
+      t.column :locale_id, :integer
+      t.column :version, :integer
+      t.timestamps
+    end
+    
     begin
       Gluttonberg::Blog.create_versioned_table
     rescue => e
@@ -54,7 +61,7 @@ class BlogMigration < ActiveRecord::Migration
     end
     
     begin
-      Gluttonberg::Article.create_versioned_table
+      Gluttonberg::ArticleLocalization.create_versioned_table
     rescue => e
       puts e
     end
@@ -64,6 +71,7 @@ class BlogMigration < ActiveRecord::Migration
   def self.down
     drop_table :gb_comments
     drop_table :gb_articles
+    drop_table :gb_article_localizations
     drop_table :gb_blogs
     drop_table :gb_comment_subscriptions
   end

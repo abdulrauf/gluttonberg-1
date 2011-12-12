@@ -5,7 +5,7 @@ module Gluttonberg
        #  nice and clean public url of assets
        def asset_url(asset , opts = {})
          url = ""
-         if RAILS_ENV=="development"
+         if Rails.env=="development"
            url = "http://#{request.host}:#{request.port}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
          else
            url = "http://#{request.host}/asset/#{asset.asset_hash[0..3]}/#{asset.id}"
@@ -175,7 +175,7 @@ module ActionView
           # Find the asset so we can get the name
           asset_info = "Nothing selected"
           unless asset_id.blank?
-            asset = Gluttonberg::Asset.find(asset_id)
+            asset = Gluttonberg::Asset.find(:first , :conditions => {:id => asset_id})
             asset_info = if asset
               asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
             else

@@ -27,7 +27,9 @@
               %a{:href => edit_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
                 Edit  
               %a{:href => crop_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
-                Crop  
+                Crop
+              %a{:href => delete_admin_asset_url(asset) +breadcrumbs_val, :class => "assetLink"}
+                Delete
           %td.author
             = asset.asset_type.name
           %td.author

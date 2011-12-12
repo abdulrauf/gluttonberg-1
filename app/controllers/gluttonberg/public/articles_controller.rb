@@ -18,6 +18,7 @@ module Gluttonberg
         raise ActiveRecord::RecordNotFound.new if @blog.blank?
         @article = Gluttonberg::Article.published.first(:conditions => {:slug => params[:id], :blog_id => @blog.id})
         raise ActiveRecord::RecordNotFound.new if @article.blank?
+        @article.load_localization(env['gluttonberg.locale'])
         @comments = @article.comments.where(:approved => true)
         @comment = Comment.new(:subscribe_to_comments => true)
       end
@@ -40,6 +41,7 @@ module Gluttonberg
         @blog = Gluttonberg::Blog.first(:conditions => {:slug => params[:blog_id]})
         raise ActiveRecord::RecordNotFound.new if @blog.blank?
         @article = Gluttonberg::Article.first(:conditions => {:slug => params[:article_id], :blog_id => @blog.id})
+        @article.load_localization(Locale.where(params[:locale_id]).first)
         raise ActiveRecord::RecordNotFound.new if @article.blank?
         render :show
       end

@@ -17,7 +17,7 @@
       = f.text_field(:navigation_label)
     %p
       = f.label :slug
-      = f.text_field(:slug, :id => 'page_slug')
+      = f.text_field(:slug, :id => 'page_slug' , :donotmodify => true )
       
       
     - if @page_localization.contents.length >= 1

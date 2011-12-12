@@ -15,7 +15,7 @@ module Gluttonberg
         template = page.view
         template_path = "pages/#{template}"
         
-        if File.exists?(File.join(Rails.root,  "app/views/pages/#{template}.#{locale.slug}.html.haml" ) )
+        if locale && File.exists?(File.join(Rails.root,  "app/views/pages/#{template}.#{locale.slug}.html.haml" ) )
           template_path = "pages/#{template}.#{locale.slug}"
         end  
         
@@ -55,12 +55,16 @@ module Gluttonberg
         end  
       end
       
+      def error_404
+        render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found'
+      end
+      
       
       private 
         def retrieve_page
           @page = env['gluttonberg.page']
           unless( current_user &&( authorize! :manage, Gluttonberg::Page) )
-            @page = nil unless @page.published?
+            @page = nil if @page.blank? || !@page.published?
           end
           raise ActiveRecord::RecordNotFound  if @page.blank?
         end

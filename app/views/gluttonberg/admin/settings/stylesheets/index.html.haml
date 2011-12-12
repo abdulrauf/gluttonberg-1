@@ -23,14 +23,14 @@
         %tr{:id => drag_tree_row_id(stylesheet), :class => drag_tree_row_class(stylesheet) + "#{cycle("even", "odd")}"}
           %td
             %span{:class => "#{drag_tree_drag_point_class} page" , :rel => drag_tree_row_id(stylesheet)}
-            = stylesheet.name
+              = stylesheet.name
           %td= link_to stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}" , stylesheets_path(stylesheet.slug) + ".css?#{stylesheet.version}"  
           %td
             -css =  css_prefix_list.find{|c| c.last == stylesheet.css_prefix}
-           	- unless css.blank?
-           	  = css.first
-           	- else
-           	  All Browsers
+            - unless css.blank?
+              = css.first
+            - else
+              All Browsers
           %td
             = stylesheet.version  
           %td.controls
