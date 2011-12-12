@@ -8,4 +8,4 @@
   - else
     - @blogs.each do |blog|
       .blog
-        = link_to blog.name, blog_path(blog.slug)
+        = link_to blog.name, blog_path(current_localization_slug , blog.slug)

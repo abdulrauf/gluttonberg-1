@@ -16,13 +16,13 @@ module Gluttonberg
                 locale = path.split('/')[1]
                 if locale.blank?
                   result = Gluttonberg::Locale.first_default
-                else  
+                else
                   result = Gluttonberg::Locale.find_by_locale(locale)
                 end
               else # take default locale
                 result = Gluttonberg::Locale.first_default
-                locale = result.slug               
-              end  
+                locale = result.slug
+              end
               if result
                 env['PATH_INFO'].gsub!("/#{locale}", '')
                 env['gluttonberg.locale'] = result

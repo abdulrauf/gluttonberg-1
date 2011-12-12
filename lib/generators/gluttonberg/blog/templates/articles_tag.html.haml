@@ -5,12 +5,12 @@
   - @articles.each do |article|
     .article
       %h2
-        = link_to article.title, blog_article_path(article.blog.slug, article.slug)
+        = link_to article.title, blog_article_path(current_localization_slug , article.blog.slug, article.slug)
         by
-        = article.author.email
+        = article.author.full_name
       %p
         = article.excerpt
   
   .tags_cloud
     - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
-      = link_to tag.name, articles_by_tag_path(tag.name), :class => css_class
+      = link_to tag.name, articles_by_tag_path(current_localization_slug ,tag.name), :class => css_class

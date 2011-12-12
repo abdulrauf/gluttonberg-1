@@ -15,9 +15,10 @@ module Gluttonberg
         if Comment.table_exists?
           @comments = Comment.find(:all , :conditions => {:commentable_type => "Gluttonberg::Article"} , :order => "created_at DESC" , :limit => 10)
           @article = Article.new
+          @article_localization = ArticleLocalization.new(:article => @article , :locale_id => Locale.first_default.id)
           @blogs = Gluttonberg::Blog.all
           @authors = User.all
-        end  
+        end
       end
       
       def show

@@ -33,7 +33,7 @@ module Gluttonberg
         protected 
         # TODO fix column name
           def slug_management
-            self.slug= name if self.slug.blank?
+            self.slug= self.name if self.slug.blank?
           end
           
       end

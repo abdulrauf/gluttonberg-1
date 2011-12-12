@@ -152,7 +152,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
        if @locale
          @locale.slug
        else
-         nil
+         Gluttonberg::Locale.first_default.slug
        end
     end
 

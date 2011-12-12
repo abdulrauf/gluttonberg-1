@@ -3,39 +3,6 @@ Rails.application.routes.draw do
   mount_at = Gluttonberg::Engine.config.mount_at
   
   scope :module => 'Gluttonberg' do
-    scope :module => 'Public' do
-      match "/asset/:hash/:id(/:thumb_name)" => "public_assets#show" , :as => :public_asset
-      match "/_public/page" => "pages#show"
-      match "/restrict_site_access" => "pages#restrict_site_access" , :as => :restrict_site_access
-      match "sitemap" => "pages#sitemap" , :as => :sitemap
-      # Blog Stuff
-      resources :blogs do      
-        resources :articles do
-          resources :comments
-          get "preview"
-        end
-      end
-      match "/mark_as_flag/:flaggable_type/:flaggable_id" => "flag#new" , :as => :mark_as_flag
-      match "/save_mark_as_flag" => "flag#create" , :as => :save_mark_as_flag
-      match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
-      match "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments      
-      get "(/:locale)/member/login" => "member_sessions#new" , :as => :member_login
-      post "(/:locale)/member/login" => "member_sessions#create"  , :as => :member_login
-      match "(/:locale)/member/logout" => "member_sessions#destroy", :as => :member_logout
-      get "(/:locale)/member/confirm/:key" => "members#confirm", :as => :member_confirmation
-      get "(/:locale)/member/resend_confirmation" => "members#resend_confirmation", :as => :member_resend_confirmation
-      put "(/:locale)/member/profile" => "members#update" 
-      get "(/:locale)/member/profile" => "members#show", :as => :member_profile
-      match "(/:locale)/member/profile/edit" => "members#edit", :as => :member_profile_edit
-      
-      scope "(/:locale)" do
-        resources :members
-      end
-      
-      resources :member_password_resets
-      get 'stylesheets/:id' => "pages#stylesheets", :as =>  :stylesheets
-    end
-    
     namespace :admin do
       root :to => "main#index"
       
@@ -64,6 +31,7 @@ Rails.application.routes.draw do
             end
           end
         end
+        
         match "/pages/move(.:format)" => "pages#move_node" , :as=> :page_move
         resources :galleries do
           get 'delete', :on => :member
@@ -109,20 +77,7 @@ Rails.application.routes.draw do
           get 'delete', :on => :member
         end
       end
-      # scope :module => 'membership' do
-      #         match 'membership' => "main#index",      :as => :membership
-      #         match "/groups/move(.:format)" => "groups#move_node" , :as=> :group_move
-      #         match "members/export" => "members#export" , :as => :members_export
-      #         match 'members/new_bulk'  => "members#new_bulk" , :as => :members_import
-      #         match 'members/create_bulk'  => "members#create_bulk" , :as => :members_bulk_create
-      #         resources :members do
-      #           get 'delete', :on => :member
-      #           get 'welcome' , :on => :member
-      #         end
-      #         resources :groups do
-      #           get 'delete', :on => :member
-      #         end
-      #       end  
+      
       
       scope :module => 'AssetLibrary' do
         # asset library related routes
@@ -149,6 +104,52 @@ Rails.application.routes.draw do
       get "login" => "user_sessions#new"
       post "login" => "user_sessions#create"
       match "logout" => "user_sessions#destroy"
+    end
+    
+    scope :module => 'Public' do
+      match "/asset/:hash/:id(/:thumb_name)" => "public_assets#show" , :as => :public_asset
+      match "/_public/page" => "pages#show"
+      match "/restrict_site_access" => "pages#restrict_site_access" , :as => :restrict_site_access
+      match "sitemap" => "pages#sitemap" , :as => :sitemap
+      # Blog Stuff
+      
+      scope "(/:locale)" do
+        resources :blogs do      
+          resources :articles do
+            resources :comments
+            get "preview"
+          end
+        end
+      end
+      
+        
+      match "/mark_as_flag/:flaggable_type/:flaggable_id" => "flag#new" , :as => :mark_as_flag
+      match "/save_mark_as_flag" => "flag#create" , :as => :save_mark_as_flag
+      match "/articles/tag/:tag" => "articles#tag" , :as => :articles_by_tag
+      match "/articles/unsubscribe/:reference" => "articles#unsubscribe" , :as => :unsubscribe_article_comments      
+      get "(/:locale)/member/login" => "member_sessions#new" , :as => :member_login
+      post "(/:locale)/member/login" => "member_sessions#create"  , :as => :member_login
+      match "(/:locale)/member/logout" => "member_sessions#destroy", :as => :member_logout
+      get "(/:locale)/member/confirm/:key" => "members#confirm", :as => :member_confirmation
+      get "(/:locale)/member/resend_confirmation" => "members#resend_confirmation", :as => :member_resend_confirmation
+      put "(/:locale)/member/profile" => "members#update" 
+      get "(/:locale)/member/profile" => "members#show", :as => :member_profile
+      match "(/:locale)/member/profile/edit" => "members#edit", :as => :member_profile_edit
+      
+      scope "(/:locale)" do
+        resources :members
+        resources :member_password_resets
+      end
+      
+      get 'stylesheets/:id' => "pages#stylesheets", :as =>  :stylesheets
+    end
+    
+    
+  end
+  
+  scope :module => 'Gluttonberg' do
+    scope :module => 'Public' do
+      get "*a" => "pages#error_404"
     end
   end
 end

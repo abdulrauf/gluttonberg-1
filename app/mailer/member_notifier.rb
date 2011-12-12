@@ -8,7 +8,7 @@ class MemberNotifier < ActionMailer::Base
     setup_email
     @subject += "Password Reset Instructions"
     @recipients = member.email  
-    @edit_password_reset_url = edit_member_password_reset_url(member.perishable_token)
+    @edit_password_reset_url = edit_member_password_reset_url( current_localization_slug,  member.perishable_token)
   end
   
   def confirmation_instructions(member_id)
@@ -16,7 +16,7 @@ class MemberNotifier < ActionMailer::Base
     setup_email
     @subject += "Confirmation Instructions"
     @recipients = member.email  
-    @member_confirmation_url = member_confirmation_url(:key => member.confirmation_key)
+    @member_confirmation_url = member_confirmation_url(:locale => current_localization_slug , :key => member.confirmation_key)
   end
   
   # welcome email will be sent to member when admin user will create member. 

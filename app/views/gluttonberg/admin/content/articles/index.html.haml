@@ -31,10 +31,10 @@
           %td.controls
             %ul
               %li
-                = link_to "Comments", admin_blog_article_comments_path(@blog.id, article)
+                = link_to "Comments", admin_blog_article_comments_path(@blog, article)
               %li
                 = link_to "Edit", edit_admin_blog_article_path(@blog, article)
-              - if can? :destroy , Gluttonberg::Article  
+              - if can? :destroy , Gluttonberg::Article
                 %li
                   = link_to "Delete", delete_admin_blog_article_path(@blog, article)
   = will_paginate(@articles)
