@@ -26,9 +26,9 @@ module Gluttonberg
       self.first_name + " " + self.last_name
     end
   
-    def deliver_password_reset_instructions!  
+    def deliver_password_reset_instructions!(current_localization_slug = "")  
       reset_perishable_token!
-      MemberNotifier.password_reset_instructions(self.id).deliver  
+      MemberNotifier.password_reset_instructions(self.id,current_localization_slug).deliver  
     end
     
     def groups_name(join_str=", ")

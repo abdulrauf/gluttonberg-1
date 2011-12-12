@@ -156,4 +156,8 @@ class Gluttonberg::Public::BaseController < ActionController::Base
        end
     end
 
+    def localized_text(english , chineese)
+      (current_localization_slug == "cn" ? chineese : english ) 
+    end
+
 end

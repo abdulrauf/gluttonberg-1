@@ -12,7 +12,7 @@ module Gluttonberg
       def create
         @member = Member.find_by_email(params[:gluttonberg_member][:email])
         if @member
-          @member.deliver_password_reset_instructions!
+          @member.deliver_password_reset_instructions!(current_localization_slug)
           flash[:notice] = "Instructions to reset your password have been emailed to you. " +
           "Please check your email."
           redirect_to root_path

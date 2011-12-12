@@ -3,7 +3,7 @@ class MemberNotifier < ActionMailer::Base
   default :from => "#{Gluttonberg::Setting.get_setting("title")} <#{Gluttonberg::Setting.get_setting("from_email")}>"
   default_url_options[:host] = Rails.configuration.host_name 
   
-  def password_reset_instructions(member_id)
+  def password_reset_instructions(member_id ,  current_localization_slug = "")
     member = Gluttonberg::Member.find(member_id)
     setup_email
     @subject += "Password Reset Instructions"
@@ -11,7 +11,7 @@ class MemberNotifier < ActionMailer::Base
     @edit_password_reset_url = edit_member_password_reset_url( current_localization_slug,  member.perishable_token)
   end
   
-  def confirmation_instructions(member_id)
+  def confirmation_instructions(member_id ,  current_localization_slug = "")
     member = Gluttonberg::Member.find(member_id)
     setup_email
     @subject += "Confirmation Instructions"
@@ -22,7 +22,7 @@ class MemberNotifier < ActionMailer::Base
   # welcome email will be sent to member when admin user will create member. 
   # this member will be automatically verified 
   # purpose of this email is to provide login details to the member
-  def welcome(member_id)
+  def welcome(member_id, current_localization_slug = "")
     @member = Gluttonberg::Member.find(member_id)
     setup_email
     @subject += "Confirmation Instructions"
