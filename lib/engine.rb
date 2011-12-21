@@ -8,8 +8,8 @@ module Gluttonberg
     config.widget_factory_name = "default factory name"
     config.mount_at = '/'
     config.admin_path = '/admin'
-    config.app_name = 'Gluttonberg 2.0'
-    config.localize = true
+    config.app_name = 'Gluttonberg 2.1'
+    config.localize = false
     config.flagged_content = false
     config.active_record.observers = ['gluttonberg/page_observer' , 'gluttonberg/page_localization_observer' , 'gluttonberg/locale_observer' ]
         

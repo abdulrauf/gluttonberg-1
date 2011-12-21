@@ -5,7 +5,10 @@
   - @articles.each do |article|
     .article
       %h2
-        = link_to article.title, blog_article_path(current_localization_slug ,@blog.slug, article.slug)
+        - if Gluttonberg.localized?
+          = link_to article.title, blog_article_path(current_localization_slug ,@blog.slug, article.slug)
+        - else
+          = link_to article.title, blog_article_path(:blog_id => @blog.slug, :id => article.slug)
         by
         = article.author.full_name
       %p

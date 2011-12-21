@@ -8,4 +8,8 @@
   - else
     - @blogs.each do |blog|
       .blog
-        = link_to blog.name, blog_path(current_localization_slug , blog.slug)
+        - if Gluttonberg.localized?
+          = link_to blog.name, blog_path(current_localization_slug , blog.slug)
+        - else
+          = link_to blog.name, blog_path(:id => blog.slug)
+        

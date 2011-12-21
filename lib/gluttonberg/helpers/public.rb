@@ -33,7 +33,7 @@ module Gluttonberg
       # - Yuri
       def page_url(path_or_page , opts = {})
         if path_or_page.is_a?(String)
-          if Gluttonberg.localized?
+          if Gluttonberg.localized? == true
             "/#{opts[:slug]}/#{path_or_page}"
           else
             "/#{path_or_page}"
@@ -44,7 +44,7 @@ module Gluttonberg
             url[:host] = Rails.configuration.host_name
             Rails.application.routes.url_for(url)
           else
-            unless opts[:slug].blank?
+            if Gluttonberg.localized? && !opts[:slug].blank?
               "/#{opts[:slug]}/#{path_or_page.path}"
             else
               "#{path_or_page.public_path}"

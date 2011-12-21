@@ -7,7 +7,11 @@ module Gluttonberg
           redirect_to "/"
         elsif Gluttonberg::Blog.published.all.size == 1
           blog = Gluttonberg::Blog.published.first
-          redirect_to blog_path(current_localization_slug , blog.slug)
+          if Gluttonberg.localized?
+            redirect_to blog_path(current_localization_slug , blog.slug)
+          else
+            redirect_to blog_path(:id =>blog.slug)
+          end  
         else
           @blogs = Gluttonberg::Blog.published.all
         end

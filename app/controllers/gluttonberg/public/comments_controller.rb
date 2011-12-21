@@ -14,9 +14,13 @@ module Gluttonberg
             #unsubscribe
             @subscription.destroy 
           end
+        else
+          
+        end
+        if Gluttonberg.localized?
           redirect_to blog_article_path(current_localization_slug , @blog.slug, @article.slug)
         else
-          redirect_to blog_article_path(current_localization_slug , @blog.slug, @article.slug)
+          redirect_to blog_article_path(:blog_id =>  @blog.slug, :id => @article.slug)
         end
       end
   
