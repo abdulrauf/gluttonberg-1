@@ -24,7 +24,7 @@ module Gluttonberg
     # retreived using the assets_dir method.
     def self.setup
       #logger.info("AssetLibrary is checking for asset folder")
-      @@assets_root = "public/assets"
+      @@assets_root = "public/user_assets"
       @@test_assets_root = "public/test_assets"
       FileUtils.mkdir(root) unless File.exists?(root) || File.symlink?(root)      
     end

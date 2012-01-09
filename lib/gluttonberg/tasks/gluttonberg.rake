@@ -24,8 +24,13 @@ namespace :gluttonberg do
       engine_root_path = Gluttonberg::Engine.root
 
       ["images" , "stylesheets", "javascripts"].each do |assets_dir|
-        FileUtils.mkdir_p File.join(app_root_path , "public/gluttonberg/")
-        FileUtils.cp_r File.join(engine_root_path , "public/gluttonberg/#{assets_dir}"), File.join(app_root_path , "public/gluttonberg/")
+        FileUtils.mkdir_p File.join(app_root_path , "app/assets/")
+        FileUtils.cp_r File.join(engine_root_path , "app/assets/#{assets_dir}"), File.join(app_root_path , "vendor/assets")
+        begin
+          FileUtils.cp_r File.join(engine_root_path , "app/assets/#{assets_dir}/manifest/."), File.join(app_root_path , "vendor/assets/#{assets_dir}")
+        rescue => e
+          puts e
+        end  
       end # loop
       puts "Completed"
     rescue => e
