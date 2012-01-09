@@ -20,6 +20,9 @@ module Gluttonberg
         raise ActiveRecord::RecordNotFound.new if @article.blank?
         @comments = @article.comments.where(:approved => true)
         @comment = Comment.new(:subscribe_to_comments => true)
+        respond_to do |format|
+           format.html
+        end
       end
       
       def tag
