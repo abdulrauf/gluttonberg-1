@@ -13,10 +13,10 @@ module Gluttonberg
         end
         
         template = page.view
-        template_path = "pages/#{template}"
+        template_path = "pages/#{template}.html.haml"
         
         if locale && File.exists?(File.join(Rails.root,  "app/views/pages/#{template}.#{locale.slug}.html.haml" ) )
-          template_path = "pages/#{template}.#{locale.slug}"
+          template_path = "pages/#{template}.#{locale.slug}.html.haml"
         end  
         
         # do not render layout for ajax requests
@@ -56,7 +56,7 @@ module Gluttonberg
       end
       
       def error_404
-        render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found'
+        render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found.html.haml' , :status => 404
       end
       
       

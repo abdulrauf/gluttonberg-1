@@ -21,6 +21,9 @@ module Gluttonberg
         @article.load_localization(env['gluttonberg.locale'])
         @comments = @article.comments.where(:approved => true)
         @comment = Comment.new(:subscribe_to_comments => true)
+        respond_to do |format|
+           format.html
+        end
       end
       
       def tag
