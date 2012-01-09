@@ -19,6 +19,9 @@ module Gluttonberg
         
         def show
           @comment = Comment.new
+          respond_to do |format|
+             format.html
+          end
         end
         
         def new
