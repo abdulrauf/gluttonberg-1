@@ -40,6 +40,11 @@ module Gluttonberg
       end
       
       def sitemap
+        begin
+          SitemapGenerator::Interpreter.respond_to?(:run)
+        rescue
+          render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found.html.haml' , :status => 404
+        end
       end
       
       def stylesheets
