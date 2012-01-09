@@ -4,7 +4,7 @@
     %title Gluttonberg
     %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
     = stylesheet_link_tag "/gluttonberg/stylesheets/admin"
-    = javascript_include_tag "/gluttonberg/javascripts/jquery-1.4.2.min.js", "/gluttonberg/javascripts/rails"
+    = javascript_include_tag "/assets/jquery-1.4.2.min.js", "/assets/rails"
   %body{:id => "delete"}
     = form_tag(@options[:url], :method => "delete") do
       %h1= @options[:title]

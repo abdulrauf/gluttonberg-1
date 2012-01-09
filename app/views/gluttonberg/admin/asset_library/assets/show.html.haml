@@ -4,7 +4,7 @@
 - breadcrumbs_val = "?previous_page_title=#{params[:previous_page_title]}&return_url=#{params[:return_url]}"
 
 - @page_title = "#{link_to "Asset Library", admin_library_path} #{prev_page} > #{@asset.name}"
-- @page_image = "/gluttonberg/images/sidebar/icon_library.png"
+- @page_image = "/assets/sidebar/icon_library.png"
 = sub_nav do
   = nav_link("Delete", delete_admin_asset_url(@asset) )
   = nav_link("Edit", edit_admin_asset_url(@asset)+breadcrumbs_val)

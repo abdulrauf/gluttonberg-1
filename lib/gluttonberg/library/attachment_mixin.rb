@@ -104,11 +104,11 @@ module Gluttonberg
         
         # Returns the public URL to this asset, relative to the domain.
         def url
-          "/assets/#{asset_hash}/#{file_name}"
+          "/user_assets/#{asset_hash}/#{file_name}"
         end
         
         def asset_folder_path
-          "/assets/#{asset_hash}"
+          "/user_assets/#{asset_hash}"
         end
         
         # Returns the URL for the specified image size.
@@ -116,7 +116,7 @@ module Gluttonberg
         def url_for(name)
             if self.class.sizes.has_key? name
               filename = self.class.sizes[name][:filename]
-              "/assets/#{asset_hash}/#{filename}.#{file_extension}"
+              "/user_assets/#{asset_hash}/#{filename}.#{file_extension}"
             end  
         end
 
@@ -133,7 +133,7 @@ module Gluttonberg
         end
         
         def url_for_processed_video
-          "/assets/#{asset_hash}/processed_#{self.filename_without_extension}.mp4"
+          "/user_assets/#{asset_hash}/processed_#{self.filename_without_extension}.mp4"
         end
         
         

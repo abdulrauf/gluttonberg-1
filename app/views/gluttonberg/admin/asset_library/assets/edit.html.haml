@@ -2,6 +2,6 @@
 - prev_page = ""
 - prev_page = " > " + link_to(params[:previous_page_title].titleize, params[:return_url]) unless params[:return_url].blank? || params[:previous_page_title].blank?
 - @page_title = "#{link_to "Asset Library", admin_library_path} #{prev_page} > Edit asset"
-- @page_image = "/gluttonberg/images/sidebar/icon_library.png"
+- @page_image = "/assets/sidebar/icon_library.png"
 
 = render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @asset.id }  , :method_name => "put"}

@@ -251,7 +251,7 @@ module Gluttonberg
       
       def wysiwyg_js_css_link_tag
         if Gluttonberg::Setting.get_setting("enable_WYSIWYG") == "Yes"
-          javascript_include_tag("/gluttonberg/javascripts/tiny_mce/jquery.tinymce.js")
+          javascript_include_tag("/assets/tiny_mce/jquery.tinymce.js")
         end
       end
       
@@ -339,7 +339,7 @@ module Gluttonberg
                    type      : 'textarea',
                    cancel    : 'Cancel',
                    submit    : 'OK',
-                   indicator : '#{image_tag('/gluttonberg/images/spinner.gif')}'
+                   indicator : '#{image_tag('/assets/spinner.gif')}'
                 };
                 $.extend(args, #{args.to_json});
                 $(".editable[data-id='#{object.id}'][data-name='#{name}']").editable("#{update_url}", args);

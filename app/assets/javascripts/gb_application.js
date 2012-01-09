@@ -44,7 +44,7 @@ function enable_jwysiwyg_on(selector) {
   $(document).ready(function() {
     $(selector).tinymce({
       // Location of TinyMCE script
-      script_url: '/gluttonberg/javascripts/tiny_mce/tiny_mce.js',
+      script_url: '/assets/tiny_mce/tiny_mce.js',
 
       // General options
       theme: "advanced",
@@ -256,7 +256,7 @@ var AssetBrowser = {
     AssetBrowser.overlay = $("#assetsDialogOverlay");
     if (!AssetBrowser.overlay || AssetBrowser.overlay.length == 0) {
       var height = $('#wrapper').height() + 50;
-      AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/gluttonberg/images/spinner_for_dialouge.gif" /> </div>');
+      AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/assets/spinner_for_dialouge.gif" /> </div>');
       $("body").append(AssetBrowser.overlay);
     } else {
       AssetBrowser.overlay.css({

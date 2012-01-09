@@ -1,5 +1,5 @@
 - @page_title = "#{link_to "Content", admin_content_path} > Galleries"
-- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+- @page_image = "/assets/sidebar/icon_content.png"
 = sub_nav do
   - if can? :manage, Gluttonberg::Gallery
     = nav_link('New', new_admin_gallery_path)

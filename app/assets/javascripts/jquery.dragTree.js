@@ -505,7 +505,7 @@ function get_sorted_element_ids(wrapper_id)
 function showOverlay() {
     if ($("#assetsDialogOverlay").length == 0) {
         var height = $('#wrapper').height() + 50;
-        AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/gluttonberg/images/spinner_for_dialouge.gif" /> </div>');
+        AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/assets/spinner_for_dialouge.gif" /> </div>');
         $("body").append(AssetBrowser.overlay);
     }
     else {

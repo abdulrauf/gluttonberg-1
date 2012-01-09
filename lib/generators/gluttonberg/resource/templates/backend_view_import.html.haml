@@ -1,6 +1,6 @@
 - @window_title = "Content"
 - @page_title = "#{link_to "Content", admin_content_path} > #{link_to("<%= plural_class_name %>", admin_<%= plural_name %>_path)} > Import <%= class_name %>"
-- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+- @page_image = "/assets/sidebar/icon_content.png"
 
 = form_tag(admin_<%= plural_name %>_import_path , :multipart => true) do  |f|
   - if !@feedback.blank? && @feedback != true

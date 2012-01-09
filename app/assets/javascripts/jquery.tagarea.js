@@ -243,7 +243,7 @@
 		
 		var createAddButton = function(container , original){
 			
-			var addButton = "<a href='javascript:;'  > <img src='/gluttonberg/images/icons/symbol-add.png' alt='Add' /> </a> ";
+			var addButton = "<a href='javascript:;'  > <img src='/assets/icons/symbol-add.png' alt='Add' /> </a> ";
 			container.append(addButton);
 			
 			container.find("a").click(function() {

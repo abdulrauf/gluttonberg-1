@@ -1,6 +1,6 @@
 - @window_title = "Membership"
 - @page_title = "#{link_to "Membership", admin_membership_root_path} > #{link_to("Members", admin_membership_members_path)} > Edit group"
 
-- @page_image = "/gluttonberg/images/sidebar/icon_library.png"
+- @page_image = "/assets/sidebar/icon_library.png"
 
 = render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @group.id }  , :method_name => "put"}

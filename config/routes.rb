@@ -107,7 +107,7 @@ Rails.application.routes.draw do
     end
     
     scope :module => 'Public' do
-      match "/asset/:hash/:id(/:thumb_name)" => "public_assets#show" , :as => :public_asset
+      match "/user_asset/:hash/:id(/:thumb_name)" => "public_assets#show" , :as => :public_asset
       match "/_public/page" => "pages#show"
       match "/restrict_site_access" => "pages#restrict_site_access" , :as => :restrict_site_access
       match "sitemap" => "pages#sitemap" , :as => :sitemap

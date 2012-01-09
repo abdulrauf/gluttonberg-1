@@ -21,4 +21,4 @@
                 = link_to "Edit image" ,  edit_admin_asset_path(gallery_item.image.id)  , :target => "_blank"
               %li
                 = link_to "Delete", "javascript:;" , :class => "delete_gallery_item" , :rel => gallery_item.id , "data-url" => remove_image_admin_gallery_path(gallery_item.id) , :title => "Delete image from this photo gallery"
-        = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_#{gallery_item.id}" , :style => "display:none")
+        = image_tag("/assets/spinner.gif" , :id => "progress_#{gallery_item.id}" , :style => "display:none")

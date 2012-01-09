@@ -1,6 +1,6 @@
 - @window_title = "Content"
 - @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Pages", admin_pages_path} > #{@page.name}"
-- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+- @page_image = "/assets/sidebar/icon_content.png"
 = sub_nav do
   - if can? :destroy , Gluttonberg::Page
     = nav_link('Delete', delete_admin_page_path(@page) )

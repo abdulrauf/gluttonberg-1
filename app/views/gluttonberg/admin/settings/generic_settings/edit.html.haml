@@ -1,4 +1,4 @@
 - @window_title = "Settings"
 - @page_title = "#{link_to "Settings", admin_settings_path} > #{link_to("Configuration", admin_generic_settings_path)} > Edit settings"
-- @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
+- @page_image = "/assets/sidebar/icon_settings.png"
 = render :partial => "form" , :locals => { :url => admin_generic_setting_path( @setting) } 

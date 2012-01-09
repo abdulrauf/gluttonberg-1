@@ -1,7 +1,7 @@
 - @window_title = "Asset Library"
 - params[:category] = params[:category].pluralize if params[:category] != "all" && params[:category] != "uncategorised"
 - @page_title = "#{link_to "Asset Library", admin_library_path} > #{params[:category].titleize}"
-- @page_image = "/gluttonberg/images/sidebar/icon_library.png"
+- @page_image = "/assets/sidebar/icon_library.png"
   
 = render :partial => "/gluttonberg/admin/asset_library/shared/asset_panels" , :locals => { :type => "category" , :name_or_id =>  params[:category] , :sorter_url => admin_asset_category_path(:category => params[:category]) , :previous_page_title => params[:category] }
 .clear

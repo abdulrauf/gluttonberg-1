@@ -27,7 +27,7 @@
 			// Register buttons
 			ed.addButton('gb_assets', {title : 'Insert image from asset library', 
 			  cmd : 'gbAsset',
-			  image : '/gluttonberg/images/library/gb_wysiwyg_pic.png'
+			  image : '/assets/library/gb_wysiwyg_pic.png'
 			});
 		},
 

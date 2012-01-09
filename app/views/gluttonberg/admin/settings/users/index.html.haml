@@ -1,6 +1,6 @@
 - @window_title = "Settings"
 - @page_title = "#{link_to "Settings", admin_settings_path} > Users"
-- @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
+- @page_image = "/assets/sidebar/icon_settings.png"
 = sub_nav do
   - if can? :manage, User
     = nav_link("New", new_admin_user_path) 

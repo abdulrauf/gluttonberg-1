@@ -1,6 +1,6 @@
 - @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Galleries", admin_galleries_path} > Edit #{@gallery.name}"
 
-- @page_image = "/gluttonberg/images/sidebar/icon_content.png"
+- @page_image = "/assets/sidebar/icon_content.png"
 = render :partial => "form", :locals => {:url => admin_gallery_path(@gallery)}
 
 = add_image_to_gallery_tag( "Add an image" , add_image_admin_gallery_path(@gallery) , @gallery.id )

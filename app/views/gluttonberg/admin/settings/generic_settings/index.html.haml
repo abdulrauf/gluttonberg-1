@@ -1,6 +1,6 @@
 - @window_title = "Settings"
 - @page_title = "#{link_to "Settings", admin_settings_path} > Configuration"
-- @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
+- @page_image = "/assets/sidebar/icon_settings.png"
 = sub_nav do
   - if can? :create_or_destroy, Gluttonberg::Setting
     = nav_link('New', new_admin_generic_setting_path)
@@ -23,7 +23,7 @@
           = select_tag :home , options_from_collection_for_select(@pages, "id", "name" , selected = @current_home_page_id.to_s )  ,  { :include_blank => true , :class => "home_page_setting_dropdown"  , :rel => admin_page_update_home_path(1)  }
           
         %td.controls
-          = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_home_page" , :style => "display:none")
+          = image_tag("/assets/spinner.gif" , :id => "progress_home_page" , :style => "display:none")
       - for setting in @settings
         - i += 1
         %tr{ :class => "#{cycle("even", "odd")}"}
@@ -39,7 +39,7 @@
             - else
               = gb_editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
             
-            = image_tag("/gluttonberg/images/spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
+            = image_tag("/assets/spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
           %td.controls
             %ul
               - if setting.delete_able

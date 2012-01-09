@@ -1,6 +1,6 @@
 - @window_title = "Membership"
 - @page_title = "#{link_to "Membership", admin_membership_root_path} > #{link_to("Members", admin_membership_members_path)} > Import members"
-- @page_image = "/gluttonberg/images/sidebar/icon_settings.png"
+- @page_image = "/assets/sidebar/icon_settings.png"
 
 = form_for "csv"  , :url => admin_membership_members_bulk_create_path , :html => { :class => :form , :id => "uploadCSVForm" , :multipart => true } do |f| 
   .left_column
