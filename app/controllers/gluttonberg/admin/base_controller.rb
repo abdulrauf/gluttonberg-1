@@ -161,19 +161,19 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
     
     # Exception handlers
     def not_found
-        render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found'
+        render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_found.html.haml' , :status => 404
     end
     
     def access_denied
-      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/access_denied'
+      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/access_denied.html.haml'
     end
 
     # handle NotAcceptable exceptions (406)
     def not_acceptable
-      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_acceptable'
+      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/not_acceptable.html.haml'
     end
     def internal_server_error
-      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/internal_server_error'
+      render :layout => "bare" , :template => 'gluttonberg/admin/exceptions/internal_server_error.html.haml'
     end
     
   

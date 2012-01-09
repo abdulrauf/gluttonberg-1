@@ -56,7 +56,7 @@ module Gluttonberg
       end
       
       def error_404
-        render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found'
+        render :layout => "bare" , :template => 'gluttonberg/public/exceptions/not_found.html.haml' , :status => 404
       end
       
       
