@@ -118,7 +118,12 @@ class Gluttonberg::Public::BaseController < ActionController::Base
     end
     
     def store_location
-      session[:return_to] = request.url
+      @page = env['gluttonberg.page']
+      if @page.blank?
+        session[:return_to] = request.url
+      else
+        session[:return_to] = @page.public_path
+      end 
     end
 
     def redirect_back_or_default(default)
