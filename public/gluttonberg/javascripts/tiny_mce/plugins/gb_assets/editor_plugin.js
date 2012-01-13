@@ -13,8 +13,8 @@
 		init : function(ed, url) {
 			// Register commands
 			ed.addCommand('gbAsset', function() {
-				var url = "/admin/browser?filter=image"
-        var link = $("<img src='/admin/browser?filter=image' />");
+				var url = "/admin/browser"
+        var link = $("<img src='/admin/browser' />");
         var p = $("<p> </p>")
         AssetBrowser.showOverlay()
         $.get(url, null,

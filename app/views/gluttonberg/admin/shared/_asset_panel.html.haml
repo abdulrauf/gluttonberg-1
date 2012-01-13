@@ -17,7 +17,10 @@
           %div
             %img{:src => "#{asset.thumb_small_url}"}
           
-          = hidden_field_tag("jwysiwyg_image_#{asset.id}" , asset.url_for(:jwysiwyg_image) , :class => "jwysiwyg_image")  
+          - if asset.category == "image"  
+            = hidden_field_tag("jwysiwyg_image_#{asset.id}" , asset.url_for(:jwysiwyg_image) , :class => "jwysiwyg_image" , :rel => asset.category , :title => asset.name)
+          - else
+            = hidden_field_tag("jwysiwyg_image_#{asset.id}" , "#{asset.url}" , :class => "jwysiwyg_image" , :rel => asset.category , :title => asset.name) 
   
   - if assets.respond_to? :total_pages          
     = will_paginate(assets)
