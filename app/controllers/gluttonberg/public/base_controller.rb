@@ -123,7 +123,7 @@ class Gluttonberg::Public::BaseController < ActionController::Base
         session[:return_to] = request.url
       else
         session[:return_to] = @page.public_path
-      end  
+      end 
     end
 
     def redirect_back_or_default(default)
