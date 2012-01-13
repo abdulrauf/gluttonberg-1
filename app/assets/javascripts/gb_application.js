@@ -318,13 +318,13 @@ var AssetBrowser = {
         AssetBrowser.target.attr("value", id);
         var image = target.find("img");
 
-        console.log(image)
         image_url = target.find(".jwysiwyg_image").val();
-        insert_image_in_wysiwyg(image_url);
+        file_type = target.find(".jwysiwyg_image").attr('rel');
+        file_title = target.find(".jwysiwyg_image").attr('title');
+        insert_image_in_wysiwyg(image_url,file_type,file_title);
 
         AssetBrowser.nameDisplay.html(name);
         if (AssetBrowser.link_parent.find("img").length > 0) {
-          console.log("--- step1")
           AssetBrowser.link_parent.find("img").attr('src', image.attr('src'))
 
         } else {
@@ -397,13 +397,19 @@ var AssetBrowser = {
 };
 
 
-function insert_image_in_wysiwyg(image_url) {
+function insert_image_in_wysiwyg(image_url,file_type,title) {
   if (AssetBrowser.Wysiwyg != undefined && AssetBrowser.Wysiwyg !== null) {
     Wysiwyg = AssetBrowser.Wysiwyg;
-    title = ""
+    if(file_type == undefined)
+      file_type = "";
+    if(title == undefined)
+      title = "";
     description = "";
     style = "";
-    image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
+    if(file_type == "image")
+      image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
+    else
+      image = "<a href='"+image_url+"' >"+title+"</a> ";
 
     Wysiwyg.execCommand('mceInsertContent', false, image);
 
@@ -585,8 +591,11 @@ function ajaxFileUpload(link) {
       $("#" + link.attr('rel')).val(new_id);
       $("#title_thumb_" + link.attr('rel')).html("<img src='" + file_path + "' /> " + asset_name);
 
-      insert_image_in_wysiwyg(jwysiwyg_image);
-
+      if(data["category"] == "image")
+        insert_image_in_wysiwyg(jwysiwyg_image,data["category"],data["title"]);
+      else
+        insert_image_in_wysiwyg(file_path,data["category"],data["title"]);
+        
       data_id = $(this).attr("data_id");
       url = AssetBrowser.logo_setting_url;
       auto_save_asset(url, new_id); // only if autosave is required
@@ -652,7 +661,6 @@ function initPublishedDateTime() {
   })
   
   function updatePublishedDateField(){
-    console.log($(".publishing_state").val())
     if($(".publishing_state").val()=="published"){
       $(".published_at").show()
     }else{

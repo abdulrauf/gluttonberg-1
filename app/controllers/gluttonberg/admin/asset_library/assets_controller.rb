@@ -183,7 +183,11 @@ module Gluttonberg
 
           @asset = Asset.new(params[:asset].merge(:user_id => current_user.id))       
           if @asset.save
-            render :text => { "asset_id" => @asset.id , "url" => @asset.thumb_small_url , "jwysiwyg_image" => @asset.url_for(:jwysiwyg_image) }.to_json.to_s
+            if @asset.category == "image"  
+              render :text => { "asset_id" => @asset.id , "url" => @asset.thumb_small_url , "jwysiwyg_image" => @asset.url_for(:jwysiwyg_image) , "title" => @asset.name , "category" => @asset.category }.to_json.to_s
+            else
+              render :text => { "asset_id" => @asset.id , "url" => @asset.url , "jwysiwyg_image" => @asset.url_for(:jwysiwyg_image) , "title" => @asset.name , "category" => @asset.category }.to_json.to_s
+            end  
           else
             prepare_to_edit
             render :new

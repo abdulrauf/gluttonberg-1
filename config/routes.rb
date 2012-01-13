@@ -49,6 +49,10 @@ Rails.application.routes.draw do
           get 'delete', :on => :member
         end
         
+        resources :video_settings do 
+          get 'delete', :on => :member
+        end
+        
         resources :users do
           get 'delete', :on => :member
         end

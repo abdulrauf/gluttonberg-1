@@ -88,7 +88,12 @@
             - if can? :manage, Gluttonberg::Locale   
               - if Gluttonberg.localized? 
                 %li= active_link_to("Locales", admin_locales_path , :title => "Locales")
-
+            
+            - if Gluttonberg::Setting.get_setting("video_assets") == "Enable"
+              - if can? :manage , Gluttonberg::VideoSetting
+                %li= active_link_to("Video Settings", admin_video_settings_path , :title => "video setting")    
+                
+                
             - if can? :manage, Gluttonberg::Setting
               %li= active_link_to("Configuration", admin_generic_settings_path , :title => "Configurations")
             - if Rails.configuration.cms_based_public_css == true

@@ -100,6 +100,10 @@ module Gluttonberg
       def filename_without_extension
         self.file_name.split(".").first unless self.file_name.blank?
       end
+      
+      def absolute_file_path_without_extension
+        Rails.root.to_s + "/public" + self.url.split(".").first unless self.file_name.blank?
+      end
     
       def self.create_assets_from_ftp
       
@@ -117,6 +121,44 @@ module Gluttonberg
         end  
       end
       
+      def copy_videos_to_s3
+        puts "--------copy_videos_to_s3"
+        key_id = Gluttonberg::Setting.get_setting("s3_key_id")
+        key_val = Gluttonberg::Setting.get_setting("s3_access_key")
+        s3_server_url = Gluttonberg::Setting.get_setting("s3_server_url")
+        s3_bucket = Gluttonberg::Setting.get_setting("s3_bucket")
+        if !key_id.blank? && !key_val.blank? && !s3_server_url.blank? && !s3_bucket.blank?
+          s3 = Aws::S3.new(key_id, key_val, {:server => s3_server_url})
+          bucket = s3.bucket(s3_bucket)
+          file_types = Gluttonberg::VideoSetting.all.collect{|vs| "_#{vs.file_postfix}" } 
+          file_types.each do |file_type|
+            begin
+              local_file = Pathname.new(self.absolute_file_path_without_extension + file_type)
+              base_name = File.basename(local_file)
+              folder = self.asset_hash
+              date = Time.now+1.years
+              puts "Copying #{base_name} to #{s3_bucket}"
+              key = bucket.key("assets/" + folder + "/" + base_name, true)
+              if file_type.include?("mp4")
+                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "Content-Type" => "video/mp4"})
+              elsif file_type.include?("webm")
+                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "Content-Type" => "video/webm"})
+              elsif file_type.include?("ogv")
+                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "Content-Type" => "video/ogg"})
+              else
+                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822})
+              end
+              self.update_attributes(:copied_to_s3 => true)
+              puts "Copied"
+            rescue => e
+              puts "#{base_name} failed to copy"
+              puts "** #{e} **"
+            end
+          end
+        end  
+      end
+      
+      
     
       private
     
@@ -124,6 +166,7 @@ module Gluttonberg
       def update_file
         update_file_on_disk
       end
+      
 
 
   end

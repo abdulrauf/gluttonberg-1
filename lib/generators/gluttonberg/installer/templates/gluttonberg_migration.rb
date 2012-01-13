@@ -314,6 +314,13 @@ class GluttonbergMigration < ActiveRecord::Migration
       t.integer :position, :null => false
       t.timestamps
     end
+    
+    create_table :gb_video_settings do |t|
+      t.string :name
+      t.string :file_postfix
+      t.text :command
+      t.timestamps
+    end
          
   end
   
@@ -348,5 +355,6 @@ class GluttonbergMigration < ActiveRecord::Migration
     drop_table :gb_groups_pages 
     drop_table :gb_galleries
     drop_table :gb_gallery_images
+    drop_table :gb_video_settings
   end
 end

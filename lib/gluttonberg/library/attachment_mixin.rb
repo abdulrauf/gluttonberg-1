@@ -136,6 +136,9 @@ module Gluttonberg
           "/user_assets/#{asset_hash}/processed_#{self.filename_without_extension}.mp4"
         end
         
+        def video_url_for_postfix(pf)
+          "/user_assets/#{asset_hash}/#{self.filename_without_extension}_#{pf}"
+        end
         
                         
                 
@@ -327,7 +330,10 @@ module Gluttonberg
                 # If its mp3 file, collect its sound info
                 collect_mp3_info(asset)
               elsif asset.asset_type.asset_category.name == "video"
-                # Do nothing at this stage
+                # add video asset to queue for processing into different formats and quality
+                if Gluttonberg::Setting.get_setting("video_assets") == "Enable"
+                  Delayed::Job.enqueue VideoJob.new(asset.id)
+                end
               end
           end
           

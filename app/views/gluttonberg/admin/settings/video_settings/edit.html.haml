@@ -1,0 +1,5 @@
+- @window_title = "Video Settings"
+- @page_title = "#{link_to "Settings", admin_settings_path} > #{link_to('Video Settings', admin_video_settings_path)} > Edit video setting"
+- @page_image = "/assets/sidebar/icon_settings.png"
+
+= render :partial => "form" , :locals => { :url => admin_video_setting_path( @video_setting) } 

@@ -1,0 +1,28 @@
+- @window_title = "Video Settings"
+- @page_title = "#{link_to "Settings", admin_settings_path} > Video Settings"
+- @page_image = "/assets/sidebar/icon_settings.png"
+= sub_nav do
+  = nav_link('New', new_admin_video_setting_path)
+  
+- if @video_settings.empty?
+  %p.empty No video settings
+- else
+  %table{:cellspacing => 0, :cellpadding => 0, :summary => "List of video settings"}
+    %thead
+      %tr
+        %th Name
+        %th Postfix
+        %th Command
+        %th.controls Controls
+    %tbody
+      - i = 0
+      - for video_setting in @video_settings
+        - i += 1
+        %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
+          %td= video_setting.name
+          %td= video_setting.file_postfix
+          %td= video_setting.command
+          %td.controls
+            %ul
+              %li= link_to('Edit', edit_admin_video_setting_path(video_setting))
+              %li= link_to "Delete", delete_admin_video_setting_path(video_setting)

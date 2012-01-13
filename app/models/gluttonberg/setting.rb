@@ -32,8 +32,12 @@ module Gluttonberg
         :enable_WYSIWYG => ["Yes" , 8 , "Enable WYSIWYG on textareas" , "Yes;No" ],
         :backend_logo => ["" , 10 , "Logo for backend" ] , 
         :restrict_site_access => ["" , 11 , "If this setting is provided then user needs to enter password to access public site."]  , 
-        :from_email => ["" , 12 , "This email address is used for 'from' email address for all emails sent through system."]        
-               
+        :from_email => ["" , 12 , "This email address is used for 'from' email address for all emails sent through system."],        
+        :video_assets => ["" , 13 , "FFMPEG settings" , "Enable;Disable"],
+        :s3_key_id => ["" , 14 , "S3 Key ID"],
+        :s3_access_key => ["" , 15 , "S3 Access Key"],
+        :s3_server_url => ["" , 16 , "S3 Server URL"],
+        :s3_bucket => ["" , 17 , "S3 Bucket Name"]            
       }
       self.generate_or_update_settings(settings)
     end  

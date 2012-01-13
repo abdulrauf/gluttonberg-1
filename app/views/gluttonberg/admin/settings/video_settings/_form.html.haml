@@ -1,0 +1,11 @@
+
+= admin_form(@video_setting, :url => url) do  |f|
+
+  = gb_error_messages_for(@video_setting)
+  = block("Video Setting") do
+    = f.text_field(:name)
+    = f.text_field(:file_postfix)
+    = f.text_area(:command)
+      
+      
+  = form_controls(admin_video_settings_path)
