@@ -325,7 +325,6 @@ var AssetBrowser = {
 
         AssetBrowser.nameDisplay.html(name);
         if (AssetBrowser.link_parent.find("img").length > 0) {
-          console.log("--- step1")
           AssetBrowser.link_parent.find("img").attr('src', image.attr('src'))
 
         } else {
@@ -662,7 +661,6 @@ function initPublishedDateTime() {
   })
   
   function updatePublishedDateField(){
-    console.log($(".publishing_state").val())
     if($(".publishing_state").val()=="published"){
       $(".published_at").show()
     }else{
