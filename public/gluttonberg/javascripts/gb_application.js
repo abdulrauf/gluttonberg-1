@@ -404,13 +404,15 @@ function insert_image_in_wysiwyg(image_url,file_type,title) {
       file_type = "";
     if(title == undefined)
       title = "";
+    if(Wysiwyg.selection.getContent() != "" && Wysiwyg.selection.getContent() != null)
+      title = Wysiwyg.selection.getContent();
     description = "";
     style = "";
     if(file_type == "image")
       image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
     else
-      image = "<a href='"+image_url+"' >"+title+"</a> ";
-
+      image = " <a href='"+image_url+"' >"+title+"</a> ";
+    console.log(Wysiwyg.selection.getContent())  
     Wysiwyg.execCommand('mceInsertContent', false, image);
 
   }
