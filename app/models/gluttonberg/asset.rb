@@ -138,7 +138,7 @@ module Gluttonberg
               folder = self.asset_hash
               date = Time.now+1.years
               puts "Copying #{base_name} to #{s3_bucket}"
-              key = bucket.key("assets/" + folder + "/" + base_name, true)
+              key = bucket.key("user_assets/" + folder + "/" + base_name, true)
               if file_type.include?("mp4")
                 key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "Content-Type" => "video/mp4"})
               elsif file_type.include?("webm")
