@@ -18,6 +18,10 @@ module Gluttonberg
                   result = Gluttonberg::Locale.first_default
                 else  
                   result = Gluttonberg::Locale.find_by_locale(locale)
+                  if result.blank?
+                    result = Gluttonberg::Locale.first_default
+                    locale = result.slug 
+                  end
                 end
               else # take default locale
                 result = Gluttonberg::Locale.first_default
