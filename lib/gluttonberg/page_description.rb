@@ -205,7 +205,7 @@ module Gluttonberg
       if Rails.configuration.multisite == false
         home?
       else
-        @options[:home] && Rails.configuration.multisite[@options[:domain]] == domain_name
+        @options[:home] && Rails.configuration.multisite[@options[:domain]].include?(domain_name)
       end  
     end
     
