@@ -36,7 +36,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'ruby-mp3info', '0.6.14'
   s.add_dependency 'paperclip', '2.3.15'
   s.add_dependency 'acl9'
-  #s.add_dependency 'aws' , '2.4.5'
   s.add_development_dependency "rspec-rails", "2.0.1"
 
   if s.respond_to? :specification_version then
