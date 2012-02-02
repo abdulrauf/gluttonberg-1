@@ -44,7 +44,19 @@ namespace :gluttonberg do
       Gluttonberg::Asset.update_assets_synopsis_from_csv
     end
   
+    desc "copy all videos to S3 and then invalidate CloudFront"
+    task :copy_videos_to_s3 => :environment do
+      videos = Gluttonberg::Asset.find(:all, :conditions => {:type => "Video"})
+
+      videos.each do |video|
+        video.copy_videos_to_s3
+      end
+
+      Gluttonberg::Asset.invlidate_all_videos
+
+    end
   
+    # TODO FIX THIS METHOD
     desc "regenerate all video assets"
     task :regenerate_video_assets => :environment do
     

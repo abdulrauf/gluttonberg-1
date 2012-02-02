@@ -159,6 +159,35 @@ module Gluttonberg
       end
       
       
+      def self.invlidate_all_videos
+        key_id = Gluttonberg::Setting.get_setting("s3_key_id")
+        key_val = Gluttonberg::Setting.get_setting("s3_access_key")
+        
+        if !key_id.blank? && !key_val.blank? 
+         acf = Aws::AcfInterface.new(key_id,key_val)
+          list = acf.list_distributions
+          distibution = list.first
+          videos = Gluttonberg::Asset.find(:all, :conditions => {:type => "Video"})
+          fti = []
+          file_types = Gluttonberg::VideoSetting.all.collect{|vs| "_#{vs.file_postfix}" } 
+          videos.each do |v|
+            file_types.each do |file_type|
+              local_file = Pathname.new(self.absolute_file_path_without_extension + file_type)
+              base_name = File.basename(local_file)
+              folder = v.asset_hash
+              fti << "/user_assets/" + folder + "/" + base_name
+            end
+          end  
+          files_array = fti.each_slice(900).to_a
+
+          files_array.each do |files|
+            puts "Invalidating #{files.size} file/s"
+            acf.invalidate_files(distibution[:aws_id], files)
+          end
+        end
+
+      end
+      
     
       private
     
