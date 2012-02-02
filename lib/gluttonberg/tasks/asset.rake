@@ -46,7 +46,7 @@ namespace :gluttonberg do
   
     desc "copy all videos to S3 and then invalidate CloudFront"
     task :copy_videos_to_s3 => :environment do
-      videos = Gluttonberg::Asset.find(:all, :conditions => {:type => "Video"})
+      videos = Gluttonberg::AssetCategory.where(:name => "video").first.assets
 
       videos.each do |video|
         video.copy_videos_to_s3

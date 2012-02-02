@@ -167,7 +167,7 @@ module Gluttonberg
          acf = Aws::AcfInterface.new(key_id,key_val)
           list = acf.list_distributions
           distibution = list.first
-          videos = Gluttonberg::Asset.find(:all, :conditions => {:type => "Video"})
+          videos = Gluttonberg::AssetCategory.where(:name => "video").first.assets
           fti = []
           file_types = Gluttonberg::VideoSetting.all.collect{|vs| "_#{vs.file_postfix}" } 
           videos.each do |v|
