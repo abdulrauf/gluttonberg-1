@@ -172,7 +172,7 @@ module Gluttonberg
           file_types = Gluttonberg::VideoSetting.all.collect{|vs| "_#{vs.file_postfix}" } 
           videos.each do |v|
             file_types.each do |file_type|
-              local_file = Pathname.new(self.absolute_file_path_without_extension + file_type)
+              local_file = Pathname.new(v.absolute_file_path_without_extension + file_type)
               base_name = File.basename(local_file)
               folder = v.asset_hash
               fti << "/user_assets/" + folder + "/" + base_name
