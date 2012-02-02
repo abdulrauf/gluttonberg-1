@@ -140,11 +140,11 @@ module Gluttonberg
               puts "Copying #{base_name} to #{s3_bucket}"
               key = bucket.key("user_assets/" + folder + "/" + base_name, true)
               if file_type.include?("mp4")
-                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "Content-Type" => "video/mp4"})
+                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "content-type" => "video/mp4"})
               elsif file_type.include?("webm")
-                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "Content-Type" => "video/webm"})
+                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "content-type" => "video/webm"})
               elsif file_type.include?("ogv")
-                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "Content-Type" => "video/ogg"})
+                key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822, "content-type" => "video/ogg"})
               else
                 key.put(File.open(local_file), 'public-read', {"Expires" => date.rfc2822})
               end
