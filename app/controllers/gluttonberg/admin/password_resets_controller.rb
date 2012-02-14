@@ -4,7 +4,7 @@ module Gluttonberg
       skip_before_filter :require_user
       before_filter :load_user_using_perishable_token, :only => [:edit, :update]
       
-      layout 'login'
+      layout 'bare'
       
       def new
       end
