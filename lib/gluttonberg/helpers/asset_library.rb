@@ -177,7 +177,11 @@ module ActionView
           unless asset_id.blank?
             asset = Gluttonberg::Asset.find(:first , :conditions => {:id => asset_id})
             asset_info = if asset
-              asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
+              if asset && asset.asset_type.name == "Compressed Video"
+                content_tag(:img, :src => "/assets/library/video.png")
+              else
+                asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
+              end
             else
               "Asset missing!"
             end    
