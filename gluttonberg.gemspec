@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency "authlogic", '3.1.0'
-  s.add_dependency "will_paginate" , '3.0.pre2'
+  s.add_dependency "will_paginate" , '3.0.pre4'
   s.add_dependency "rubyzip", '0.9.4'
   s.add_dependency "acts_as_tree", '0.1.1'
   s.add_dependency "acts_as_list", '0.1.2' 
