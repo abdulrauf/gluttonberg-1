@@ -1,35 +1,31 @@
 - breadcrumbs_val = "?previous_page_title=#{previous_page_title}&return_url=#{sorter_url}"
-- if @assets.blank?
-  %p.empty No assets
-- else
-  %table{:id => 'assets_table', :class => 'nosubnav', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
-    %thead
+%table{:id => 'assets_table', :class => 'table table-bordered', :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Assets" }
+  %thead
+    %tr
+      %th{:width => 170}
+      %th
+        = sorter_link("Title",   "asset_name",   sorter_url )
+      %th{:class => "author", :width => 80}
+        File Type
+      %th{:class => "author", :width => 80}
+        Author
+      %th{:class => "date", :width => 80}
+        = sorter_link("Date added",   "date-added",   sorter_url )
+      %th{:width => 162}
+  %tbody
+    - if @assets.blank?
       %tr
-        %th
-        %th= sorter_link("Title",   "asset_name",   sorter_url )
-        %th.author File Type
-        %th.author Author
-        %th.date= sorter_link("Date added",   "date-added",   sorter_url )
-        %th.date= sorter_link("Date updated",   "date-updated",   sorter_url )
-    %tbody
+        %td{:colspan => 6, :align => "center"}
+          No assets
+    - else    
       - for asset in @assets
         %tr
-          %td.thumbnail
-            %a{:href => admin_asset_url(asset), :class => "assetLink"}
+          %td
+            %a{:href => admin_asset_url(asset), :class => "thumbnail"}
               %img{:src => asset.thumb_small_url  }
           %td
-            %span.asset_title
-              %a{:href => admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
-                = asset.name
-            %span.controls
-              %a{:href => admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
-                View
-              %a{:href => edit_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
-                Edit  
-              %a{:href => crop_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
-                Crop
-              %a{:href => delete_admin_asset_url(asset) +breadcrumbs_val, :class => "assetLink"}
-                Delete
+            %a{:href => admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink"}
+              = asset.name
           %td.author
             = asset.asset_type.name
           %td.author
@@ -37,6 +33,12 @@
           %td.date
             = date_format(asset.created_at)
           %td.date
-            = date_format(asset.updated_at)  
+            %span.controls
+              %a{:href => edit_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink btn"}
+                Edit  
+              %a{:href => crop_admin_asset_url(asset)+breadcrumbs_val, :class => "assetLink btn"}
+                Crop
+              %a{:href => delete_admin_asset_url(asset) +breadcrumbs_val, :class => "assetLink btn btn-danger"}
+                Delete  
 
 = will_paginate(@assets)      

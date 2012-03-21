@@ -263,7 +263,7 @@
                                 }
                             });
                         } else {
-                            var submit = $('<button type="submit" class="button" />');
+                            var submit = $('<button type="submit" class="btn" />');
                             submit.html(settings.submit);
                         }
                         $(this).append(submit);
@@ -272,7 +272,7 @@
                         if (settings.cancel.match(/>$/)) {
                             var cancel = $(settings.cancel);
                         } else {
-                            var cancel = $('<button type="cancel" class="button" />');
+                            var cancel = $('<button type="cancel" class="btn btn-danger" />');
                             cancel.html(settings.cancel);
                         }
                         $(this).append(cancel);
@@ -358,7 +358,7 @@
         id: 'id',
         type: 'text',
         width: '98%',
-        height: '100px',
+        height: '20px',
         event: 'click.editable',
         onblur: '',
         loadtype: 'GET',

@@ -1,19 +1,27 @@
 - @window_title = "Content"
-- @page_title = "#{link_to "Content", admin_content_path} > Pages"
-- @page_image = "/assets/sidebar/icon_content.png"
-= sub_nav do
-  - if can?(:manage, Gluttonberg::Page)
-    = nav_link('Add New Page', new_admin_page_path)
+- @page_title = "Pages"
+
+.row-fluid
+  = render :partial => "/gluttonberg/admin/content/main/sidebar"
+  .span9
+    .row-fluid
+      .page-header
+        %h1
+          = @page_title.html_safe
+      .subnav
+        = sub_nav do
+          - if can?(:manage, Gluttonberg::Page)
+            = nav_link('Add New Page', new_admin_page_path)
     
-- if @pages.empty?
-  %p.empty No Pages
-- else
-  %table{:id => 'pages_table', :class => (can?(:reorder , Gluttonberg::Page) ? drag_tree_table_class : "" ), :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Pages" , :rel => drag_tree_url }
-    %thead
-      %tr
-        %th Page
-        %th.author Author     
-        %th.date Published Date
-        %th.published_state Published
-    %tbody
-      = page_table_rows(@pages)
+      - if @pages.empty?
+        %p.empty No Pages
+      - else
+        %table{:id => 'pages_table', :class => "table table-bordered #{(can?(:reorder , Gluttonberg::Page) ? drag_tree_table_class : "" )}", :cellpadding => 0, :cellspacing => 0, :rel => "" , :summary => "Pages" , :rel => drag_tree_url }
+          %thead
+            %tr
+              %th Page
+              %th.author Author     
+              %th.date Published Date
+              %th.published_state Published
+          %tbody
+            = page_table_rows(@pages)

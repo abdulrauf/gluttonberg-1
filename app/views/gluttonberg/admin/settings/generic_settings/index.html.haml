@@ -1,49 +1,55 @@
 - @window_title = "Settings"
-- @page_title = "#{link_to "Settings", admin_settings_path} > Configuration"
+- @page_title = "Settings > Configuration"
 - @page_image = "/assets/sidebar/icon_settings.png"
-= sub_nav do
-  - if can? :create_or_destroy, Gluttonberg::Setting
-    = nav_link('New', new_admin_generic_setting_path)
+
+.row-fluid
+  = render :partial => "/gluttonberg/admin/settings/main/sidebar"
+  .span9
+    .row-fluid
+      .page-header
+        %h1
+          = @page_title.html_safe
+      .subnav  
+        = sub_nav do
+          - if can? :create_or_destroy, Gluttonberg::Setting
+            = nav_link('New Setting', new_admin_generic_setting_path)
   
-- if @settings.empty?
-  %p.empty No settings
-- else
-  %table{:cellspacing => 0, :cellpadding => 0, :summary => "List of Settings"}
-    %thead
-      %tr
-        %th Name
-        %th Value (Click to edit)
-        %th.controls Controls
-    %tbody
-      - i = 1
-      %tr{ :class => ""}
-        %td.first_column
-          Select Home Page
-        %td.second_column
-          = select_tag :home , options_from_collection_for_select(@pages, "id", "name" , selected = @current_home_page_id.to_s )  ,  { :include_blank => true , :class => "home_page_setting_dropdown"  , :rel => admin_page_update_home_path(1)  }
+      %table{:cellspacing => 0, :cellpadding => 0, :summary => "List of Settings", :class => "table table-bordered"}
+        %thead
+          %tr
+            %th Name
+            %th Value (Click to edit)
+            %th.controls Controls
+        %tbody
+          - i = 1
+          %tr{ :class => ""}
+            %td.first_column
+              Select Home Page
+            %td.second_column
+              = select_tag :home , options_from_collection_for_select(@pages, "id", "name" , selected = @current_home_page_id.to_s )  ,  { :include_blank => true , :class => "home_page_setting_dropdown"  , :rel => admin_page_update_home_path(1)  }
           
-        %td.controls
-          = image_tag("/assets/spinner.gif" , :id => "progress_home_page" , :style => "display:none")
-      - for setting in @settings
-        - i += 1
-        %tr{ :class => "#{cycle("even", "odd")}"}
-          %td.first_column
-            = setting.user_friendly_name
-          %td.second_column
-            - if setting.dropdown_required?
-              = select_tag(:value , options_for_select( setting.parsed_values_list_for_dropdown , setting.value  ) , { :include_blank => true , :data_id => setting.id  , :rel => admin_generic_setting_path( setting) , :class => "setting_dropdown"   })
+            %td.controls
+              = image_tag("/assets/spinner.gif" , :id => "progress_home_page" , :style => "display:none")
+          - for setting in @settings
+            - i += 1
+            %tr{ :class => "#{cycle("even", "odd")}"}
+              %td.first_column
+                = setting.user_friendly_name
+              %td.second_column
+                - if setting.dropdown_required?
+                  = select_tag(:value , options_for_select( setting.parsed_values_list_for_dropdown , setting.value  ) , { :include_blank => true , :data_id => setting.id  , :rel => admin_generic_setting_path( setting) , :class => "setting_dropdown"   })
               
-            - elsif setting.name == "backend_logo"
-              = asset_browser_tag( "gluttonberg_setting[value]" ,  opts = {:button_class => "logo_setting button" , :filter => "image" ,  :id => "gluttonberg_setting_backend_logo", :asset_id => setting.value  , :data_url => admin_generic_setting_path( setting) } )
+                - elsif setting.name == "backend_logo"
+                  = asset_browser_tag( "gluttonberg_setting[value]" ,  opts = {:button_class => "logo_setting button" , :filter => "image" ,  :id => "gluttonberg_setting_backend_logo", :asset_id => setting.value  , :data_url => admin_generic_setting_path( setting) } )
               
-            - else
-              = gb_editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
+                - else
+                  = gb_editable_field setting, :value , :update_url => admin_generic_setting_path( setting)
             
-            = image_tag("/assets/spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
-          %td.controls
-            %ul
-              - if setting.delete_able
-                %li= link_to 'Delete', delete_admin_generic_setting_path(setting)
+                = image_tag("/assets/spinner.gif" , :id => "progress_#{setting.id}" , :style => "display:none")
+              %td.controls
+                %ul
+                  - if setting.delete_able
+                    %li= link_to 'Delete', delete_admin_generic_setting_path(setting)
 
 
                 

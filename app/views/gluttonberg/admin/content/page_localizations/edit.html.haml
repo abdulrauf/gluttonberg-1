@@ -1,21 +1,27 @@
 - @window_title = "Content"
-
-= sub_nav do
-  %li.button= link_to("Preview", @page_localization.public_path  , { :target => "_blank" })
-
 - select_page_title = @page.name.blank? ? "Edit Content" : "Edit Content > #{@page.name}"
 - if(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1)
   - select_page_title = "Edit #{@page_localization.locale.slug} Content"
 - @page_title = "#{link_to "Content", admin_content_path} > #{link_to "Pages", admin_pages_path} > #{select_page_title}"
-- @page_image = "/assets/sidebar/icon_content.png"
 
-.ui-tabs-nav
-  %ul
-    - if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
-      - for localization in @page.localizations
-        %li{:class => "#{ (@page_localization.locale.id ==  localization.locale.id ) ? 'ui-tabs-selected ui-state-active' : '' }"}
-          %a{:href => edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id) ,:id=>"edit_content_tab",:class=>"button"}
-            = "Edit #{localization.locale.name}" 
+.row-fluid
+  = render :partial => "/gluttonberg/admin/content/main/sidebar"
+  .span9
+    .row-fluid
+      .page-header
+        %h1
+          = @page_title.html_safe
+      .subnav
+        = sub_nav do
+          %li.button= link_to("Preview", @page_localization.public_path  , { :target => "_blank" })
 
-#edit_content_tab_section.ui-tabs-panel.ui-widget-content.ui-corner-bottom
-  = render :partial => "form" , :locals => { :url => admin_page_page_localization_path( :page_id => params[:page_id], :id => @page_localization) }
+      .ui-tabs-nav
+        %ul
+          - if Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1
+            - for localization in @page.localizations
+              %li{:class => "#{ (@page_localization.locale.id ==  localization.locale.id ) ? 'ui-tabs-selected ui-state-active' : '' }"}
+                %a{:href => edit_admin_page_page_localization_path( :page_id => @page.id, :id => localization.id) ,:id=>"edit_content_tab",:class=>"button"}
+                  = "Edit #{localization.locale.name}" 
+
+      #edit_content_tab_section.ui-tabs-panel.ui-widget-content.ui-corner-bottom
+        = render :partial => "form" , :locals => { :url => admin_page_page_localization_path( :page_id => params[:page_id], :id => @page_localization) }

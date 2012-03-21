@@ -130,7 +130,7 @@ module Gluttonberg
       # Writes out a nicely styled subnav with an entry for each of the 
       # specified links.
       def sub_nav(&blk)
-        content_tag(:ul, :id => "subnav", &blk)
+        content_tag(:ul, :id => "subnav", :class => "nav nav-pills", &blk)
       end
 
       # Writes out a link styled like a button. To be used in the sub nav only
@@ -298,7 +298,7 @@ module Gluttonberg
           ["notice", "warning", "error"].each do |type|
               unless flash[type.intern].nil?
                   html << content_tag("div", flash[type.intern].to_s.html_safe,
-                      :id => type, :class => "flash").html_safe
+                      :id => "alert alert-#{type}", :class => "flash").html_safe
               end
           end
 
@@ -336,7 +336,8 @@ module Gluttonberg
                     .replace(/&quot;/gi, "\\\"");
                   return retval;
                 },
-                   type      : 'textarea',
+                   type      : 'text',
+                   height : '20px',
                    cancel    : 'Cancel',
                    submit    : 'OK',
                    indicator : '#{image_tag('/assets/spinner.gif')}'
@@ -376,7 +377,7 @@ module ActionView
           #object.published_at = object.published_at.to_s
           html = "<fieldset id='publish_meta'><div class='publishing_block' > "
           html += select( :state, options_for_select(@@workflow_states , val), {} , :class => "publishing_state" )
-          html += content_tag(:p , self.datetime_select("published_at" , {:prompt => {:day => 'Day', :month => 'Month', :year => 'Year'} , :order => [:day , :month , :year] }  ) , :class => "published_at" )
+          html += content_tag(:p , self.datetime_select("published_at" , {:prompt => {:day => 'Day', :month => 'Month', :year => 'Year'} , :order => [:day , :month , :year] }, :class => "span2") , :class => "published_at" )
           
           html += "</div></fieldset>"
           #self.text_field("published_at" , :class => "publish_datetime") + select( :state, options_for_select(@@workflow_states , val)   )

@@ -1,9 +1,14 @@
 - @window_title = "Content"
-- @page_title = "#{link_to "Content", admin_content_path} > #{link_to("<%= plural_class_name %>", admin_<%= plural_name %>_path)} > Add New <%= class_name %>"
-- @page_image = "/assets/sidebar/icon_content.png"
+- @page_title = "#{link_to("<%= plural_class_name %>", admin_<%= plural_name %>_path)} > Add New <%= class_name %>"
+.row-fluid
+  = render :partial => "/gluttonberg/admin/content/main/sidebar"
+  .span9
+    .page-header
+      %h1
+        = @page_title.html_safe
+        
+    .row-fluid
+      = form_for(@<%= singular_name %>, :url => admin_<%= plural_name %>_path) do  |f|
+        = gb_error_messages_for(@<%= singular_name %>)
 
-= form_for(@<%= singular_name %>, :url => admin_<%= plural_name %>_path) do  |f|
-  = gb_error_messages_for(@<%= singular_name %>)
-
-  = render :partial => "form", :locals => {:f => f}
-  
+        = render :partial => "form", :locals => {:f => f}

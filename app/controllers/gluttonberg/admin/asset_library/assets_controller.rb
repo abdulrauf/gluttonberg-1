@@ -4,6 +4,7 @@ module Gluttonberg
   module Admin
     module AssetLibrary
       class AssetsController < Gluttonberg::Admin::BaseController
+        before_filter :find_categories, :except => [:delete, :destroy]
         before_filter :find_asset , :only => [:crop , :save_crop , :delete , :edit , :show , :update , :destroy  ]  
         before_filter :prepare_to_edit  , :except => [:category , :show , :delete , :create , :update  ]
         before_filter :authorize_user 
@@ -199,6 +200,10 @@ module Gluttonberg
               conditions = { :id => params[:id] }
               @asset = Asset.find(:first , :conditions => conditions )   
               raise ActiveRecord::RecordNotFound  if @asset.blank?              
+            end
+            
+            def find_categories
+              @categories = AssetCategory.all
             end
     
             def prepare_to_edit

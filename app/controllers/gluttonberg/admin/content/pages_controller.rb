@@ -22,10 +22,6 @@ module Gluttonberg
           prepare_to_edit
         end
        
-        # def edit
-        #           prepare_to_edit
-        #         end
-       
         def delete
           default_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => @page.id , :locale_id => Gluttonberg::Locale.first_default.id } )
           display_delete_confirmation(
@@ -38,6 +34,13 @@ module Gluttonberg
          
         def create
           @page = Page.new(params["gluttonberg_page"])
+          if params[:commit] && params[:commit] == "Publish"
+            @page.state = "published"
+            @page.published_at = Time.now
+          else
+            @page.state = "draft"
+            @page.published_at = nil
+          end
           @page.user_id = current_user.id
           if @page.save
             @page.create_default_template_file

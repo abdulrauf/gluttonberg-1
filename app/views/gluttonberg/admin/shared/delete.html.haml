@@ -1,20 +1,48 @@
-!!! Strict
-%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+!!!
+%html{:lang => "en"}
   %head
-    %title Gluttonberg
-    %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
-    = stylesheet_link_tag "/assets/admin"
-    = javascript_include_tag "/assets/jquery-1.4.2.min.js", "/assets/rails"
-  %body{:id => "delete"}
-    = form_tag(@options[:url], :method => "delete") do
-      %h1= @options[:title]
-      %p.message= @options[:message].html_safe
-      %p.warning= @options[:warning].html_safe unless @options[:warning].blank?
+    %meta{:charset => "utf-8"}
+      %title
+        = "#{website_title}- #{@page_title}" if @page_title
+      %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      %meta{:content => "", :name => "description"}
+      %meta{:content => "", :name => "author"}
+      = csrf_meta_tag
+      / Le styles
+      %link{:href => "/assets/bootstrap.css", :rel => "stylesheet"}
+      %link{:href => "/assets/bootstrap-responsive.css", :rel => "stylesheet"}
+      %link{:href => "/assets/admin-override.css", :rel => "stylesheet"}
+      :css
+        body {
+          padding-top: 60px;
+          padding-bottom: 40px;
+        }
+        .sidebar-nav {
+          padding: 9px 0;
+        }
+      /[if lt IE 9]
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            
+  %body#login
+    .container-fluid
+      .row
+        .span5.offset4
+          %div#form.well
       
-      %p.controls
-        - unless @do_not_delete
-          = submit_tag("Delete")
-          or 
-          = link_to("<strong>Cancel</strong>".html_safe, @options[:return_url])
-        - else
-          = link_to("<strong>Ok</strong>".html_safe, @options[:return_url])
+            = form_tag(@options[:url], :method => "delete") do
+              %h1= @options[:title]
+              %p.message= @options[:message].html_safe
+              %p.warning= @options[:warning].html_safe unless @options[:warning].blank?
+      
+              %p.controls
+                - unless @do_not_delete
+                  = submit_tag("Delete", :class => "btn btn-danger")
+                  or 
+                  = link_to("<strong>Cancel</strong>".html_safe, @options[:return_url])
+                - else
+                  = link_to("<strong>Ok</strong>".html_safe, @options[:return_url])
+
+    %script{:src => "/assets/jquery.js"}
+    %script{:src => "/assets/bootstrap.js"}
+    = javascript_include_tag "jgb_login"
+    = custom_javascript_include_tag

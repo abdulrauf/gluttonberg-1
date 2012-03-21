@@ -274,6 +274,14 @@ module Gluttonberg
     def load_default_localizations
       self.current_localization = Gluttonberg::PageLocalization.find(:first , :conditions => { :page_id => id , :locale_id => Gluttonberg::Locale.first_default.id } )
     end
+    
+    def published?
+      if publishing_status == "Published"
+        return true
+      else
+        return false
+      end
+    end
         
     private
 

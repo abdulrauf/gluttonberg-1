@@ -1,16 +1,21 @@
 - @page_title = "Content"
 - @page_image = "/assets/sidebar/icon_content.png"
-%ul#iconNav
+.row-fluid
+  = render :partial => "/gluttonberg/admin/content/main/sidebar"
+  .span9
+    .row-fluid
+      %ul#iconNav
   
-  %li
-    = link_to("Pages", admin_pages_path, :id => "pagesNav" , :title => "Pages")
-  - if Gluttonberg::Blog.table_exists?
-    %li
-      = link_to("Blogs", admin_blogs_path, :id => "blogsNav", :title => "Blogs")
-  - for entry in Gluttonberg::Components.nav_entries
-    -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
-      %li
-        = link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
-  - if Rails.configuration.flagged_content == true
-    %li
-      = link_to("Flagged Content", admin_flagged_contents_path, :id => "flaggedNav" , :title => "Flagged Content")      
+        %li
+          = link_to("Pages", admin_pages_path, :id => "pagesNav" , :title => "Pages")
+        - if Gluttonberg::Blog.table_exists?
+          %li
+            = link_to("Blogs", admin_blogs_path, :id => "blogsNav", :title => "Blogs")
+        - for entry in Gluttonberg::Components.nav_entries
+          -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
+            %li
+              = link_to(entry[0], entry[2], :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )    
+        - if Rails.configuration.flagged_content == true
+          %li
+            = link_to("Flagged Content", admin_flagged_contents_path, :id => "flaggedNav" , :title => "Flagged Content")      
+      

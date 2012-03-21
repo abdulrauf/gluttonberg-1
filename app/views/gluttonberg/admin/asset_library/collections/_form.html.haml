@@ -4,4 +4,6 @@
     = collection_form.label :name
     = collection_form.text_field(:name , :class => "required")
   
-  = form_controls(admin_assets_url)
+  = submit_tag "Create", :class => "btn btn-success"
+  %a{:href => admin_asset_category_path(:category => 'all' , :page => 1 ), :class => "btn btn-danger"}
+    Cancel

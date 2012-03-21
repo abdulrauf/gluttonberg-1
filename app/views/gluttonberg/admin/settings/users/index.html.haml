@@ -1,45 +1,58 @@
 - @window_title = "Settings"
-- @page_title = "#{link_to "Settings", admin_settings_path} > Users"
+- @page_title = "Settings > Users"
 - @page_image = "/assets/sidebar/icon_settings.png"
-= sub_nav do
-  - if can? :manage, User
-    = nav_link("New", new_admin_user_path) 
 
-- sorter_url = admin_users_path
+.row-fluid
+  = render :partial => "/gluttonberg/admin/settings/main/sidebar"
+  .span9
+    .row-fluid
+      .page-header
+        %h1
+          = @page_title.html_safe
+      .subnav  
+        = sub_nav do
+          - if can? :manage, User 
+            = nav_link("New User", new_admin_user_path) 
+
+      - sorter_url = admin_users_path
   
-- if @users.empty?
-  %p.empty No Users
-- else
-  %form{:action => admin_users_path , :id => "list_search_form"}
-    = text_field_tag :query , params[:query]
-    = submit_tag "Search" , :class => "button"
+      - if @users.empty?
+        %p.empty No Users
+      - else
+        %form{:action => admin_users_path , :id => "list_search_form"}
+          = text_field_tag :query , params[:query]
+          = submit_tag "Search" , :class => "button"
     
-  %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of users"}
-    %thead
-      %tr
-        %th= sorter_link("Name",   "first_name",   sorter_url )  
-        %th= sorter_link("Email",   "email",   sorter_url )  
-        - if can? :manage, User
-          %th= sorter_link("Type",   "role",   sorter_url )  
-        %th=sorter_link("Signup Date",   "date-added",   sorter_url ) 
-        %th.controls Controls
+        %table{:cellpadding => 0, :cellspacing => 0, :summary => "List of users", :class => "table table-bordered"}
+          %thead
+            %tr
+              %th
+                = sorter_link("Name",   "first_name",   sorter_url )  
+              %th
+                = sorter_link("Email",   "email",   sorter_url )  
+              - if can? :manage, User
+                %th
+                  = sorter_link("Type",   "role",   sorter_url )  
+              %th
+                =sorter_link("Signup Date",   "date-added",   sorter_url ) 
+              %th.controls
+                Controls
         
-    %tbody
-      - i = 0
-      - for user in @users
-        - i += 1
-        %tr{ :class => "#{i % 2 == 0? "even" : ""}"}
-          
-          %td= user.full_name
-          %td= mail_to user.email , user.email
-          - if can? :manage, User       
-            %td= user.role.humanize
-          %td
-            = date_format user.created_at  
-          %td.controls
-            %ul
-              %li= link_to("Edit", edit_admin_user_path(user))
-              - if can? :manage, User     
-                %li= link_to "Delete", delete_admin_user_path(user)
+          %tbody
+            - for user in @users
+              %tr
+                %td
+                  = user.full_name
+                %td
+                  = mail_to user.email , user.email
+                - if can? :manage, User
+                  %td
+                    = user.role.humanize
+                %td
+                  = date_format user.created_at
+                %td.controls
+                  = link_to("Edit", edit_admin_user_path(user), :class => "btn")
+                  - if can? :manage, User
+                    = link_to("Delete", delete_admin_user_path(user), :class => "btn btn-danger")
     
-  = will_paginate(@users)
+        = will_paginate(@users)

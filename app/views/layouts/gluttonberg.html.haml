@@ -1,127 +1,76 @@
-!!! Strict
-%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+!!!
+%html{:lang => "en"}
   %head
-    %title= "#{website_title} #{@window_title.blank? ? '' : ' : ' + @window_title}"  
-    %meta{"http-equiv" => "Content-Type", :content => "text/html;charset=utf-8" }/
-
-    
-    = stylesheet_link_tag "admin"
-    
-    = custom_stylesheet_link_tag
-    
-    = javascript_include_tag "jquery-1-4-2-min" , "jquery-dimensions-min" , "jquery-ui-1-8-1-custom-min" , "jquery-validate" , "jquery-dragTree" , "rails" , "jquery-tagarea" , "jeditable" , "ajaxfileupload" , "expander" , "jquery-ui-datetimepicker-min"
-    
-    = javascript_include_tag "jcrop/js/jquery-Jcrop-min"
-    = stylesheet_link_tag "jcrop/css/jquery-Jcrop"
-    
-    = wysiwyg_js_css_link_tag
-    
-    = javascript_include_tag "gb_application" ,  :charset => "utf-8"
-    = custom_javascript_include_tag
-    
-    = csrf_meta_tag 
-    
-    /[if IE 6]
-      = stylesheet_link_tag "admin-ie6"
-
-    /[if IE 7]
-      = stylesheet_link_tag "admin-ie7"
-    
-  %body{:id => params[:controller].match(%r{\w+$}), :class => params[:action]}
-    %div#sidebar
-      %h2#navTitle Navigation
-
-      %ul#navigation
-        %li
-          = active_link_to("Dashboard", admin_root_path, :id => "dashboard_nav" , :title => "Dashboard", :active => {:when => :self_only})
-        %li
-          = active_link_to("Content", admin_content_path, :id => "content_nav" , :title => "Content")
-          %a.nav_trigger{ :href => "javascript:;" }
-          %ul.subnavigation
-            %li
-              = active_link_to("Pages", admin_pages_path, :title => "Pages")
-            - if Gluttonberg::Blog.table_exists?  
-              %li
-                = active_link_to("Blogs", admin_blogs_path, :title => "Blogs")
-            - if Rails.configuration.enable_gallery == true
-              %li  
-                = active_link_to("Photo Galleries", admin_galleries_path, :title => "Photo galleries")  
-            - for entry in Gluttonberg::Components.nav_entries
-              -if entry[3].blank? || entry[3]==false || (entry[3]==true && session.user.is_super_admin)
-                %li
-                  = active_link_to(entry[0], url_for(entry[2]), :html_options => {:id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0] } )
-            - if Rails.configuration.flagged_content == true
-              %li
-                = active_link_to("Flagged Content", admin_flagged_contents_path, :id => "flaggedNav" , :title => "Flagged Content")
-        - for entry in Gluttonberg::Components.left_nav_entries
-          -if entry[2].blank? || entry[2]==false || (entry[2]==true && session.user.is_super_admin)
-            %li
-              = active_link_to(entry[0], url_for(entry[1]), :id => (entry[0].to_s.underscore).gsub(/\s/, '_') + "Nav" , :title => entry[0]  )
-        %li
-          = active_link_to("Library", admin_library_path, :id => "library_nav" , :title => "Library", :class => "page_item")
-          %a.nav_trigger{ :href => "javascript:;" }
-          %ul.subnavigation
-            %li
-              = active_link_to("Collections", admin_library_path+"?tab=collection", :title => "Collections")
-            %li
-              = active_link_to("Recent", admin_library_path+"?tab=recent", :title => "Recent")  
-            %li  
-              = active_link_to("Add collection", new_admin_collection_path, :title => "Add collection")
-            %li
-              = active_link_to("Add asset", new_admin_asset_path, :title => "Add asset")
-            %li
-              = active_link_to("Add assets in bulk", admin_add_assets_in_bulk_path, :title => "Add assets in bulk")
-        - if Gluttonberg::Member.enable_members == true
-          %li
-            = active_link_to("Members", admin_membership_root_path, :id => "membership_nav" , :title => "Members")
-            %a.nav_trigger{ :href => "javascript:;" }
-            %ul.subnavigation
-              %li
-                = active_link_to("All Members", admin_membership_members_path, :title => "All Members")
-              %li
-                = active_link_to("Groups", admin_membership_groups_path, :title => "Groups")
-          
-        %li
-          = active_link_to("Settings", admin_settings_path, :id => "settings_nav" , :title => "Settings")
-          %a.nav_trigger{ :href => "javascript:;" }
-          %ul
-            - if can? :manage, Gluttonberg::Locale   
-              - if Gluttonberg.localized? 
-                %li= active_link_to("Locales", admin_locales_path , :title => "Locales")
+    %meta{:charset => "utf-8"}
+      %title
+        = "#{website_title} #{@window_title.blank? ? '' : ' : ' + @window_title}" 
+      %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      %meta{:content => "", :name => "description"}
+      %meta{:content => "", :name => "author"}
+      = csrf_meta_tag
+      / Le styles
+      %link{:href => "/assets/bootstrap.css", :rel => "stylesheet"}
+      %link{:href => "/assets/bootstrap-responsive.css", :rel => "stylesheet"}
+      %link{:href => "/assets/admin-override.css", :rel => "stylesheet"}
+      %script{:src => "/assets/jquery.js"}
+      %script{:src => "/assets/bootstrap.js"}
+      = javascript_include_tag "jquery-dimensions-min" , "jquery-ui-1-8-1-custom-min" , "jquery-validate" , "jquery-dragTree" , "rails" , "jquery-tagarea" , "jeditable" , "ajaxfileupload" , "expander" , "jquery-ui-datetimepicker-min"
+      = javascript_include_tag "jcrop/js/jquery-Jcrop-min"
+      = wysiwyg_js_css_link_tag
+      = javascript_include_tag "gb_application" ,  :charset => "utf-8"
+      = custom_javascript_include_tag
+      
+      :css
+        body {
+          padding-top: 60px;
+          padding-bottom: 40px;
+        }
+        .sidebar-nav {
+          padding: 9px 0;
+        }
+      /[if lt IE 9]
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
             
-            - if Gluttonberg::Setting.get_setting("video_assets") == "Enable"
-              - if can? :manage , Gluttonberg::VideoSetting
-                %li= active_link_to("Video Settings", admin_video_settings_path , :title => "video setting")    
-                
-                
-            - if can? :manage, Gluttonberg::Setting
-              %li= active_link_to("Configuration", admin_generic_settings_path , :title => "Configurations")
-            - if Rails.configuration.cms_based_public_css == true
-              - if can? :manage , Gluttonberg::Stylesheet
-                %li= active_link_to("Stylesheets", admin_stylesheets_path , :title => "Stylesheets")  
-            - if can? :create, User
-              %li= active_link_to("Users", admin_users_path, :title => "Users")  
-            - else
-              %li= active_link_to("Edit Account", edit_admin_user_path(current_user.id) , :title => "Users")
-              
-    %div#wrapper
-      %div#header
-        = backend_logo("logo.png" , {:height => "46px"})
-        %h1#sidebar_title
-          = website_title
-        %div#user
-          Hello
-          = link_to current_user.first_name, edit_admin_user_path(current_user.id), :class => "username"
-          = link_to "Log Out", admin_logout_url, :class => "button"
-      %div#subheader
-        = image_tag(@page_image) unless @page_image.blank?
-        %h2#pageTitle= @page_title.html_safe || "No title set"
-        = contextual_help
-      #content
-        - unless flash.blank?
-          #flash
-            .container
-              - flash.each do |name, msg|
-                = content_tag :div, msg.html_safe, :id => "flash_#{name}"
-        = yield
-    %div{:style => "clear:both"}    
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => admin_root_path}
+            = website_title
+          .nav-collapse
+            %ul.nav
+              %li.active
+                %a{:href => admin_root_path}
+                  Dashboard
+              %li
+                %a{:href => admin_pages_path}
+                  Content
+              %li
+                %a{:href => admin_asset_category_path(:category => 'all' , :page => 1 )}
+                  Library
+              - if Gluttonberg::Member.enable_members == true
+                %li
+                  %a{:href => admin_membership_root_path}
+                    Members
+              %li
+                %a{:href => admin_generic_settings_path}
+                  Settings
+            %p.navbar-text.pull-right
+              Logged in as
+              %a{:href => "#"}
+                = current_user.email
+          / /.nav-collapse
+    .container-fluid
+      = yield
+            
+      %hr
+        %footer
+          %p
+            &copy; 
+            %a{:href => "http://freerangefuture.com", :target => "_blank"}
+              Freerange Future
+            2012

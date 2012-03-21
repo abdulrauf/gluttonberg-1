@@ -7,17 +7,17 @@
   
   = gb_error_messages_for(@page_localization)
   
-  .left_column
+  .span5
     %legend Metadata
     %p
       = f.label :name
-      = f.text_field(:name, :id => "page_title")    
+      = f.text_field(:name, :id => "page_title", :class => "span5")    
     %p
       = f.label :navigation_label
-      = f.text_field(:navigation_label)
+      = f.text_field(:navigation_label, :class => "span5")
     %p
       = f.label :slug
-      = f.text_field(:slug, :id => 'page_slug' , :donotmodify => true )
+      = f.text_field(:slug, :id => 'page_slug', :class => "span5", :donotmodify => true )
       
       
     - if @page_localization.contents.length >= 1
@@ -30,9 +30,19 @@
       %p.no_content
         This page does not have any content areas.
   
-  .right_column 
+  .span4 
     = f.fields_for :page , @page do |page_form|  
       = render :partial => "/gluttonberg/admin/content/pages/page_settings" , :locals => {:f => page_form}
-    = form_controls(admin_page_path(params[:page_id]))  
-  /- if(( Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1 ) || @page_localization.contents.length >= 1)
+    
+    %legend
+      Publish
+      
+    %p
+      - if @page.published?
+        = submit_tag "Update", :class => "btn btn-success"
+        = submit_tag "Unpublish", :class => "btn btn-danger"
+      - else
+        = submit_tag "Publish", :class => "btn btn-success"
+        = submit_tag "Save as a draft", :class => "btn btn-inverse"
+    
     

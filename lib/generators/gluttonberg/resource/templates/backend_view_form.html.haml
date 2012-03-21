@@ -1,19 +1,26 @@
-.left_column
-  = block("Content") do
-  <% attributes.each do |attribute| -%>
+.span5
+  %legend
+    Content
   %p
-      = f.label :<%= attribute.name %>
-      <% if( attribute.name == "slug" && (action_name == "edit"  || action_name == "update") ) %>
-      = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>" , :donotmodify => true
-      <%else%>
-      = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "<%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
-      <%end%>
-  <% end %>
+    %fieldset
+      <% attributes.each do |attribute| -%>%p
+        = f.label :<%= attribute.name %>
+        <% if( attribute.name == "slug" && (action_name == "edit"  || action_name == "update") ) %>
+        = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "span5 <%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>" , :donotmodify => true
+        <%else%>
+        = f.<%= attribute.field_type %> :<%= attribute.name %> , :class => "span5 <%= attribute.field_type.to_s == 'text_area' ? 'jwysiwyg' : ''  %>"
+        <%end%>
+      <% end %>
 
-.right_column
-  = block("Publishing") do
+.span4
+  %legend
+    Publishing
+  %p
     - if can? :publish , <%=class_name %>
       = f.publisable_dropdown
-  = form_controls(admin_<%= plural_name %>_path)  
+    = submit_tag "Publish", :class => "btn btn-success"
+    or
+    %a{:href => admin_<%= plural_name %>_path}
+      Cancel
     
 = enable_jwysiwyg_on_class("jwysiwyg")

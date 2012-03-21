@@ -23,6 +23,15 @@ module Gluttonberg
             content.updated_at = Time.now
           end
           page_attributes = params["gluttonberg_page_localization"].delete(:page)
+          
+          if params[:commit] && params[:commit] == "Publish"
+            page_attributes["state"] = "published"
+            page_attributes["published_at"] = Time.now
+          else
+            page_attributes["state"] = "draft"
+            page_attributes["published_at"] = nil
+          end
+          
           if @page_localization.update_attributes(params["gluttonberg_page_localization"]) || !@page_localization.changed?            
             
             @page_localization.page.update_attributes(page_attributes)

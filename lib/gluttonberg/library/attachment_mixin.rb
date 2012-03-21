@@ -12,8 +12,8 @@ module Gluttonberg
      
       # Default sizes used when thumbnailing an image.
       DEFAULT_THUMBNAILS = {
-        :small_thumb => {:label => "Small Thumb", :filename => "_thumb_small", :geometry => "110x75>" },
-        :large_thumb => {:label => "Large Thumb", :filename => "_thumb_large", :geometry => "250x200>"}
+        :small_thumb => {:label => "Small Thumb", :filename => "_thumb_small", :geometry => "160x120#" },
+        :large_thumb => {:label => "Large Thumb", :filename => "_thumb_large", :geometry => "260x180>"}
       }
       
       # The default max image size. This can be overwritten on a per project 

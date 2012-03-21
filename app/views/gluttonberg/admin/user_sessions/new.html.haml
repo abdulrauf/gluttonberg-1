@@ -1,42 +1,42 @@
 - @page_id = "login"
 - @page_title = "Log In"
 
-%div#form
-  %h1#login_title= website_title
-  = backend_logo("/assets/logo.png" , {:height => "46px"})
-  %ul#login_navigation
-    %li
-      %a{:href => "javascript:;",:id=>"login_tab",:class=>"button active"}
-        Log in
-    %li
-      %a{:href => "javascript:;",:id=>"password_tab",:class=>"button"}
-        Forgot your password?
-  #login_tab_section.active
-    = form_for(@user_session, :url => admin_login_url, :method => :post) do |f|
-      %h2 Log in
-      
-      =render_flash_messages
-      - if @user_session.errors.any?
-        #error
-          %ul
-            - @user_session.errors.full_messages.each do |msg|
-              %li
-                = msg
-      %fieldset
-        = f.label :email
-        = f.text_field :email, :class => "text_field"
-      %fieldset
-        = f.label :password
-        = f.password_field :password, :class => "text_field"
-      %fieldset.last
-        = f.submit "Log in", :class => "button", :disable_with => "Logging you in..."
-
-  #password_reset_tab_section
-    = form_for(User.new, :url => admin_password_resets_path) do |f|
-      %h2 Forgot your password?
-
-      %fieldset
-        = f.label :email
-        = f.text_field :email, :class => "text_field"
-      %fieldset.last
-        = f.submit "Reset my password", :class => "button", :disable_with => "Resetting your password..."
+.row
+  .span5.offset4
+    = backend_logo("/assets/logo.png" , {:height => "46px"})
+    %h1#login_title
+      = website_title
+    
+    %div#form.well
+      = form_for(@user_session, :url => admin_login_url, :method => :post, :html => {:class => ""}) do |f|   
+        - if @user_session.errors.any?
+          .alert.alert-error
+            .error-title
+              Sorry, There was an error
+            %ul
+              - @user_session.errors.full_messages.each do |msg|
+                %li
+                  = msg
+        %fieldset
+          .control-group
+            = f.label :email, :class => "control-label"
+            .controls
+              = f.text_field :email, :class => "span4"
+              
+          .control-group
+            = f.label :password, :class => "control-label"
+            .controls
+              = f.password_field :password, :class => "span4"
+              
+          .control-group
+            = f.label "", :class => "control-label"
+            .controls
+              = f.submit "Log in", :class => "btn btn-success", :disable_with => "Logging you in..."
+              %a{:href => "#", :class => "btn"}
+                Forgot your password?
+            
+    &copy; 
+    %a{:href => "http://freerangefuture.com", :target => "_blank"}
+      Freerange Future
+    2012
+    

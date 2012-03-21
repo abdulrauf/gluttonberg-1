@@ -1,3 +1,10 @@
 - @page_title = "Add New Page"
 - @page_image = "/assets/sidebar/icon_content.png"
-= render :partial => "form", :locals => { :url => admin_pages_path, :site_id => params[:site_id] }
+.row-fluid
+  = render :partial => "/gluttonberg/admin/content/main/sidebar"
+  .span9
+    .page-header
+      %h1
+        = @page_title
+      
+    = render :partial => "form", :locals => { :url => admin_pages_path, :site_id => params[:site_id] }

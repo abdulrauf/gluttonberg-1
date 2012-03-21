@@ -2,61 +2,21 @@
 - @page_title = "Asset Library"
 - @page_image = "/assets/sidebar/icon_library.png"
 
-  
-%div#tabs
-  %ul
-    %li
-      %a{ :href => "#tabs-browse"} Browse
-    %li
-      %a{ :href => "#tabs-collection"} Collections
-    %li
-      %a{ :href => "#tabs-recent"} Recent
-   
-  = render :partial => "search_form"
-  
-  .clear  
-.clear
-%div#tabs-browse
-  %ul.assetList
-    %li
-      %a{:href => admin_asset_category_path(:category => 'all' , :page => 1 ), :class => "browseAll"}
-        All
+.row-fluid
+  = render :partial => "/gluttonberg/admin/asset_library/shared/sidebar"
+  .span9
+    .row-fluid
+      .page-header
+        %h1
+          = @page_title.html_safe
+      .subnav
+        = sub_nav do
+          %li
+            %a{:href => admin_asset_category_path(:category => 'all' , :page => 1 ), :class => "browseAll"}
+              All
         
-    - @categories.each do |category|
-      %li
-        - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )
-        %a{:href => admin_asset_category_path(:category => category.name , :page => 1), :class => "browse#{text}"}
-          = text
-    %li.clear
-  .clear
-%div#tabs-collection
-  - if @collections.blank?
-    %ul.assetList
-      %li
-  - else
-    %ul.assetList
-      - for collection in @collections
-        %li
-          %a{:href => admin_asset_collection_url(:id => collection , :page => 1), :class => "collection"}
-            %h3= collection.name
-    .clear
-%div#tabs-recent
-  = render :partial => "assets_listing_without_sorting" , :locals => { :assets => @assets}
-
-
-  
-    
-.clear
-
-:javascript
-  $(document).ready(function() {
-  selected = "#{params[:tab]}"
-  index = 0;
-  if(selected=="collection"){
-  index = 1;
-  }else if(selected=="recent"){
-  index = 2;
-  }
-  
-  $("#tabs").tabs("select", index);
-  })
+          - @categories.each do |category|
+            %li
+              - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )
+              %a{:href => admin_asset_category_path(:category => category.name , :page => 1), :class => "browse#{text}"}
+                = text

@@ -1,26 +1,35 @@
-= form_for(@page, :url => url , :html => {:class => "validation"}) do  |f|
-  = gb_error_messages_for(@page)
-  .left_column
-    - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
-      - if( action_name == "new"  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) )
-        %fieldset
-          %p
-            = f.label :name
-            = f.text_field(:name, :id => "page_title", :class=>"large required")
-          %p
-            = f.label :navigation_label
-            = f.text_field(:navigation_label, :class=>"large")
-          %p
-            = f.label :slug
-            = f.text_field(:slug, :id => 'page_slug', :class=>"large")
-        
-          - if Gluttonberg::Member.enable_members == true
+.row-fluid
+  = form_for(@page, :url => url , :html => {:class => "validation"}) do  |f|
+    = gb_error_messages_for(@page)
+    .span5
+      - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
+        - if( action_name == "new"  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) )
+          %fieldset
             %p
-              = f.label :groups 
-              = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+              = f.label :name
+              = f.text_field(:name, :id => "page_title", :class=>"span5 required")
+            %p
+              = f.label :navigation_label
+              = f.text_field(:navigation_label, :class=>"span5")
+            %p
+              = f.label :slug
+              = f.text_field(:slug, :id => 'page_slug', :class=>"span5")
         
-  .right_column
-    = render :partial => "page_settings" , :locals => {:f => f}
+            - if Gluttonberg::Member.enable_members == true
+              %p
+                = f.label :groups 
+                = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
+        
+    .span4
+      = render :partial => "page_settings" , :locals => {:f => f}
        
-    %p
-      = form_controls(admin_pages_path)
+      %legend
+        Publish
+      
+      %p
+        - if @page.published?
+          = submit_tag "Update", :class => "btn btn-success"
+          = submit_tag "Unpublish", :class => "btn btn-danger"
+        - else
+          = submit_tag "Publish", :class => "btn btn-success"
+          = submit_tag "Save as a draft", :class => "btn btn-inverse"

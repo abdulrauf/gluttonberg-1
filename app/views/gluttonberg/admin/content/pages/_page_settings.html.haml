@@ -5,8 +5,8 @@
       = f.select(:parent_id, @pages.collect{|p| [p.name , p.id] }, :include_blank => true, :class=>"medium")
 %fieldset
   %p
-    = f.label :hide_in_nav, "Hide in navigation", :class => "block_label"
     = f.check_box(:hide_in_nav, :class=>"medium")
+    = f.label :hide_in_nav, "Hide in navigation", :class => "block_label inline"
 %legend
   Page Description
 - if( action_name == "new"  || ( !@pages.blank?  || !(Gluttonberg.localized? && @page.localizations &&  @page.localizations.length > 1) ) )
@@ -24,8 +24,3 @@
     %p
       = f.label :groups 
       = f.select("group_ids" ,  Gluttonberg::Group.order("position ASC").collect{|cc| [cc.name , cc.id] }   , { :include_blank => true  } , { :multiple => true , :class => "large" } )
-
-%legend
-  Publish
-- if can? :publish , Gluttonberg::Page  
-  = f.publisable_dropdown

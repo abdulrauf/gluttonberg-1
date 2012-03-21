@@ -17,7 +17,7 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
   protected 
     # this method is used by sorter on asset listing by category and by collection
     def get_order
-      order_type = params[:order_type].blank? ? "asc" : params[:order_type]
+      order_type = params[:order_type].blank? ? "desc" : params[:order_type]
       case params[:order]
       when 'asset_name'
         "gb_assets.name #{order_type}"

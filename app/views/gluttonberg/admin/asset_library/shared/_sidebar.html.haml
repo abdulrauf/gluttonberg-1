@@ -1,0 +1,15 @@
+.span3
+  .well.sidebar-nav
+    %ul.nav.nav-list
+      %li.nav-header
+        Library
+      %li
+        = active_link_to("Collections", admin_library_path+"?tab=collection", :title => "Collections")
+      %li
+        = active_link_to("Recent", admin_library_path+"?tab=recent", :title => "Recent")  
+      %li  
+        = active_link_to("Add collection", new_admin_collection_path, :title => "Add collection")
+      %li
+        = active_link_to("Add asset", new_admin_asset_path, :title => "Add asset")
+      %li
+        = active_link_to("Add assets in bulk", admin_add_assets_in_bulk_path, :title => "Add assets in bulk")

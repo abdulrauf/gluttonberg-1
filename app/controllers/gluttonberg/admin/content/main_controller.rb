@@ -4,6 +4,7 @@ module Gluttonberg
       class MainController < Gluttonberg::Admin::BaseController
         
         def index
+          redirect_to admin_pages_path
         end
       
       end #class
