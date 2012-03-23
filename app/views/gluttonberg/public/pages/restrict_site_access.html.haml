@@ -36,20 +36,13 @@
               This site is currently offline.
               %br
               If you have an access password, please enter it below.
-            = form_for restrict_site_access_path , :method => :get do |f|
+            = form_tag restrict_site_access_path , :method => :get do
               = hidden_field_tag "return_url" ,params[:return_url]
-              %fieldset
+              .control-group
+                = password_field_tag 'password', nil, :class => "span4" , :value => "", :title=>"Password"
+              .control-group
+                = submit_tag('Enter', :class => "btn btn-success", :disable_with => "Logging you in...")
               
-                .control-group
-                  = f.label :password, :class => "control-label"
-                  .controls
-                    = f.password_field :password, :class => "span4"
-              
-                .control-group
-                  = f.label "", :class => "control-label"
-                  .controls
-                    = f.submit "Enter", :class => "btn btn-success", :disable_with => "Logging you in..."
-            
           &copy; 
           %a{:href => "http://freerangefuture.com", :target => "_blank"}
             Freerange Future
