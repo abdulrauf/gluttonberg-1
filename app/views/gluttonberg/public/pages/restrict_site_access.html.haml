@@ -38,10 +38,11 @@
               If you have an access password, please enter it below.
             = form_tag restrict_site_access_path , :method => :get do
               = hidden_field_tag "return_url" ,params[:return_url]
-              .control-group
-                = password_field_tag 'password', nil, :class => "span4" , :value => "", :title=>"Password"
-              .control-group
-                = submit_tag('Enter', :class => "btn btn-success", :disable_with => "Logging you in...")
+              %fieldset
+                .control-group
+                  = password_field_tag 'password', nil, :class => "span4" , :value => "", :title=>"Password"
+                .control-group
+                  = submit_tag('Enter', :class => "btn btn-success", :disable_with => "Logging you in...")
               
           &copy; 
           %a{:href => "http://freerangefuture.com", :target => "_blank"}
