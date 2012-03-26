@@ -1,13 +1,9 @@
 - @page = @page_localization.page
-
-- unless @page_localization.contents.blank?
-  = version_listing(@page_localization.contents.first.versions , @version )
-            
 = form_for(@page_localization, :url => url) do  |f|
   
   = gb_error_messages_for(@page_localization)
   
-  .span5
+  .span5    
     %legend Metadata
     %p
       = f.label :name
@@ -30,9 +26,13 @@
       %p.no_content
         This page does not have any content areas.
   
-  .span4 
-    = f.fields_for :page , @page do |page_form|  
-      = render :partial => "/gluttonberg/admin/content/pages/page_settings" , :locals => {:f => page_form}
+  .span4
+    %legend
+      Page Navigation
+      
+    %p
+      = f.fields_for :page , @page do |page_form|  
+        = render :partial => "/gluttonberg/admin/content/pages/page_settings" , :locals => {:f => page_form}
     
     %legend
       Publish
@@ -41,8 +41,10 @@
       - if @page.published?
         = submit_tag "Update", :class => "btn btn-success"
         = submit_tag "Unpublish", :class => "btn btn-danger"
+        = link_to("Preview", @page_localization.public_path, :class => "btn", :target => "_blank?")
       - else
         = submit_tag "Publish", :class => "btn btn-success"
         = submit_tag "Save as a draft", :class => "btn btn-inverse"
+        = link_to("Preview", @page_localization.public_path, :class => "btn", :target => "_blank?") unless @page.new_record?
     
     

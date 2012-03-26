@@ -211,7 +211,7 @@ module Gluttonberg
           collection = []
           versions.each do |version|
             link = version.version
-            snippet = "V#{version.version} - Updated #{version.updated_at.to_s(:long)}  "  unless version.updated_at.blank?        
+            snippet = "Version #{version.version} - #{version.updated_at.to_s(:long)}  " unless version.updated_at.blank?
             if version.version.to_i == selected_version_num.to_i
               selected = link
               selected_version = version   
@@ -219,15 +219,22 @@ module Gluttonberg
             collection << [snippet , link]
           end 
 
-          output << publish_message(selected_version , versions )
-
           # Output the form for picking the version
-          versions_html = "<ul>"
+          versions_html = "<ul class='dropdown-menu'>"
           collection.each do |c|
             versions_html << content_tag(:li , link_to(c[0] , "?version=#{c[1]}") , :class => "#{c[1].to_s == selected.to_s ? 'active' : '' }" )
           end
-          versions_html << "</ul"
-            output << content_tag(:div , versions_html.html_safe , :id => 'select-version' , :style=>'display:none;' )
+          versions_html << "</ul>"
+          
+          current_version = '<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">'
+          current_version += "Editing Version #{selected_version.version} "
+          current_version += '<span class="caret"></span>'
+          current_version += '</a>'
+          
+          combined_versions = current_version
+          combined_versions += versions_html
+          
+          output << content_tag(:div , combined_versions.html_safe, :class => "btn-group" )
             
           output += "</div>"
           output += "<div class='clear'></div>"
