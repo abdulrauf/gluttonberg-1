@@ -114,7 +114,7 @@ module Gluttonberg
 
       # Controls for standard forms. Writes out a save button and a cancel link
       def form_controls(return_url , opts={})
-        content = "#{link_to("Cancel".html_safe, return_url, :class => "button")} or #{submit_tag("Save" , :id => opts[:submit_id]).html_safe}"
+        content = "#{submit_tag("Save" , :id => opts[:submit_id], :class => "btn btn-success").html_safe} #{link_to("Cancel".html_safe, return_url, :class => "btn")}"
         content_tag(:p, content.html_safe, :class => "controls")
       end
       

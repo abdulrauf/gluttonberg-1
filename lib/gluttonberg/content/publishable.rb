@@ -69,7 +69,7 @@ module Gluttonberg
           if draft?
             "Draft"
           else  
-            self.state.capitalize
+            self.state.capitalize unless self.state.blank?
           end  
         end
         

@@ -18,7 +18,7 @@
         = f.text_field(:slug, :id => 'page_slug' , :donotmodify => (action_name == "edit"  || action_name == "update"))
       %p
         = f.label :description,:class =>"block_label"
-        = f.text_area(:description , :class => "jwysiwyg", :width => "545"  )    
+        = f.text_area(:description , :class => "jwysiwyg", :width => "520", :height => "200")    
 
       %p
         = f.label :moderation_required , "Moderation required?"
