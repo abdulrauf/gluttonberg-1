@@ -28,7 +28,7 @@ $(document).ready(function() {
 
   init_flash_messages();
   initPublishedDateTime();
-
+  
 });
 
 function setHeightForLeftNav(){
@@ -118,7 +118,7 @@ function init_tag_area() {
 
 // if container element has class "add_to_photoseries" , it returns html of new image
 function initClickEventsForAssetLinks(element) {
-  element.find(".assetBrowserLink a.choose_button").click(function(e) {
+  element.find(".thumbnails a.choose_button").click(function(e) {
     var p = $(this).parent();
     var link = $(this);
     AssetBrowser.showOverlay()
@@ -231,9 +231,17 @@ var AssetBrowser = {
     })
 
     $("#assetsDialog").css({
-      position: "absolute",
-      top: (($(window).scrollTop())) + "px"
+      height: ($(window).height()*0.9) + "px",
+      width: ($(window).width()*0.7) + "px",
+      "margin-top": "-" + (($(window).height()*0.9)/2) + "px",
+      "margin-left": "-" + (($(window).width()*0.7)/2) + "px"
     })
+    
+    $(".modal-body").css({
+      "max-height": (($(window).height()*0.9) - 135) + "px",
+      "height": (($(window).height()*0.9) - 135) + "px"
+    })
+
     try {
       $("#assetsDialog form.validation").validate();
     } catch(e) {
@@ -256,7 +264,7 @@ var AssetBrowser = {
     AssetBrowser.overlay = $("#assetsDialogOverlay");
     if (!AssetBrowser.overlay || AssetBrowser.overlay.length == 0) {
       var height = $('#wrapper').height() + 50;
-      AssetBrowser.overlay = $('<div id="assetsDialogOverlay">&nbsp <img class="dialogue_spinner" src="/assets/spinner_for_dialouge.gif" /> </div>');
+      AssetBrowser.overlay = $('<div id="assetsDialogOverlay" class="modal-backdrop"><div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div></div>');
       $("body").append(AssetBrowser.overlay);
     } else {
       AssetBrowser.overlay.css({

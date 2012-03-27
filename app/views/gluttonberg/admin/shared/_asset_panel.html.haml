@@ -1,21 +1,28 @@
 - if assets.blank?
   - if @category_filter.blank? || @category_filter == "all"
-    %p.empty 
-      No assets
+    .alert
+      Sorry, There are no assets added as yet.
   - else
-    %p.empty
-      = "No #{@category_filter} assets"
+    .alert
+      Sorry, There are no
+      %i
+        = @category_filter
+      added as yet.
   
 - else
-
-  %ul#assetPanels
+  %ul#assetPanels.thumbnails
     - for asset in @assets
-      %li
-        %a.assetLink{:href => "#{admin_asset_url(asset)}", :rel => "#{asset.category}"}>
-          %h2= asset.name
-          %p= "Added #{asset.created_at}"
-          %div
-            %img{:src => "#{asset.thumb_small_url}"}
+      %li.span3
+        .thumbnail
+          %img{:src => "#{asset.thumb_small_url}"}
+          .caption
+            %h5
+              = asset.name
+            %p
+              = "Added #{asset.created_at}"
+            %p
+              %a{:href => "#{admin_asset_url(asset)}", :rel => "#{asset.category}", :class => "assetLink btn btn-primary"}
+                Select
           
           - if asset.category == "image"  
             = hidden_field_tag("jwysiwyg_image_#{asset.id}" , asset.url_for(:jwysiwyg_image) , :class => "jwysiwyg_image" , :rel => asset.category , :title => asset.name)

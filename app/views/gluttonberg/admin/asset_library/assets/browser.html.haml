@@ -1,23 +1,14 @@
-
-:javascript
-  // This is required for asset selector. 
-  jQuery(document).ready(function($) {               
-       $("#tabs").tabs();                                
-  });
-
-
-%div#assetsDialog  
-  %ul#assetsNavigation
-    %li#back= link_to("Back", "#back", :class => "button")
-    
-    %li
-      %button#cancel.button
-        %img{ :alt => 'Cancel', :src => '/assets/icons/cross.png' }
-        Cancel
-  = render :partial => "search_form"
-        
-  %div#assetsDisplay.display
-    
+#assetsDialog.modal
+  .modal-header
+  
+    %a.close#cancel.button
+      ×
+    %h3
+      Asset Library
+      
+  .modal-body
     = render :partial => "browser_root"
     
-  
+  .modal-footer
+    %a#cancel.btn.btn-danger
+      Close

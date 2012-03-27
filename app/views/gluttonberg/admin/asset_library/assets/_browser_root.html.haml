@@ -1,67 +1,42 @@
 = image_tag("/assets/spinner.gif" , :id => "progress_ajax_upload" , :style => "display:none")
 
-#tabs
-  %ul
-    %li
-      %a{ :href => "#tabs-browse" , :class => "tab_link"} Browse
-    %li
-      %a{ :href => "#tabs-collection", :class => "tab_link"} Collections
-    %li
-      %a{ :href => "#tabs-recent" , :class => "tab_link"} Recent  
-    %li
-      %a{ :href => "#tabs-upload" , :class => "tab_link"} Upload  
-  .clear
+%ul.nav.nav-tabs#asset_tabs
+  %li.active
+    %a{:href => "#recent", "data-toggle" => "tab"}
+      Recent
+  %li
+    %a{:href => "#collections", "data-toggle" => "tab"}
+      Collections
+  %li
+    %a{:href => "#upload", "data-toggle" => "tab"}
+      Upload
 
-#tabs-browse
-  %ul.assetList
-    - if @category_filter.blank? || @category_filter == "all"
-      %li
-        %a{:href => admin_asset_category_url(:category => 'all' , :page => 1), :class => "browseAll"}
-          %h3 All
-    - @categories.each do |category|
-      %li
-        - text = ( category.name == "uncategorised" ?  "Uncategorised" : category.name.pluralize.capitalize )
-        %a{:href => admin_asset_category_url(:category => category.name , :page => 1) , :class => "browse#{text} "}
-          %h3= text
-
-#tabs-collection
-  - unless @collections.empty?
-    %ul.assetList
-      - for collection in @collections
+.tab-content
+  #recent.tab-pane.active
+    - if @assets.blank?
+      %ul.assetList
         %li
-          %a{:href => admin_collection_url(collection), :class => "collection"}
-            %h3= collection.name
-
-%div#tabs-recent
-  - if @assets.blank?
-    %ul.assetList
-      %li
-  - else
-    = render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => @assets}
+    - else
+      = render :partial => "gluttonberg/admin/shared/asset_panel.html" , :locals => {:assets => @assets}
     
+  #collections.tab-pane
+    - unless @collections.empty?
+      %ul.assetList
+        - for collection in @collections
+          %li
+            %a{:href => admin_collection_url(collection), :class => "collection"}
+              %h3= collection.name
+    
+  #upload.tab-pane
+    - @asset  = Gluttonberg::Asset.new
+    = form_for( @asset , :as => :asset , :url => { :action => :ajax_new } ,  :html => { :multipart=>true  , :method => "POST", :class => "nosubnav validation" , :id => "ajax_new_asset_form"} ) do |asset_form|
+      = block("Asset") do
+        = asset_form.label :file , "File to upload"
+        = asset_form.file_field(:file , :class => "required")
+        = asset_form.label :name , "Name"
+        = asset_form.text_field(:name, :class => "large required")
+        %br        
+      = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
 
-
-.clear
-
-
-
-#tabs-upload
-  - @asset  = Gluttonberg::Asset.new
-  = form_for( @asset , :as => :asset , :url => { :action => :ajax_new } ,  :html => { :multipart=>true  , :method => "POST", :class => "nosubnav validation" , :id => "ajax_new_asset_form"} ) do |asset_form|
-    = block("Asset") do
-      = asset_form.label :file , "File to upload"
-      = asset_form.file_field(:file , :class => "required")
-
-      = asset_form.label :name , "Name"
-      = asset_form.text_field(:name, :class => "large required")
-
-      %br        
-
-    = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
-
-    .controls
-      = asset_form.submit("Upload" , :id => "ajax_image_upload", :class => "button button_upload" )
-      
-
-.clear              
-         
+      .controls
+        = asset_form.submit("Upload" , :id => "ajax_image_upload", :class => "button button_upload" )

@@ -45,7 +45,7 @@ module Gluttonberg
           @assets = Asset.find(:all, 
               :conditions => conditions, 
               :limit => Gluttonberg::Setting.get_setting("library_number_of_recent_assets") , 
-              :order => "updated_at DESC" , 
+              :order => "created_at DESC" , 
               :include => :asset_type
           )
           
