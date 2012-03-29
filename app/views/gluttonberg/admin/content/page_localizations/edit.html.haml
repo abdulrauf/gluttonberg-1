@@ -7,12 +7,11 @@
 .row-fluid#edit-form
   = render :partial => "/gluttonberg/admin/content/main/sidebar"
   .span9
+    .page-header
+      %h1
+        = @page_title.html_safe
     .row-fluid
-      .page-header
-        %h1
-          = @page_title.html_safe
-    - unless @page_localization.contents.blank?
-      .row-fluid
+      - unless @page_localization.contents.blank?
         .span9
           %legend
             Versions
