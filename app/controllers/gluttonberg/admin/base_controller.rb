@@ -4,6 +4,7 @@ class Gluttonberg::Admin::BaseController < ActionController::Base
    before_filter :require_backend_access
    
    if Rails.env == "production"
+     rescue_from ActionView::MissingTemplate, :with => :not_found
      rescue_from ActiveRecord::RecordNotFound, :with => :not_found
      rescue_from ActionController::RoutingError, :with => :not_found
      rescue_from CanCan::AccessDenied, :with => :access_denied
