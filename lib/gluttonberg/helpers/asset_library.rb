@@ -195,7 +195,7 @@ module ActionView
           thumbnail_contents << asset_info
           
           thumbnail_caption = ""
-          thumbnail_caption << asset_name
+          thumbnail_caption << asset_name unless asset_name.blank?
           thumbnail_caption << hidden_field_tag("filter_#{html_id}"  , value=filter  )
           thumbnail_caption << self.hidden_field(field_id , { :id => html_id , :class => "choose_asset_hidden_field" } )
           
