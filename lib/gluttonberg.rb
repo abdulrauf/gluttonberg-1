@@ -15,6 +15,7 @@ module Gluttonberg
   require 'rvideo'
   require 'aws'
   require 'acl9'
+  require 'sitemap_generator'
   require 'gluttonberg/authorizable'
   require 'gluttonberg/components'
   require 'gluttonberg/content'
@@ -26,6 +27,7 @@ module Gluttonberg
   require 'gluttonberg/templates'
   require 'gluttonberg/middleware'
   require 'gluttonberg/can_flag'
+  
     
     # These should likely move into one of the initializers inside of the
     # engine config. This will ensure they only run after Rails and the app
