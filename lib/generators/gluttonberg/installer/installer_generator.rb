@@ -29,6 +29,10 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
     copy_file 'page_descriptions.rb', 'config/page_descriptions.rb'
   end
   
+  def create_sitemaprb_file
+    copy_file 'sitemap.rb', 'config/sitemap.rb'
+  end
+  
   def create_default_public_layout
     #create pages folder
     path = File.join(Rails.root, "app", "views" , "pages" )
