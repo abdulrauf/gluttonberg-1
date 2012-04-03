@@ -119,7 +119,8 @@ function init_tag_area() {
 // if container element has class "add_to_photoseries" , it returns html of new image
 function initClickEventsForAssetLinks(element) {
   element.find(".thumbnails a.choose_button").click(function(e) {
-    var p = $(this).parent();
+    var p = $(this).parent().parent().parent(".asset_selector_wrapper");
+    
     var link = $(this);
     AssetBrowser.showOverlay()
     $.get(link.attr("href"), null, function(markup) {
@@ -196,11 +197,11 @@ var AssetBrowser = {
       AssetBrowser.imageDisplay = $("#image_" + $(link).attr("rel"));
       AssetBrowser.nameDisplay = $("#show_" + $(link).attr("rel"));
       if (AssetBrowser.nameDisplay !== null) {
-        AssetBrowser.nameDisplay = p.find("span");
+        AssetBrowser.nameDisplay = p.find("h5");
       }
     } catch(e) {
       AssetBrowser.target = null;
-      AssetBrowser.nameDisplay = p.find("span");
+      AssetBrowser.nameDisplay = p.find("h5");
     }
 
     // Grab the various nodes we need
@@ -319,24 +320,24 @@ var AssetBrowser = {
     var target = $(this);
     if (target.is(".assetLink")) {
       var id = target.attr("href").match(/\d+$/);
-      var name = target.find("h2").html();
+      var name = target.attr("data-title");
 
       // assets only
       if (AssetBrowser.target !== null) {
         AssetBrowser.target.attr("value", id);
-        var image = target.find("img");
+        var image_src = target.attr("data-thumb");
 
-        image_url = target.find(".jwysiwyg_image").val();
-        file_type = target.find(".jwysiwyg_image").attr('rel');
-        file_title = target.find(".jwysiwyg_image").attr('title');
+        image_url = target.attr("data-jwysiwyg");
+        file_type = target.attr("data-category");
+        file_title = name;
         insert_image_in_wysiwyg(image_url,file_type,file_title);
 
         AssetBrowser.nameDisplay.html(name);
         if (AssetBrowser.link_parent.find("img").length > 0) {
-          AssetBrowser.link_parent.find("img").attr('src', image.attr('src'))
+          AssetBrowser.link_parent.find("img").attr('src', image_src)
 
         } else {
-          AssetBrowser.link_parent.prepend("<img src='" + image.attr('src') + "' />")
+          AssetBrowser.link_parent.prepend("<img src='" + image_src + "' />")
         }
         //AssetBrowser.imageDisplay.html(image);
 

@@ -208,7 +208,7 @@ module ActionView
           thumbnail_caption << content_tag(:p, thumbnail_p.html_safe) 
           
           thumbnail_contents << content_tag(:div, thumbnail_caption.html_safe, :class => "caption") 
-          thumbnail = content_tag(:div, thumbnail_contents.html_safe, :class => "thumbnail") 
+          thumbnail = content_tag(:div, thumbnail_contents.html_safe, :class => "thumbnail asset_selector_wrapper") 
           li_content = content_tag(:li, thumbnail, :class => "span4")
           content_tag(:ul , li_content , :id => "title_thumb_#{opts[:id]}", :class => "thumbnails") 
         end
