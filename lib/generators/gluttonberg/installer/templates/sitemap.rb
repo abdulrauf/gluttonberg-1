@@ -25,16 +25,20 @@ SitemapGenerator::Sitemap.create do
   
   # Add All published Blog Articles to html and xml sitemap
   begin
+    if Gluttonberg.localized?
+      Gluttonberg::Locale.all.each do |locale|
+        Gluttonberg::Sitemap.add({:path => blogs_path(:locale => locale.slug ) , :title => "Blogs" } , nil , "blogs")
+      end
+    else
+      Gluttonberg::Sitemap.add({:path => blogs_path , :title => "Blogs" } , nil , "blogs")
+    end  
+    
     Gluttonberg::Article.published.each do |article|
       if Gluttonberg.localized?
-        Gluttonberg::Locale.all.each do |locale|
-          Gluttonberg::Sitemap.add({:path => blogs_path(:locale => locale.slug ) , :title => "Blogs" } , nil , "blogs")
-        end
         article.localizations.each do |loc|
           Gluttonberg::Sitemap.add({:path => blog_article_path(:locale => loc.locale.slug , :blog_id => article.blog.slug, :id => article.slug) , :title => article.title } , article.updated_at , "article")
         end  
       else #non localized
-        Gluttonberg::Sitemap.add({:path => blogs_path , :title => "Blogs" } , nil , "blogs")
         Gluttonberg::Sitemap.add({:path => blog_article_path(:blog_id => article.blog.slug, :id => article.slug) , :title => article.title } , article.updated_at , "article")
       end  
     end
