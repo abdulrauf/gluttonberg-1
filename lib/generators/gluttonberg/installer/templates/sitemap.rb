@@ -27,15 +27,32 @@ SitemapGenerator::Sitemap.create do
   begin
     Gluttonberg::Article.published.each do |article|
       if Gluttonberg.localized?
+        Gluttonberg::Locale.all.each do |locale|
+          Gluttonberg::Sitemap.add({:path => blogs_path(:locale => locale.slug ) , :title => "Blogs" } , nil , "blogs")
+        end
         article.localizations.each do |loc|
           Gluttonberg::Sitemap.add({:path => blog_article_path(:locale => loc.locale.slug , :blog_id => article.blog.slug, :id => article.slug) , :title => article.title } , article.updated_at , "article")
         end  
-      else
+      else #non localized
+        Gluttonberg::Sitemap.add({:path => blogs_path , :title => "Blogs" } , nil , "blogs")
         Gluttonberg::Sitemap.add({:path => blog_article_path(:blog_id => article.blog.slug, :id => article.slug) , :title => article.title } , article.updated_at , "article")
       end  
     end
   rescue => e
     puts e
+  end
+  
+  if Gluttonberg::Member.enable_members == true
+    if Gluttonberg.localized?
+      Gluttonberg::Locale.all.each do |locale|
+        Gluttonberg::Sitemap.add({:path => new_member_path(:locale => locale.slug) , :title => "Member Register" } , nil , "members")
+        Gluttonberg::Sitemap.add({:path => member_login_path(:locale => locale.slug) , :title => "Member Login" } , nil , "members")
+      end
+    else
+      Gluttonberg::Sitemap.add({:path => new_member_path , :title => "Member Register" } , nil , "members")
+      Gluttonberg::Sitemap.add({:path => member_login_path , :title => "Member Login" } , nil , "members")
+    end  
+    
   end
   
   # add custom models
