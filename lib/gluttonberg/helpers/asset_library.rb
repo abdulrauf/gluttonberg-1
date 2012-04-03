@@ -70,29 +70,45 @@ module Gluttonberg
              rel = field_id.to_s + "_" + id.to_s
              opts[:id] = rel
            end  
+           html_id = opts[:id]
 
           # Find the asset so we can get the name
           asset_info = "Nothing selected"
           unless asset_id.blank?
-            asset = Asset.where(:id => asset_id).first
-            asset_info = unless asset.blank?
-              asset_tag(asset , :small_thumb).html_safe + content_tag(:span , asset.name) 
+            asset = Gluttonberg::Asset.find(:first , :conditions => {:id => asset_id})
+            asset_name = content_tag(:h5, asset.name) if asset
+            asset_info = if asset
+              if asset && asset.asset_type.name == "Compressed Video"
+                content_tag(:span , asset.name) + content_tag(:br)
+              else
+                asset_tag(asset , :small_thumb).html_safe
+              end
             else
               "Asset missing!"
             end    
           end
 
            # Output it all
-          link_contents =  content_tag(:span , asset_info , :id => "title_thumb_#{opts[:id]}") 
-          link_contents << hidden_field_tag("filter_" + field_id.to_s , value=filter , :id => "filter_#{opts[:id]}" )
-          link_contents << link_to("Select", admin_asset_browser_url + "?filter=#{filter}" , { :class => "button choose_button #{opts[:button_class]}" , :rel => opts[:id] , :data_url => opts[:data_url] })
-          link_contents << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
-          
-          if opts[:remove_button] != false
-            link_contents << clear_asset_tag( field_id , opts )
-          end
-          content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
+           thumbnail_contents = ""
+           thumbnail_contents << asset_info
 
+           thumbnail_caption = ""
+           thumbnail_caption << asset_name unless asset_name.blank?
+          thumbnail_caption << hidden_field_tag("filter_" + field_id.to_s , value=filter , :id => "filter_#{opts[:id]}" )
+          thumbnail_caption << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
+          
+          thumbnail_p = ""
+          thumbnail_p << link_to("Select", admin_asset_browser_url + "?filter=#{filter}" , { :class =>"btn button choose_button #{opts[:button_class]}" , :rel => html_id, :style => "margin-right:5px;" })
+          if opts[:remove_button] != false
+            thumbnail_p << clear_asset_tag( field_id , opts )
+          end
+          
+          thumbnail_caption << content_tag(:p, thumbnail_p.html_safe) 
+          
+          thumbnail_contents << content_tag(:div, thumbnail_caption.html_safe, :class => "caption") 
+          thumbnail = content_tag(:div, thumbnail_contents.html_safe, :class => "thumbnail asset_selector_wrapper") 
+          li_content = content_tag(:li, thumbnail, :class => "span4")
+          content_tag(:ul , li_content , :id => "title_thumb_#{opts[:id]}", :class => "thumbnails")
       end
        
       def add_image_to_gallery_tag( button_text , add_url, gallery_id , opts = {})
@@ -110,7 +126,7 @@ module Gluttonberg
            opts[:id] = rel
          end
          html_id = opts[:id]
-         link_to("Remove", "Javascript:;" , { :class => "button remove" , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
+         link_to("Remove", "Javascript:;" , { :class => "btn btn-danger button remove #{opts[:button_class]}"  , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
        end
       
        def asset_panel(assets, name_or_id , type )
