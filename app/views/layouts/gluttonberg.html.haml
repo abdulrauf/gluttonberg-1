@@ -58,13 +58,16 @@
               %li
                 %a{:href => admin_generic_settings_path}
                   Settings
-            %p.navbar-text.pull-right
-              Logged in as
-              %a{:href => "#"}
-                = current_user.email
-              %a{:href => "/admin/logout"}
-                Logout 
-          / /.nav-collapse
+            %ul.nav.pull-right
+              %li.dropdown
+                %a{:href => "#", :class => "dropdown-toggle", "data-toggle" => "dropdown"}
+                  Your Account
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "/admin/logout"}
+                      Logout 
+                  
+
     .container-fluid
       = yield
             
