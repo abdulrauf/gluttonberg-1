@@ -26,16 +26,11 @@
         = f.label :image_id , "Image"
         = f.asset_browser( :image_id ,  opts = { :filter => "image"   } )  
       
-      -if current_user.super_admin? && current_user.id != @user.id     
+      - if current_user.id != @user.id
         %p
           = f.label :role            
-          = f.select(:role , User.user_roles.collect{|u| [u.humanize , u] }  )
-      - elsif current_user.admin? && current_user.id != @user.id     
-        %p
-          = f.label :role  
-          - roles  = User.user_roles
-          - roles.delete("super_admin")        
-          = f.select(:role , roles.collect{|u| [u.humanize , u] }  )    
+          = f.select(:role , current_user.user_valid_roles(@user).collect{|u| [u.humanize , u] }  )
+      
 
   .right_column
     %fieldset

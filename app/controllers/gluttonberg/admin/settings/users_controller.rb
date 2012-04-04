@@ -21,7 +21,7 @@ module Gluttonberg
             unless params[:query].blank?
               @users = User.order(get_order).where("role != 'super_admin' AND (first_name LIKE '%#{params[:query]}%' OR last_name LIKE '%#{params[:query]}%' OR email LIKE '%#{params[:query]}%' OR bio LIKE '%#{params[:query]}%' )" )
             else  
-              @users = User.find(:all , :conditions => ["role != ?" , "super_admin"] , :order =>  get_order)
+              @users = User.order(get_order).where( ["role != ?" , "super_admin"])
             end
           end
           
@@ -34,6 +34,7 @@ module Gluttonberg
   
         def create
           @user = User.new(params[:user])
+          @user.role = params[:user][:role] if current_user.user_valid_roles(@user).include?(params[:user][:role])
           if @user.save
             flash[:notice] = "Account registered!"
             redirect_to :action => :index
@@ -46,6 +47,7 @@ module Gluttonberg
         end
   
         def update
+          @user.role = params[:user][:role] if current_user.user_valid_roles(@user).include?(params[:user][:role])
           if @user.update_attributes(params[:user])
             flash[:notice] = "Account updated!"
             if current_user.super_admin? || current_user.admin?

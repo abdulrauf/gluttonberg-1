@@ -1,11 +1,13 @@
 module Gluttonberg
   class Member < ActiveRecord::Base
-  
     set_table_name "gb_members"
+
+    attr_accessible :first_name , :last_name , :email , :password , :password_confirmation , :bio , :image , :image_delete , :term_and_conditions
     
     has_and_belongs_to_many :groups, :class_name => "Group" , :join_table => "gb_groups_members"
     has_attached_file :image, :styles => { :profile => ["600x600"], :thumb => ["142x95#"] , :thumb_for_backend => ["100x75#"]}
     
+    validates_format_of :password, :with => /^(?=.*\d)(?=.*[a-zA-Z])(?!.*[^\da-zA-Z]).{6,}$/ , :if => :require_password?, :message => "must be a minimum of 6 characters in length, contain at least 1 letter and at least 1 number"
   
     validates_presence_of :first_name , :email 
     attr_accessor :return_url , :term_and_conditions
@@ -67,10 +69,13 @@ module Gluttonberg
     
     def self.generateRandomString(length=10)
       chars = ("A".."Z").to_a + ("0".."9").to_a
+      numbers = ("0".."9").to_a
       similar_chars = %w{ i I 1 0 O o 5 S s }
       chars.delete_if {|x| similar_chars.include? x} 
+      numbers.delete_if {|x| similar_chars.include? x} 
       newpass = ""
-      1.upto(length) { |i| newpass << chars[rand(chars.size-1)] }
+      1.upto(length-1) { |i| newpass << chars[rand(chars.size-1)] }
+      1.upto(1) { |i| newpass << numbers[rand(numbers.size-1)] }
       newpass
     end
     

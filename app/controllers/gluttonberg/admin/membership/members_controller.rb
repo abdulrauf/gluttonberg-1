@@ -28,10 +28,13 @@ module Gluttonberg
               :password => @password ,
               :password_confirmation => @password
           }
-          if !params[:gluttonberg_member][:group_ids].blank? && params[:gluttonberg_member][:group_ids].kind_of?(String)
-            params[:gluttonberg_member][:group_ids] = [params[:gluttonberg_member][:group_ids]] 
-          end
+          
           @member = Member.new(params[:gluttonberg_member].merge(password_hash))
+          if !params[:gluttonberg_member][:group_ids].blank? && params[:gluttonberg_member][:group_ids].kind_of?(String)
+            @member.group_ids = [params[:gluttonberg_member][:group_ids]] 
+          else  
+            @member.group_ids = params[:gluttonberg_member][:group_ids] 
+          end
           @member.profile_confirmed = true
           
           if @member.save
@@ -52,9 +55,12 @@ module Gluttonberg
           end
           
           if !params[:gluttonberg_member][:group_ids].blank? && params[:gluttonberg_member][:group_ids].kind_of?(String)
-            params[:gluttonberg_member][:group_ids] = [params[:gluttonberg_member][:group_ids]] 
+            @member.group_ids = [params[:gluttonberg_member][:group_ids]] 
+          else  
+            @member.group_ids = params[:gluttonberg_member][:group_ids] 
           end
-          if @member.update_attributes(params[:gluttonberg_member])
+          @member.assign_attributes(params[:gluttonberg_member])
+          if @member.save
             flash[:notice] = "Member account updated!"
             redirect_to  :action => :index
           else

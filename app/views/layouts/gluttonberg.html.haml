@@ -62,6 +62,8 @@
               Logged in as
               %a{:href => "#"}
                 = current_user.email
+              %a{:href => "/admin/logout"}
+                Logout 
           / /.nav-collapse
     .container-fluid
       = yield

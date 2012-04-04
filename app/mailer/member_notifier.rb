@@ -30,10 +30,11 @@ class MemberNotifier < ActionMailer::Base
     @password = Gluttonberg::Member.generateRandomString
     password_hash = {  
         :password => @password ,
-        :password_confirmation => @password ,
-        :welcome_email_sent => true
+        :password_confirmation => @password
     }
-    @member.update_attributes(password_hash)
+    @member.welcome_email_sent = true
+    @member.assign_attributes(password_hash)
+    @member.save
     @login_url = member_login_url
   end
   
