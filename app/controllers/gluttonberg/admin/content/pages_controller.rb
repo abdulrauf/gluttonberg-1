@@ -51,17 +51,7 @@ module Gluttonberg
             render :new
           end
         end
-
-        # def update
-        #           if @page.update_attributes(params["gluttonberg_page"]) || !@page.changed?
-        #             flash[:notice] = "The page was successfully updated."
-        #             redirect_to edit_admin_page_url(@page)
-        #           else
-        #             flash[:error] = "Sorry, The page could not be updated."
-        #             prepare_to_edit
-        #             render :edit
-        #           end
-        #         end
+        
         
         def destroy
           if @page.destroy
