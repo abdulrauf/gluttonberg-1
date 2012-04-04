@@ -342,7 +342,7 @@ var AssetBrowser = {
         } else {
           AssetBrowser.link_parent.prepend("<img src='" + image_src + "' />")
         }
-        //AssetBrowser.imageDisplay.html(image);
+
 
         auto_save_asset(AssetBrowser.logo_setting_url, id); //auto save if it is required
       } else {
@@ -597,13 +597,21 @@ function ajaxFileUpload(link) {
         }
       }
 
+      
       new_id = data["asset_id"]
       file_path = data["url"]
       jwysiwyg_image = data["jwysiwyg_image"];
 
-      $("#" + link.attr('rel')).val(new_id);
-      $("#title_thumb_" + link.attr('rel')).html("<img src='" + file_path + "' /> " + asset_name);
+      try{
+        AssetBrowser.target.attr("value", new_id);
+        AssetBrowser.nameDisplay.html(asset_name);
+        if (AssetBrowser.link_parent.find("img").length > 0) {
+          AssetBrowser.link_parent.find("img").attr('src', file_path)
 
+        } else {
+          AssetBrowser.link_parent.prepend("<img src='" + file_path + "' />")
+        }
+      }catch(e){}  
       if(data["category"] == "image")
         insert_image_in_wysiwyg(jwysiwyg_image,data["category"],data["title"]);
       else
@@ -612,6 +620,23 @@ function ajaxFileUpload(link) {
       data_id = $(this).attr("data_id");
       url = AssetBrowser.logo_setting_url;
       auto_save_asset(url, new_id); // only if autosave is required
+      
+      if (AssetBrowser.actualLink.hasClass("add_image_to_gallery")) {
+        $.ajax({
+          url: AssetBrowser.actualLink.attr("data_url"),
+          data: 'asset_id=' + new_id,
+          type: "GET",
+          success: function(data) {
+            $("#images_container").html(data);
+            initEditGalleryList();
+            dragTreeManager.init();
+          },
+          error: function(data) {
+          }
+        });
+      }
+      
+      
       AssetBrowser.close();
     },
     error: function(data, status, e) {
