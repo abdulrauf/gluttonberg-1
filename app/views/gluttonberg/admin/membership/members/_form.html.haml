@@ -24,7 +24,7 @@
         = f.label :bio, "Bio"
         = f.text_area(:bio, :class => "large ")
     
-    - if action_name == "edit"
+    - if action_name == "edit" || action_name == "update"
       %fieldset
         %p
           = f.label :password

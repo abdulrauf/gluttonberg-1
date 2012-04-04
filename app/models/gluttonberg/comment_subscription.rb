@@ -10,7 +10,8 @@ module Gluttonberg
       subscribers.each do |subscriber|
         unless subscriber.author_email == comment.writer_email
           Notifier.delay.comment_notification(subscriber , article , comment ) #.deliver # its using delayed job but i am setting sent time immediately
-          comment.update_attributes( :notification_sent_at => Time.now)
+          comment.notification_sent_at = Time.now
+          comment.save
         end
       end
     end

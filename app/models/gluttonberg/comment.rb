@@ -2,9 +2,11 @@ module Gluttonberg
   class Comment < ActiveRecord::Base
     set_table_name "gb_comments"
     
+    attr_accessible :body , :author_name , :author_email , :author_website  , :subscribe_to_comments , :blog_slug
+    
     belongs_to :commentable, :polymorphic => true
     belongs_to :article
-    belongs_to :author, :class_name => "User"
+    belongs_to :author, :class_name => "Gluttonberg::Member"
     
     before_save :init_moderation
     after_save :send_notifications_if_needed
@@ -21,9 +23,13 @@ module Gluttonberg
     
     def moderate(params)
         if params == "approve"
-          update_attributes(:moderation_required => false, :approved => true)
+          self.moderation_required = false
+          self.approved = true
+          self.save
         elsif params == "disapprove"
-          update_attributes(:moderation_required => false, :approved => false)
+          self.moderation_required = false
+          self.approved = false
+          self.save
         else
           #error
         end

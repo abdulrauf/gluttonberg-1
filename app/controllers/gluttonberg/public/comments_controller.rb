@@ -1,11 +1,12 @@
 module Gluttonberg
   module Public
-    class CommentsController <  ActionController::Base
+    class CommentsController <  Gluttonberg::Public::BaseController
   
       def create
         @blog = Gluttonberg::Blog.first(:conditions => {:slug => params[:blog_id]})
         @article = Gluttonberg::Article.first(:conditions => {:slug => params[:article_id], :blog_id => @blog.id})
         @comment = @article.comments.new(params[:comment].merge(:blog_slug => params[:blog_id]))
+        @comment.author_id = current_member.id if current_member
         if @comment.save
           @subscription = CommentSubscription.find(:first , :conditions => {:article_id => @article.id , :author_email => @comment.writer_email })
           if @comment.subscribe_to_comments == "1" && @subscription.blank?
