@@ -72,21 +72,24 @@ module Gluttonberg
            end  
            html_id = opts[:id]
 
-          # Find the asset so we can get the name
-          asset_info = "Nothing selected"
+          
+          asset_info = ""
+          asset_name = "Nothing selected"
           unless asset_id.blank?
             asset = Gluttonberg::Asset.find(:first , :conditions => {:id => asset_id})
-            asset_name = content_tag(:h5, asset.name) if asset
-            asset_info = if asset
-              if asset && asset.asset_type.name == "Compressed Video"
-                content_tag(:span , asset.name) + content_tag(:br)
-              else
-                asset_tag(asset , :small_thumb).html_safe
+            asset_name =  asset.name if asset
+            if asset
+              if asset.category && asset.category.to_s.downcase == "image"
+                asset_info = asset_tag(asset , :small_thumb).html_safe
               end
             else
-              "Asset missing!"
+              asset_name = "Asset missing!"
             end    
           end
+          
+          asset_name = content_tag(:h5, asset_name) if asset_name
+          
+          
 
            # Output it all
            thumbnail_contents = ""
@@ -98,7 +101,7 @@ module Gluttonberg
           thumbnail_caption << hidden_field_tag(field_id , asset_id , { :id => opts[:id] , :class => "choose_asset_hidden_field" } )  
           
           thumbnail_p = ""
-          thumbnail_p << link_to("Select", admin_asset_browser_url + "?filter=#{filter}" , { :class =>"btn button choose_button #{opts[:button_class]}" , :rel => html_id, :style => "margin-right:5px;" })
+          thumbnail_p << link_to("Select", admin_asset_browser_url + "?filter=#{filter}" , { :class =>"btn button choose_button #{opts[:button_class]}" , :rel => html_id, :style => "margin-right:5px;" , :data_url => opts[:data_url] })
           if opts[:remove_button] != false
             thumbnail_p << clear_asset_tag( field_id , opts )
           end
@@ -113,7 +116,7 @@ module Gluttonberg
        
       def add_image_to_gallery_tag( button_text , add_url, gallery_id , opts = {})
           opts[:class] = "" if opts[:class].blank?
-          opts[:class] << " add_image_to_gallery choose_button"
+          opts[:class] << " add_image_to_gallery choose_button btn button  #{opts[:button_class]}"
           link_contents = link_to(button_text, admin_asset_browser_url + "?filter=image" , opts.merge( :data_url => add_url ))
           content_tag(:span , link_contents , { :class => "assetBrowserLink" } )
       end
@@ -189,20 +192,21 @@ module ActionView
           html_id = opts[:id]
 
           # Find the asset so we can get the name
-          asset_info = "Nothing selected"
+          asset_info = ""
+          asset_name = "Nothing selected"
           unless asset_id.blank?
             asset = Gluttonberg::Asset.find(:first , :conditions => {:id => asset_id})
-            asset_name = content_tag(:h5, asset.name) if asset
-            asset_info = if asset
-              if asset && asset.asset_type.name == "Compressed Video"
-                content_tag(:span , asset.name) + content_tag(:br)
-              else
-                asset_tag(asset , :small_thumb).html_safe
+            asset_name =  asset.name if asset
+            if asset
+              if asset.category && asset.category.to_s.downcase == "image"
+                asset_info = asset_tag(asset , :small_thumb).html_safe
               end
             else
-              "Asset missing!"
+              asset_name = "Asset missing!"
             end    
           end
+          
+          asset_name = content_tag(:h5, asset_name) if asset_name
            
           #hack for url
           admin_asset_browser_url = "/admin/browser"

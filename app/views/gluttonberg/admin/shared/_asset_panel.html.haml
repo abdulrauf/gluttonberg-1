@@ -24,10 +24,7 @@
               %a{:href => "#{admin_asset_url(asset)}", :rel => "#{asset.category}", :class => "assetLink btn btn-primary" , "data-title" => "#{asset.name}" , "data-thumb" => "#{asset.thumb_small_url}" , "data-jwysiwyg" => "#{(asset.category == "image" ? asset.url_for(:jwysiwyg_image) : asset.url)}" , "data-category" => "#{asset.category}"}
                 Select
           
-          /- if asset.category == "image"  
-          /  = hidden_field_tag("jwysiwyg_image_#{asset.id}" , asset.url_for(:jwysiwyg_image) , :class => "jwysiwyg_image" , :rel => asset.category , :title => asset.name)
-          /- else
-          /  = hidden_field_tag("jwysiwyg_image_#{asset.id}" , "#{asset.url}" , :class => "jwysiwyg_image" , :rel => asset.category , :title => asset.name)
+          
   
   - if assets.respond_to? :total_pages          
     = will_paginate(assets)

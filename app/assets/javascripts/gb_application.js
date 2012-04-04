@@ -203,6 +203,9 @@ var AssetBrowser = {
       AssetBrowser.target = null;
       AssetBrowser.nameDisplay = p.find("h5");
     }
+    if(AssetBrowser.actualLink.hasClass("add_image_to_gallery")){
+      AssetBrowser.target = null;
+    }
 
     // Grab the various nodes we need
     AssetBrowser.display = AssetBrowser.browser.find("#assetsDisplay");
@@ -344,7 +347,7 @@ var AssetBrowser = {
         auto_save_asset(AssetBrowser.logo_setting_url, id); //auto save if it is required
       } else {
         if (AssetBrowser.actualLink.hasClass("add_image_to_gallery")) {
-
+          
           $.ajax({
             url: AssetBrowser.actualLink.attr("data_url"),
             data: 'asset_id=' + id,
@@ -421,7 +424,6 @@ function insert_image_in_wysiwyg(image_url,file_type,title) {
       image = "<img src='" + image_url + "' title='" + title + "' alt='" + description + "'" + style + "/>";
     else
       image = " <a href='"+image_url+"' >"+title+"</a> ";
-    console.log(Wysiwyg.selection.getContent())  
     Wysiwyg.execCommand('mceInsertContent', false, image);
 
   }
@@ -589,9 +591,9 @@ function ajaxFileUpload(link) {
     success: function(data, status) {
       if (typeof(data.error) != 'undefined') {
         if (data.error != '') {
-          console.log(data.error);
+          //console.log(data.error);
         } else {
-          console.log(data.msg);
+          //console.log(data.msg);
         }
       }
 
