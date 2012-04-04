@@ -51,7 +51,8 @@ module Gluttonberg
       def resend_confirmation
         if current_member.confirmation_key.blank?
           confirmation_key = Digest::SHA1.hexdigest(Time.now.to_s + rand(12341234).to_s)[1..24]
-          current_member.update_attributes(:confirmation_key => confirmation_key)
+          current_member.confirmation_key = confirmation_key
+          current_member.save
         end
         MemberNotifier.confirmation_instructions(current_member.id,current_localization_slug).deliver if current_member && !current_member.profile_confirmed
         flash[:notice] = "Please check your email for a confirmation."
