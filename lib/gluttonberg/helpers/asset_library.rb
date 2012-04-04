@@ -129,7 +129,9 @@ module Gluttonberg
            opts[:id] = rel
          end
          html_id = opts[:id]
-         link_to("Remove", "Javascript:;" , { :class => "btn btn-danger button remove #{opts[:button_class]}"  , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
+         link_to("Remove", "Javascript:;" , { :class => "btn btn-danger button remove #{opts[:button_class]}"  , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]} h5').html('');$('#title_thumb_#{opts[:id]} img').remove();" })
+         
+         
        end
       
        def asset_panel(assets, name_or_id , type )
@@ -246,7 +248,7 @@ module ActionView
           html_id = opts[:id]
           button_text = opts[:button_text].blank? ? "Browse" : opts[:button_text]
           opts[:button_class] = "" if opts[:button_class].blank?  
-          link_to("Remove", "Javascript:;" , { :class => "btn btn-danger button remove #{opts[:button_class]}"  , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]}').html('')" })
+          link_to("Remove", "Javascript:;" , { :class => "btn btn-danger button remove #{opts[:button_class]}"  , :onclick => "$('##{html_id}').val('');$('#title_thumb_#{opts[:id]} h5').html('');$('#title_thumb_#{opts[:id]} img').remove();" })
         end
     end
   end
