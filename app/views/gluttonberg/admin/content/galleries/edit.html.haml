@@ -3,7 +3,8 @@
 - @page_image = "/assets/sidebar/icon_content.png"
 = render :partial => "form", :locals => {:url => admin_gallery_path(@gallery)}
 
-= add_image_to_gallery_tag( "Add an image" , add_image_admin_gallery_path(@gallery) , @gallery.id )
+%span.thumbnails
+  = add_image_to_gallery_tag( "Add an image" , add_image_admin_gallery_path(@gallery) , @gallery.id )
 
 #images_container
   = render :partial => "images_list"       

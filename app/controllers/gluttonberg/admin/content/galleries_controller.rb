@@ -13,7 +13,7 @@ module Gluttonberg
         before_filter :authorize_user_for_destroy , :only => [:destroy , :delete]
         
         def index
-          @galleries = Gallery.all.paginate(:per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items"), :page => params[:page])
+          @galleries = Gallery.paginate(:per_page => Gluttonberg::Setting.get_setting("number_of_per_page_items"), :page => params[:page])
         end
         
         def new

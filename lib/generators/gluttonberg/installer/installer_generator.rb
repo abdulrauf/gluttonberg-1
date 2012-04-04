@@ -29,6 +29,10 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
     copy_file 'page_descriptions.rb', 'config/page_descriptions.rb'
   end
   
+  def create_sitemaprb_file
+    copy_file 'sitemap.rb', 'config/sitemap.rb'
+  end
+  
   def create_default_public_layout
     #create pages folder
     path = File.join(Rails.root, "app", "views" , "pages" )
@@ -73,6 +77,28 @@ class Gluttonberg::InstallerGenerator < Rails::Generators::Base
       
     }
     
+  end
+  
+  def add_memory_store_config_in_production
+    data = []
+    file_path = File.join(Rails.root, "config", "environments" , "production.rb" )
+    file = File.new(file_path)
+
+    file.each_line do |line| 
+      data << line
+    end
+
+    file.close
+
+    file = File.new(file_path , "w" )
+    data.reverse.each_with_index do |line, index|
+      if line.include?("end")
+        data[data.length-index-1] = "  config.cache_store = :memory_store\nend\n"
+        break
+      end
+    end
+    file.puts(data.join(""))
+    file.close
   end
     
 end
