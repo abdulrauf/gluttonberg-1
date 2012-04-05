@@ -4,4 +4,12 @@
 - @page_title = "#{link_to "Asset Library", admin_library_path} #{prev_page} > Edit asset"
 - @page_image = "/assets/sidebar/icon_library.png"
 
-= render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @asset.id }  , :method_name => "put"}
+.row-fluid
+  = render :partial => "/gluttonberg/admin/asset_library/shared/sidebar"
+  .span9
+    .row-fluid
+      .page-header
+        %h1
+          = @page_title.html_safe
+
+      = render :partial => "form" , :locals => { :url_opts =>{ :action => :update , :id => @asset.id }  , :method_name => "put"}
