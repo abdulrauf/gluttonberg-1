@@ -77,11 +77,11 @@ module Gluttonberg
       end  
       
       def keywords_meta_tag
-        "<meta content= \"#{Gluttonberg::Setting.get_setting("keywords")}\"  name=\"keywords\" />").html_safe
+        "<meta content= \"#{Gluttonberg::Setting.get_setting("keywords")}\"  name=\"keywords\" \/>").html_safe
       end 
       
       def description_meta_tag
-        "<meta content= \"#{Gluttonberg::Setting.get_setting("description")}\"  name=\"description\" />").html_safe
+        "<meta content= \"#{Gluttonberg::Setting.get_setting("description")}\"  name=\"description\" \/>").html_safe
       end
       
       def render_match_partial(result)
