@@ -53,7 +53,8 @@ AUTHENTICATION
 At this stage there is no signup form.
 You will need to fire up a console and run the following commands (Change email, first name and password accordingly)
 
-  user = User.new(:email => "admin@freerangefuture.com", :password => "password", :password_confirmation => "password" , :first_name => "first_name" , :role => "super_admin")
+  user = User.new(:email => "admin@freerangefuture.com", :password => "password1", :password_confirmation => "password1" , :first_name => "first_name" )
+  user.role = "super_admin"
   user.save
   
 You will now be able to log in.
