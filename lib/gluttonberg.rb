@@ -8,7 +8,7 @@ module Gluttonberg
   require 'acts_as_list'
   require 'acts_as_versioned' 
   require 'delayed_job' 
-  require 'paperclip' 
+  #require 'paperclip' 
   require 'cancan'
   require 'texticle'
   require 'video_job'
