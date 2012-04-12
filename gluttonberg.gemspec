@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rubyzip", '0.9.4'
   s.add_dependency "acts_as_tree", '0.1.1'
   s.add_dependency "acts_as_list", '0.1.2' 
- # s.add_dependency "acts_as_versioned", '0.6.0'
+  s.add_dependency "freerange_acts_as_versioned", '0.7.0'
   s.add_dependency "acts-as-taggable-on", '2.0.6'  
   s.add_dependency "delayed_job", '2.1.4' 
   s.add_dependency 'jeditable-rails', '0.1.1'
