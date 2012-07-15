@@ -2,7 +2,7 @@
 - @page_title = "#{link_to "Asset Library", admin_library_path} > Add assets in bulk"
 - @page_image = "/gluttonberg/images/sidebar/icon_library.png"
 
-= form_for( :asset , @asset , :url => { :action => :create_assets_in_bulk } ,  :html => { :multipart=>true  , :method => "post", :class => "nosubnav validation"} ) do |asset_form|
+= form_for( @asset , :as => :asset , :url => { :action => :create_assets_in_bulk } ,  :html => { :multipart=>true  , :method => "post", :class => "nosubnav validation"} ) do |asset_form|
   = gb_error_messages_for(@asset)
 
   = render :partial => "collection_select_form" , :locals => {:asset_form => asset_form }
